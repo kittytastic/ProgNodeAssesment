@@ -1,35 +1,55 @@
 function generateHTML(tt_json){
     var tt_obj = JSON.parse(tt_json); 
 
-    console.log(tt_obj.time_slots)
+    console.log(tt_obj)
+    console.log(tt_json)
 
-    var temp = find_time_limits(tt_obj.time_slots)
-
-    var start = 6.0
-    var end = 18.0
-    var rows = 1
+    var temp = find_time_limits(tt_obj)
+    var start = temp[0];
+    var end = temp[1];
+    
+    
+    var n_rows = tt_obj.days.length;
   
-    start = temp[0];
-    end = temp[1];
+    
     var step = 0.25
   
-    var col = (end- start) / step
-  
+
+    var n_cols = (end - start) / step
+    console.log("Start:"+start)
+    console.log("End: "+end)
+    console.log("n_rows: "+n_rows)
+    console.log("n_col: "+n_cols)
+
     var table_start = "<table class = 'ttable ui tablet computer only'><tbody>"
     var table_end = "</tbody></table>"
   
     var table_html = ""
     table_html += table_start
   
-      for(i = 0 ; i<rows; i++){
+      for(let i = 0 ; i<n_rows; i++){
         table_html += "<tr>"
-        for(j =0; j<col; j++){
-            related_time = start + j*step; 
-            var temp = is_start_of_time_slot(tt_obj.time_slots, related_time, i);
-            if(temp){
-                console.log("Session"+this.id+" is at this time: "+related_time+ " on day: "+i)
+        let j = start;
+        while(j < end){
+            //related_time = start + j*step; 
+            related_time = j;
+            var sesh = is_start_of_time_slot(tt_obj, related_time, i);
+            if(sesh>-1){
+                console.log("Session "+tt_obj.days[i][sesh].session+" is at this time: "+related_time+ " on day: "+i)
+                let dur = tt_obj.days[i][sesh].end - tt_obj.days[i][sesh].start
+                if(dur<=0){
+                    j = 24;
+                    console.log("ERROR rendering day, session starts after it ends")
+                }else{
+                    let width = dur/step;
+                    console.log("Adding session width: "+width);
+                    table_html += "<td colspan='"+width+"'></td>"
+                    j = tt_obj.days[i][sesh].end
+                }
+            }else{
+                table_html += "<td></td>";
+                j += step;
             }
-            table_html += "<td></td>"
         }
         table_html += "</tr>"
       }
@@ -41,39 +61,39 @@ function generateHTML(tt_json){
 }
 
 
-function is_start_of_time_slot(tt_slots, time, relative_day){
-    n_slots = tt_slots.length
-    for(i =0; i<n_slots; i++){
-        if(tt_slots[i].relative_day == relative_day){
-            if(tt_slots[i].start==time){
-                return tt_slots[i]
-            }
+function is_start_of_time_slot(tt_obj, time, day){
+    n_slots = tt_obj.days[day].length
+    for(let i = 0; i<n_slots; i++){
+        if(tt_obj.days[day][i].start == time){
+            return i
         }
     }
 
-    return false;
+    return -1;
 
 }
 
-function find_time_limits(tt_time_slots){
+function find_time_limits(tt_data){
     console.log("Finding most extreme times ")
     largest = 0;
     smallest = 24;
 
 
-    n_slots = tt_time_slots.length
-    for(i =0; i<n_slots; i++){
-        console.log(tt_time_slots[i].start)
+    n_days = tt_data.days.length;
+    for(i =0; i< n_days; i++){
+        n_slots = tt_data.days[i].length;
+        for(j =0; j<n_slots; j++){
+            console.log(tt_data.days[i][j])
 
-        if(tt_time_slots[i].start < smallest){
-            smallest = tt_time_slots[i].start;
-        }
+            if(tt_data.days[i][j].start < smallest){
+                smallest = tt_data.days[i][j].start;
+            }
 
-        if(tt_time_slots[i].end > largest){
-            largest = tt_time_slots[i].end;
+            if(tt_data.days[i][j].end > largest){
+                largest = tt_data.days[i][j].end;
+            }
         }
     }
-
     console.log("Earliest Start "+smallest);
     console.log("Latest End "+largest);
 

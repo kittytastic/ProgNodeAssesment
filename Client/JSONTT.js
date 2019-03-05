@@ -8,40 +8,47 @@ class session_type  {
 }
 
 class time_slot  {
-    constructor(id, start, end, relative_day) {
-    this.id = id;
+    constructor(start, end, session) {
     this.start = start;
     this.end = end;
-    this.relative_day = relative_day;
+    this.session = session;
   }
 }
 
-class day_info  {
-  // Mon, Tue, Wed, Thur
-  // new day_info(0, 3, 0)
-  // day_span = 4
-
-  // Mon ... Sun, Mon, Tue
-  // new day_info(0, 1, 1)
-  // day_span = 9
-    constructor(start_day, end_day, extra_weeks) {
+class tt_meta  {
+    constructor(start_day) {
     this.start_day = start_day;
-    this.end_day = end_day;
-    this.extra_weeks = extra_weeks;
-    this.day_span = end_day-start_day + (7 * (extra_weeks))+1
   }
+}
+
+class day {
+    constructor(){
+        this.activities = []
+    }
+}
+
+class tt {
+    constructor(){
+        this.days  = [];
+        this.session_types = [];
+        this.meta = new tt_meta(0)
+    }
 }
 
 function makeExampleJSON(){
-  var tt_data = {}
-  tt_data.time_slots = [new time_slot(1,6,22, 1),
-                      new time_slot(2,6,22, 2),
-                      new time_slot(3,6.5,22, 2),
-                      new time_slot(4,6.5,22, 2),
-                      new time_slot(5,8,18.25, 2)]
-  tt_data.days = new day_info(0,4,0)
-  tt_data.session_type = [new session_type(1,"Nothing",2,0), new session_type(1,"General",2,0)]
-  return JSON.stringify(tt_data)
+    var tt_data = new tt();
+    
+    for(i =0 ;i<5; i++) tt_data.days.push([]);
+
+    tt_data.days[0].push(new time_slot(22,6, 1))
+    tt_data.days[1].push(new time_slot(6,22, 1))
+    tt_data.days[2].push(new time_slot(6.5,21, 1))
+    tt_data.days[3]
+    tt_data.days[4].push(new time_slot(5,18.25, 1))
+
+    tt_data.session_type = [new session_type(0, "Nothing", 2, 0), new session_type(1, "General", 2, 0)]
+    
+    return JSON.stringify(tt_data)
 }
 
 

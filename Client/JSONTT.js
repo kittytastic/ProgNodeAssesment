@@ -1,6 +1,5 @@
 class session_type  {
-    constructor(id, col, title, status) {
-    this.id = id;
+    constructor(col, title, status) {
     this.col = col;
     this.title = title;
     this.status = status;
@@ -40,13 +39,15 @@ function makeExampleJSON(){
     
     for(i =0 ;i<5; i++) tt_data.days.push([]);
 
-    tt_data.days[0].push(new time_slot(22,6, 1))
-    tt_data.days[1].push(new time_slot(6,22, 1))
-    tt_data.days[2].push(new time_slot(6.5,21, 1))
-    tt_data.days[3]
-    tt_data.days[4].push(new time_slot(5,18.25, 1))
+    tt_data.days[0].push(new time_slot(6,22, 1))
+    tt_data.days[2].push(new time_slot(5.5,13.25, 1))
+    tt_data.days[2].push(new time_slot(13.25,22, 0))
 
-    tt_data.session_type = [new session_type(0, "Nothing", 2, 0), new session_type(1, "General", 2, 0)]
+    tt_data.days[4].push(new time_slot(6.5,21, 0))
+    tt_data.days[3]
+    tt_data.days[1].push(new time_slot(7,6, 1))
+
+    tt_data.session_type = [new session_type("#2ECC40", "Nothing", 1, 0), new session_type("#F012BE", "General", 1, 0)]
     
     return JSON.stringify(tt_data)
 }

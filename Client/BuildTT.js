@@ -38,16 +38,17 @@ function generateHTML(tt_json){
                 console.log("Session "+tt_obj.days[i][sesh].session+" is at this time: "+related_time+ " on day: "+i)
                 let dur = tt_obj.days[i][sesh].end - tt_obj.days[i][sesh].start
                 if(dur<=0){
-                    j = 24;
+                    j += step;
+                    table_html += "<td class = 'session-none'></td>";
                     console.log("ERROR rendering day, session starts after it ends")
                 }else{
                     let width = dur/step;
                     console.log("Adding session width: "+width);
-                    table_html += "<td colspan='"+width+"'></td>"
+                    table_html += "<td class = 'session-"+tt_obj.days[i][sesh].session+"' colspan='"+width+"'></td>"
                     j = tt_obj.days[i][sesh].end
                 }
             }else{
-                table_html += "<td></td>";
+                table_html += "<td class = 'session-none'></td>";
                 j += step;
             }
         }
@@ -56,8 +57,18 @@ function generateHTML(tt_json){
   
     table_html += table_end
 
-    return table_html
+    return generateCSS(tt_obj)+table_html
 
+}
+
+function generateCSS(tt_obj){
+    out_css = "<style>";
+    n_sesh = tt_obj.session_type.length;
+    for(let i = 0; i < n_sesh; i++){
+        out_css += ".session-"+i+" {background-color:"+tt_obj.session_type[i].col+" !important;} "
+    }
+    out_css += "</style>"
+    return out_css;
 }
 
 

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Semantic CSS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script src = "./JSONTT.js"></script>
+    <script src = "./BuildTT.js"></script>
+    <!---
+      class session_type  {
+        constructor(id, col, title, status) {
+        this.id = id;
+        this.col = col;
+        this.title = title;
+        this.status = status;
+      }
+    }
+
+    class time_slot  {
+        constructor(id, start, end, relative_day) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+        this.relative_day = relative_day;
+      }
+    }
+
+    class day_info  {
+      // Mon, Tue, Wed, Thur
+      // new day_info(0, 3, 0)
+      // day_span = 4
+
+      // Mon ... Sun, Mon, Tue
+      // new day_info(0, 1, 1)
+      // day_span = 9
+        constructor(start_day, end_day, extra_weeks) {
+        this.start_day = start_day;
+        this.end_day = end_day;
+        this.extra_weeks = extra_weeks;
+        this.day_span = end_day-start_day + (7 * (extra_weeks))+1
+      }
+    }
+
+
+      var tt_data = {}
+      tt_data.time_slot = [new time_slot(1,6,22, 1),
+                          new time_slot(2,6,22, 2),
+                          new time_slot(3,6.5,22, 2),
+                          new time_slot(4,6.5,22, 2),
+                          new time_slot(5,8,18.25, 2)]
+      tt_data.days = new day_info(0,4,0)
+      tt_data.session_type = [new session_type(1,"Nothing",2,0), new session_type(1,"General",2,0)]
+      console.log(tt_data)
+
+      console.log(JSON.stringify(tt_data))
+    </script>
+    -->
+
+    <style>
+      .column {
+        background-color: aqua;
+        border: 1px black solid;
+        padding: 1em;
+      }
+
+      .row {background-color: transparent;
+            border: none;}
+
+      .ttbody {
+        background-color: blueviolet;
+        margin: 2em;
+      }
+
+      .ttight {
+        padding: 0em !important;
+      }
+
+      .quarters {
+        width: 100%;
+        height: 100%;
+      }
+
+      .quarters td {
+        background-color: blue;
+        padding:0em;
+        border: 1px gray solid;
+      }
+
+      .quarters {
+        border-spacing: 0em;
+      }
+
+      .has-quarters {
+        padding: 0em !important; 
+      }
+
+      /* second table */
+
+      .ttable td{ background-color: blue;
+        padding:0em;
+        border: 1px gray solid;}
+      
+      .ttable {
+        width: 100%;
+        border-spacing: 0em;
+      }
+
+      .ttable tr {
+        height: 2em;
+      }
+
+    </style>
+
+    <title>Timetable</title>
+  </head>
+  <body>
+
+    <div class = "ttbody">
+    <div class="ui stackable grid center aligned equal width">
+        <div class = "tablet computer only row ttight">
+            <div class="column"></div>
+            <div class="column">T1</div>
+            <div class="column">T2</div>
+            <div class="column">T3</div>
+            <div class="column">1E</div>
+            <div class="column">1F</div>
+            <div class="column">1G</div>
+            <div class="column">1H</div>
+            <div class="column">1I</div>
+            <div class="column"></div>
+          </div>
+      
+      <div class = "row ttight">
+        <div class="column has-quarters">
+            <table class = "quarters">
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="column">1B</div>
+        <div class="column">1C</div>
+        <div class="column has-quarters">
+            <table class = "quarters">
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="column">1E</div>
+        <div class="column">1F</div>
+        <div class="column">1G</div>
+        <div class="column">1H</div>
+        <div class="column">1I</div>
+        <div class="column">1J</div>
+      </div>
+
+  <br>
+</div>
+  <br/>
+  <br/>
+  <br/>
+
+
+  <div class="ui stackable grid">
+    <div class = "tablet computer only row ttight"> 
+      <div class="column"> <span id = "tt-here"></span></div>
+    </div>
+  </div>
+
+<script>
+    console.log("Generating example JSON")
+    example_JSON = makeExampleJSON()
+     
+    console.log("Rendering example JSON into HTML")
+    table_html = generateHTML(example_JSON)
+
+    console.log("Displaying HTML")
+    document.getElementById("tt-here").innerHTML = table_html
+</script>
+
+<div class="ui animated button" tabindex="0">
+  <div class="visible content">Next</div>
+  <div class="hidden content">
+    <i class="right arrow icon"></i>
+  </div>
+</div>
+
+  </body>
+</html>

@@ -26,7 +26,24 @@ function generateHTML(tt_json){
   
     var table_html = ""
     table_html += table_start
-  
+    
+    table_html += "<tr>"
+
+    col_per_hour = 1/step;
+    start_pad = (Math.ceil(start)-start) / step
+    table_html += "<td colspan = '"+start_pad+"'></td>"
+
+    for(let i = start_pad; i<n_cols; i+=col_per_hour){
+        rel_time = start + i *step;
+        if (Math.round(rel_time)==rel_time){
+            table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'>"+rel_time+"</td>"
+        }else{
+            table_html+="<td></td>"
+        }
+        
+    }
+    table_html += "</tr>"
+
       for(let i = 0 ; i<n_rows; i++){
         table_html += "<tr>"
         let j = start;

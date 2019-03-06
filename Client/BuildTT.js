@@ -36,7 +36,7 @@ function generateHTML(tt_json){
     for(let i = start_pad; i<n_cols; i+=col_per_hour){
         rel_time = start + i *step;
         if (Math.round(rel_time)==rel_time){
-            table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'>"+rel_time+"</td>"
+            table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+rel_time+"</div></td>"
         }else{
             table_html+="<td></td>"
         }

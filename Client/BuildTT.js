@@ -31,19 +31,23 @@ function generateHTML(tt_json){
 
     col_per_hour = 1/step;
     start_pad = (Math.ceil(start)-start) / step
-    table_html += "<td colspan = '"+start_pad+"'></td>"
+    table_html += "<td colspan = '"+start_pad+"' class='tt_headers'></td>"
 
     for(let i = start_pad; i<n_cols; i+=col_per_hour){
         rel_time = start + i *step;
         if (Math.round(rel_time)==rel_time){
             table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+rel_time+"</div></td>"
         }else{
+            console.log("Not sure why we are in this loop")
             table_html+="<td></td>"
         }
         
     }
-    table_html += "</tr>"
 
+    /* WHat happens if the finish time isn't a whole number */
+
+    table_html += "</tr>"
+    
       for(let i = 0 ; i<n_rows; i++){
         table_html += "<tr>"
         let j = start;

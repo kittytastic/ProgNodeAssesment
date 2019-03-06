@@ -118,7 +118,14 @@
 
       .tt_headers {
         background-color: transparent !important;
-        border-top: none;
+        /*border-style: none !important;*/
+
+      border-width: 3px !important;
+      border-left-style: solid !important;
+      border-right-style: none !important;
+      border-image:
+        linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
+        
       }
 
       .tt_headers div {
@@ -128,6 +135,31 @@
         /*background-color: blueviolet;*/
       }
 
+      .tt_ticks {
+        border-right: solid 2px black;
+        height: 2em !important;
+      }
+
+      .tt_ticks_row{
+        line-height: 0.1em !important;
+      }
+
+
+
+      .bottom-to-top {
+    border-width: 3px;
+    border-style: solid;
+    -webkit-border-image: 
+      -webkit-gradient(linear, 0 100%, 0 0, from(black), to(rgba(0, 0, 0, 0))) 1 100%;
+    -webkit-border-image: 
+      -webkit-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+    -moz-border-image:
+      -moz-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;  
+    -o-border-image:
+      -o-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+    border-image:
+      linear-gradient(to top, black, rgba(0, 0, 0, 0)) 1 100%;
+}
     </style>
 
     <title>Timetable</title>

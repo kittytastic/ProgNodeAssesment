@@ -25,6 +25,10 @@
         
       }
 
+      .tt_first_header {
+        border-style: none !important;
+      }
+
       .tt_headers div {
         text-align: center;
         position: relative;

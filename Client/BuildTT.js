@@ -29,7 +29,7 @@ function generateHTML(tt_json){
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr>"
-    table_html += "<td colspan = '"+start_pad+"' class='tt_headers'></td>"
+    table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     for(let i = start_pad; i<n_cols; i+=col_per_hour){
         rel_time = start + i *step;

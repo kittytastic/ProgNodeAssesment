@@ -44,7 +44,7 @@ function makeExampleJSON(){
     tt_data.days[2].push(new time_slot(13.25,22, 0))
 
     tt_data.days[4].push(new time_slot(6.5,21, 0))
-    tt_data.days[3]
+    tt_data.days[3].push(new time_slot(14,18,1))
     tt_data.days[1].push(new time_slot(7,6, 1))
 
     tt_data.session_type = [new session_type("#2ECC40", "Nothing", 1, 0), new session_type("#F012BE", "General", 1, 0)]

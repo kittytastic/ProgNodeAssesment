@@ -27,33 +27,11 @@
       .row {background-color: transparent;
             border: none;}
 
-      .ttbody {
+      .page-body {
         background-color: blueviolet;
         margin: 2em;
       }
 
-      .ttight {
-        padding: 0em !important;
-      }
-
-      .quarters {
-        width: 100%;
-        height: 100%;
-      }
-
-      .quarters td {
-        background-color: blue;
-        padding:0em;
-        border: 1px gray solid;
-      }
-
-      .quarters {
-        border-spacing: 0em;
-      }
-
-      .has-quarters {
-        padding: 0em !important; 
-      }
 
     </style>
 
@@ -61,17 +39,17 @@
   </head>
   <body>
     
-    <div class = "ttbody">
+    <div class = "page-body">
   <br/>
   <br/>
   <br/>
 
 
   <div class="ui stackable grid">
-    <div class = "tablet computer only row ttight"> 
+    <div class = "tablet computer only row"> 
       <div class="column"> <span id = "tt-here"></span></div>
     </div>
-    <div class = "mobile only row ttight">
+    <div class = "mobile only row">
       <div class = "column">
         MOBILE TT
       </div>
@@ -91,15 +69,6 @@
     console.log("Displaying HTML")
     document.getElementById("tt-here").innerHTML = table_html
 </script>
-
-<!--
-<div class="ui animated button" tabindex="0">
-  <div class="visible content">Next</div>
-  <div class="hidden content">
-    <i class="right arrow icon"></i>
-  </div>
-</div>
--->
 
   </body>
 </html>

@@ -1,0 +1,42 @@
+
+      .ttable td{ background-color: blue;
+        padding:0em;
+        border: 1px gray solid;}
+      
+      .ttable {
+        width: 100%;
+        table-layout: fixed ;
+        border-spacing: 0em;
+      }
+
+      .ttable tr {
+        height: 2em;
+      }
+
+      .tt_headers {
+        background-color: transparent !important;
+        /*border-style: none !important;*/
+
+      border-width: 3px !important;
+      border-left-style: solid !important;
+      border-right-style: none !important;
+      border-image:
+        linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
+        
+      }
+
+      .tt_headers div {
+        text-align: center;
+        position: relative;
+        left: -50%;
+        /*background-color: blueviolet;*/
+      }
+
+      .tt_ticks {
+        border-right: solid 2px black;
+        height: 2em !important;
+      }
+
+      .tt_ticks_row{
+        line-height: 0.1em !important;
+      }

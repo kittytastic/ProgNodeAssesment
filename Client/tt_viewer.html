@@ -10,57 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
+    <!-- TT rendering scripts -->
     <script src = "./JSONTT.js"></script>
     <script src = "./BuildTT.js"></script>
-    <!---
-      class session_type  {
-        constructor(id, col, title, status) {
-        this.id = id;
-        this.col = col;
-        this.title = title;
-        this.status = status;
-      }
-    }
 
-    class time_slot  {
-        constructor(id, start, end, relative_day) {
-        this.id = id;
-        this.start = start;
-        this.end = end;
-        this.relative_day = relative_day;
-      }
-    }
-
-    class day_info  {
-      // Mon, Tue, Wed, Thur
-      // new day_info(0, 3, 0)
-      // day_span = 4
-
-      // Mon ... Sun, Mon, Tue
-      // new day_info(0, 1, 1)
-      // day_span = 9
-        constructor(start_day, end_day, extra_weeks) {
-        this.start_day = start_day;
-        this.end_day = end_day;
-        this.extra_weeks = extra_weeks;
-        this.day_span = end_day-start_day + (7 * (extra_weeks))+1
-      }
-    }
-
-
-      var tt_data = {}
-      tt_data.time_slot = [new time_slot(1,6,22, 1),
-                          new time_slot(2,6,22, 2),
-                          new time_slot(3,6.5,22, 2),
-                          new time_slot(4,6.5,22, 2),
-                          new time_slot(5,8,18.25, 2)]
-      tt_data.days = new day_info(0,4,0)
-      tt_data.session_type = [new session_type(1,"Nothing",2,0), new session_type(1,"General",2,0)]
-      console.log(tt_data)
-
-      console.log(JSON.stringify(tt_data))
-    </script>
-    -->
+    <!-- TT styling -->
+    <link rel="stylesheet" href="./tt_style.css">
 
     <style>
       .column {
@@ -100,66 +55,6 @@
         padding: 0em !important; 
       }
 
-      /* second table */
-
-      .ttable td{ background-color: blue;
-        padding:0em;
-        border: 1px gray solid;}
-      
-      .ttable {
-        width: 100%;
-        table-layout: fixed ;
-        border-spacing: 0em;
-      }
-
-      .ttable tr {
-        height: 2em;
-      }
-
-      .tt_headers {
-        background-color: transparent !important;
-        /*border-style: none !important;*/
-
-      border-width: 3px !important;
-      border-left-style: solid !important;
-      border-right-style: none !important;
-      border-image:
-        linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
-        
-      }
-
-      .tt_headers div {
-        text-align: center;
-        position: relative;
-        left: -50%;
-        /*background-color: blueviolet;*/
-      }
-
-      .tt_ticks {
-        border-right: solid 2px black;
-        height: 2em !important;
-      }
-
-      .tt_ticks_row{
-        line-height: 0.1em !important;
-      }
-
-
-
-      .bottom-to-top {
-    border-width: 3px;
-    border-style: solid;
-    -webkit-border-image: 
-      -webkit-gradient(linear, 0 100%, 0 0, from(black), to(rgba(0, 0, 0, 0))) 1 100%;
-    -webkit-border-image: 
-      -webkit-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
-    -moz-border-image:
-      -moz-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;  
-    -o-border-image:
-      -o-linear-gradient(bottom, black, rgba(0, 0, 0, 0)) 1 100%;
-    border-image:
-      linear-gradient(to top, black, rgba(0, 0, 0, 0)) 1 100%;
-}
     </style>
 
     <title>Timetable</title>

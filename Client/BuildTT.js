@@ -61,7 +61,7 @@ function generateHTML(tt_json){
                 if(dur<=0){
                     j += step;
                     table_html += "<td class = 'session-none'></td>";
-                    console.log("ERROR rendering day, session starts after it ends")
+                    warning("ERROR rendering day, session starts after it ends")
                 }else{
                     let width = dur/step;
                     console.log("Adding session width: "+width);

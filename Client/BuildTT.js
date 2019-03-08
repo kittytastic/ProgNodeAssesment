@@ -63,7 +63,7 @@ function generateHTML(tt_json){
     
     
       for(let i = 0 ; i<n_rows; i++){
-        table_html += "<tr>"
+        table_html += "<tr class = 'tt_day_row'>"
         let time_of_day = start;
         while(time_of_day < end){
             let session_id = is_start_of_time_slot(tt_obj, time_of_day, i);

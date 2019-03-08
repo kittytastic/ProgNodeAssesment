@@ -1,7 +1,8 @@
 
       .ttable td{ background-color: blue;
         padding:0em;
-        border: 1px gray solid;}
+        /*border: 1px gray solid;*/
+    }
       
       .ttable {
         width: 100%;
@@ -18,14 +19,13 @@
         background-color: transparent !important;
         /*background-color: burlywood !important;*/
         
+        border: 1px gray solid;
         border-width: 3px !important;
         border-left-style: solid !important;
         border-right-style: none !important;
         border-image:
         linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
         
-
-
         white-space: nowrap;
         
 
@@ -72,4 +72,9 @@
 
       .tt_ticks_row{
         line-height: 0.1em !important;
+      }
+
+
+      .tt_day_row {
+          height: 6em !important;
       }

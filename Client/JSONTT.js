@@ -39,7 +39,7 @@ function makeExampleJSON(){
     
     for(i =0 ;i<5; i++) tt_data.days.push([]);
 
-    tt_data.days[0].push(new time_slot(6,22, 1))
+    tt_data.days[0].push(new time_slot(6,22.50, 1))
     tt_data.days[2].push(new time_slot(5.5,13.25, 1))
     tt_data.days[2].push(new time_slot(13.25,22, 0))
 

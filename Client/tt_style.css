@@ -7,6 +7,7 @@
         width: 100%;
         table-layout: fixed ;
         border-spacing: 0em;
+        padding: 1em;
       }
 
       .ttable tr {
@@ -15,24 +16,52 @@
 
       .tt_headers {
         background-color: transparent !important;
-        /*border-style: none !important;*/
-
-      border-width: 3px !important;
-      border-left-style: solid !important;
-      border-right-style: none !important;
-      border-image:
+        /*background-color: burlywood !important;*/
+        
+        border-width: 3px !important;
+        border-left-style: solid !important;
+        border-right-style: none !important;
+        border-image:
         linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
         
+
+
+        white-space: nowrap;
+        
+
       }
 
       .tt_first_header {
         border-style: none !important;
       }
 
+      .tt_last_header{
+        border-right-style: solid !important;
+      }
+
       .tt_headers div {
         text-align: center;
         position: relative;
-        left: -50%;
+        left: -25%;
+        
+        /*background-color: blueviolet;*/
+
+        width:50%;
+        display: inline-block;
+        
+
+        
+      }
+
+      .tt_headers_right {
+        width:50%;
+        left: 25% !important;
+        /*background-color: blueviolet;*/
+      }
+
+      .tt_headers_left {
+        width:100% !important;
+        left: -50% !important;
         /*background-color: blueviolet;*/
       }
 

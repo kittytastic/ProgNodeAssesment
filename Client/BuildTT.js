@@ -31,16 +31,29 @@ function generateHTML(tt_json){
     table_html += "<tr>"
     table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
-    for(let i = start_pad; i<n_cols; i+=col_per_hour){
+    let rel_time = 0
+    for(let i = start_pad; i<n_cols-col_per_hour; i+=col_per_hour){
         rel_time = start + i *step;
 
         if (Math.round(rel_time)!=rel_time){
             error("Trying to add time heading that aren't a whole number")
         }
         
-        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+rel_time+"</div></td>"
+        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+rel_time+":00</div></td>"
        
     }
+
+    console.log(end)
+    end_pad = (end-Math.floor(end)) / step
+
+    if(end_pad == 0){
+        // Add left float and right float box
+        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers tt_last_header'><div>"+(rel_time+1)+":00</div><div class='tt_headers_right'>"+(rel_time+2)+":00</div></td>"
+    }else{
+        // Add left float only
+        table_html+="<td colspan = '"+end_pad+"' class='tt_headers'><div class='tt_headers_left'>"+(rel_time+1)+":00</div></td>"
+    }
+
 
     table_html += "</tr>"
 

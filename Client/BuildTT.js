@@ -32,7 +32,7 @@ function generateHTML(tt_json){
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr class='tt_header_row'>"
-    table_html +="<td colspan='"+(day_name_span+start_pad)+"' class='tt_headers_no_tick'><div>"+Math.ceil(start)+"</div></td>"
+    table_html +="<td colspan='"+(day_name_span+start_pad)+"' class='tt_headers_no_tick'><div>"+Math.ceil(start)+":00</div></td>"
     //table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     let rel_time = 0

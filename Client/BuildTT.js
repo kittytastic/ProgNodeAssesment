@@ -31,8 +31,8 @@ function generateHTML(tt_json){
     col_per_hour = 1/step;
     start_pad = (Math.ceil(start)-start) / step
     
-    table_html += "<tr>"
-    table_html +="<td colspan='"+(day_name_span+start_pad)+"' class = 'tt_headers'><div>"+Math.ceil(start)+"</div></td>"
+    table_html += "<tr class='tt_header_row'>"
+    table_html +="<td colspan='"+(day_name_span+start_pad)+"'><div>"+Math.ceil(start)+"</div></td>"
     //table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     let rel_time = 0
@@ -43,7 +43,7 @@ function generateHTML(tt_json){
             error("Trying to add time heading that aren't a whole number")
         }
         
-        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+(rel_time+1)+":00</div></td>"
+        table_html+="<td colspan = '"+col_per_hour+"'><div>"+(rel_time+1)+":00</div></td>"
        
     }
 
@@ -52,9 +52,9 @@ function generateHTML(tt_json){
 
     if(end_pad != 0){
         // Add left float only
-        table_html+="<td colspan = '"+end_pad+"' class='tt_headers tt_headers_end'></td>"
+        table_html+="<td colspan = '"+end_pad+"' id='tt_headers_end'></td>"
     }else{
-        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+(rel_time+2)+":00</div></td>"
+        table_html+="<td colspan = '"+col_per_hour+"><div>"+(rel_time+2)+":00</div></td>"
     }
 
 

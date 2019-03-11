@@ -17,21 +17,24 @@
 
       .tt_headers {
         background-color: transparent !important;
-        /*background-color: burlywood !important;*/
+        background-color: burlywood !important;
         
         border: 1px gray solid;
         border-width: 3px !important;
-        border-left-style: solid !important;
-        border-right-style: none !important;
+        border-left-style: none !important;
+        border-right-style: solid !important;
         border-image:
         linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100% !important;
         
-        white-space: nowrap;
+        /*white-space: nowrap;*/
         
 
       }
 
-      
+      .tt_headers_end {
+        border-style: none !important;
+      }
+
       .tt_first_header {
         border-style: none !important;
       }
@@ -43,12 +46,13 @@
       .tt_headers div {
         text-align: center;
         position: relative;
-        left: -25%;
+        left: 50%;
         
         /*background-color: blueviolet;*/
 
-        width:50%;
-        display: inline-block;
+        /*width:50%;
+        display: inline-block;*/
+        width: 100%;
         
 
         
@@ -81,4 +85,11 @@
       }
       .tt-days {
         background-color: green !important;
+        
+        
+      }
+
+      .tt-days div{
+        float:right;
+        /*text-align: right;*/
       }

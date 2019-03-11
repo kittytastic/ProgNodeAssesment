@@ -32,8 +32,8 @@ function generateHTML(tt_json){
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr>"
-    table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'></td>"
-    table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
+    table_html +="<td colspan='"+(day_name_span+start_pad)+"' class = 'tt_headers'><div>"+Math.ceil(start)+"</div></td>"
+    //table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     let rel_time = 0
     for(let i = start_pad; i<n_cols-col_per_hour; i+=col_per_hour){
@@ -43,19 +43,18 @@ function generateHTML(tt_json){
             error("Trying to add time heading that aren't a whole number")
         }
         
-        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+rel_time+":00</div></td>"
+        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+(rel_time+1)+":00</div></td>"
        
     }
 
     console.log(end)
     end_pad = (end-Math.floor(end)) / step
 
-    if(end_pad == 0){
-        // Add left float and right float box
-        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers tt_last_header'><div>"+(rel_time+1)+":00</div><div class='tt_headers_right'>"+(rel_time+2)+":00</div></td>"
-    }else{
+    if(end_pad != 0){
         // Add left float only
-        table_html+="<td colspan = '"+end_pad+"' class='tt_headers'><div class='tt_headers_left'>"+(rel_time+1)+":00</div></td>"
+        table_html+="<td colspan = '"+end_pad+"' class='tt_headers tt_headers_end'></td>"
+    }else{
+        table_html+="<td colspan = '"+col_per_hour+"' class='tt_headers'><div>"+(rel_time+2)+":00</div></td>"
     }
 
 
@@ -70,7 +69,7 @@ function generateHTML(tt_json){
 
       for(let i = 0 ; i<n_rows; i++){
         table_html += "<tr class = 'tt_day_row'>"
-        table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'>"+day_names[curr_day]+"</td>"
+        table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'><div>"+day_names[curr_day]+"</div></td>"
         let time_of_day = start;
         while(time_of_day < end){
             let session_id = is_start_of_time_slot(tt_obj, time_of_day, i);

@@ -32,7 +32,7 @@ function generateHTML(tt_json){
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr class='tt_header_row'>"
-    table_html +="<td colspan='"+(day_name_span+start_pad)+"'><div>"+Math.ceil(start)+"</div></td>"
+    table_html +="<td colspan='"+(day_name_span+start_pad)+"' class='tt_headers_no_tick'><div>"+Math.ceil(start)+"</div></td>"
     //table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     let rel_time = 0
@@ -52,9 +52,9 @@ function generateHTML(tt_json){
 
     if(end_pad != 0){
         // Add left float only
-        table_html+="<td colspan = '"+end_pad+"' id='tt_headers_end'></td>"
+        table_html+="<td colspan = '"+end_pad+"'></td>"
     }else{
-        table_html+="<td colspan = '"+col_per_hour+"><div>"+(rel_time+2)+":00</div></td>"
+        table_html+="<td colspan = '"+col_per_hour+"' id='tt_headers_end'><div>"+(rel_time+2)+":00</div></td>"
     }
 
 

@@ -36,36 +36,39 @@
 /* ******************* Column names - times ******************* */
 .ttable .tt_header_row td {
   background-color: transparent;
-  /*background-color: burlywood;*/
   
   /* Add short borders */
   border: 1px gray solid;
   border-width: 3px;
-  border-left-style: none;
-  border-right-style: solid;
+  border-left-style: solid;
+  border-right-style: none;
   border-image: linear-gradient(to top, black 50%, rgba(0, 0, 0, 0)) 1 50% 100%;
   
 }
 
+.ttable .tt_header_row .tt_headers_no_tick {
+  border-style: none;
+}
+
+.ttable #tt_headers_end {
+  border-right-style: solid;
+}
+
 .ttable .tt_header_row td div {
   text-align: center;
-
   position: relative;
   width: 100%;
   left: 50%;
 }
 
-.ttable #tt_headers_end {
-  border-style: none;
-}
-
 
 /* ****************** Row names - days ****************** */
-.ttable .tt-days {
-  /*background-color: green;*/ 
-}
 
 .ttable .tt-days div{
   float:right;
   margin-right: 1em;
 }
+
+/* ********************************************************************* */
+/* ************************* Portrait timetable *********************** */
+/* ******************************************************************* */

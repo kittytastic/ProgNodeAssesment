@@ -25,12 +25,26 @@
   padding: 1em;
 }
 
+/* **** Optional style **** */
+/* Row height */
 .ttable .tt_day_row {
   height: 6em;
 }
 
+/* Border between days */
+.ttable .tt_day_row td {
+  border-top-style: solid;
+  border-width: 3px;
+  border-color: black;
+}
+
+.ttable #tt_end_row td{
+  border-bottom-style: solid; 
+}
+
+/* Default session colour */
 .ttable .session-none { 
-  background-color: blue;
+  background-color:	#989898;
 }
 
 /* ******************* Column names - times ******************* */
@@ -64,9 +78,18 @@
 
 /* ****************** Row names - days ****************** */
 
-.ttable .tt-days div{
+.ttable .tt_day_row .tt-days div{
   float:right;
   margin-right: 1em;
+  border-top-style: none;
+}
+
+.ttable .tt_day_row .tt-days{
+  border-style: none;
+}
+
+.ttable #tt_end_row .tt-days{
+  border-bottom-style: none; 
 }
 
 /* ********************************************************************* */

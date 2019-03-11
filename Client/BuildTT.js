@@ -32,8 +32,9 @@ function generateHTML(tt_json){
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr class='tt_header_row'>"
+    // Add top left td that runs from the start to the first hour
     table_html +="<td colspan='"+(day_name_span+start_pad)+"' class='tt_headers_no_tick'><div>"+Math.ceil(start)+":00</div></td>"
-    //table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
+
 
     let rel_time = 0
     for(let i = start_pad; i<n_cols-col_per_hour; i+=col_per_hour){
@@ -68,7 +69,12 @@ function generateHTML(tt_json){
     
 
       for(let i = 0 ; i<n_rows; i++){
-        table_html += "<tr class = 'tt_day_row'>"
+        if(i==(n_rows-1)){
+            table_html += "<tr class = 'tt_day_row' id='tt_end_row'>"
+        }else{
+            table_html += "<tr class = 'tt_day_row'>"
+        }
+        
         table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'><div>"+day_names[curr_day]+"</div></td>"
         let time_of_day = start;
         while(time_of_day < end){

@@ -31,6 +31,7 @@
 
       }
 
+      
       .tt_first_header {
         border-style: none !important;
       }
@@ -77,4 +78,7 @@
 
       .tt_day_row {
           height: 6em !important;
+      }
+      .tt-days {
+        background-color: green !important;
       }

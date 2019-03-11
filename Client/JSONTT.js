@@ -49,6 +49,8 @@ function makeExampleJSON(){
 
     tt_data.session_type = [new session_type("#2ECC40", "Nothing", 1, 0), new session_type("#F012BE", "General", 1, 0)]
     
+    tt_data.meta = new tt_meta(0);
+
     return JSON.stringify(tt_data)
 }
 

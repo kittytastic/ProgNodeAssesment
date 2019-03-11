@@ -5,7 +5,8 @@ function generateHTML(tt_json){
     var start = temp[0];
     var end = temp[1];
     var step = 0.25
-    
+    let day_name_span = 4
+
     var n_rows = tt_obj.days.length;
     var n_cols = (end - start) / step
     console.log("Start:"+start)
@@ -13,6 +14,7 @@ function generateHTML(tt_json){
     console.log("n_rows: "+n_rows)
     console.log("n_col: "+n_cols)
 
+    var day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
 
     // Declare table beginning and end
     var table_start = "<table class = 'ttable ui tablet computer only'><tbody>"
@@ -23,12 +25,14 @@ function generateHTML(tt_json){
     table_html += table_start
     
     
-
+    
+    
     // ----------------- Add row headings (times) ----------------- 
     col_per_hour = 1/step;
     start_pad = (Math.ceil(start)-start) / step
     
     table_html += "<tr>"
+    table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'></td>"
     table_html += "<td colspan = '"+start_pad+"' class='tt_headers tt_first_header'></td>"
 
     let rel_time = 0
@@ -61,9 +65,12 @@ function generateHTML(tt_json){
 
     // ----------------- Add days and sessions -----------------
     
+    var curr_day = tt_obj.meta.start_day;
     
+
       for(let i = 0 ; i<n_rows; i++){
         table_html += "<tr class = 'tt_day_row'>"
+        table_html +="<td colspan='"+day_name_span+"' class = 'tt-days'>"+day_names[curr_day]+"</td>"
         let time_of_day = start;
         while(time_of_day < end){
             let session_id = is_start_of_time_slot(tt_obj, time_of_day, i);
@@ -98,6 +105,8 @@ function generateHTML(tt_json){
 
         // Done for the day
         table_html += "</tr>"
+        curr_day = (curr_day +1) % 7
+
       }
   
     // Add close table

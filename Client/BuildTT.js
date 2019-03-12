@@ -178,25 +178,23 @@ function generateMobileTT(tt_json){
 
     let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
 
-    outHMTL = ""
+    let outHTML = ""
+    outHTML += generateCSS(tt_obj)
 
     let first_day = tt_obj.meta.start_day
     for(let i =0; i < tt_obj.days.length; i++){
-        outHMTL+='<div class = "column">'
-        outHMTL+=day_names[(first_day+i)%7]
-        outHMTL+=days_table(tt_obj, i)
-        outHMTL+='</div>'
+        outHTML +='<div class = "column">'
+        outHTML += '<table class="colour_me"><tbody>'
+        outHTML += '<tr><td></td><td></td><td><h1>'+day_names[(first_day+i)%7]+'</h1></td></tr>'
+        outHTML += days_table_body(tt_obj, i)
+        outHTML += '</tbody></table>'
+        outHTML+='</div>'
     }
 
-    outHMTL+='<div class = "column">'
-        outHMTL+=day_names[(first_day+i)%7]
-        outHMTL+=days_table(tt_obj, 1)
-        outHMTL+='</div>'
-
-    return outHMTL;
+    return outHTML;
 }
 
-function days_table(tt_obj, day_i){
+function days_table_body(tt_obj, day_i){
     
 
     let temp = find_time_limits(tt_obj)
@@ -210,7 +208,7 @@ function days_table(tt_obj, day_i){
     let hour_step_len = 1/step
 
     let start_pad = (Math.ceil(start)-start) / step
-    dayHTML = '<table class="colour_me"><tbody>'
+    let dayHTML = ''
 
     let in_session = false;
     let session_end = 0;
@@ -226,6 +224,7 @@ function days_table(tt_obj, day_i){
 
         if(i<start_pad){
             dayHTML += '<td></td>'
+            dayHTML += '<td class="tick_width"></td>'
         }
 
         if(is_on_hour(curr_time)){
@@ -235,6 +234,7 @@ function days_table(tt_obj, day_i){
             }
 
             dayHTML += '<td rowspan="'+hour_box_len+'"><div>'+curr_time+':00</div></td>'
+            dayHTML += '<td rowspan="'+hour_box_len+'" class="tick_width tick_mark"></td>'
         }
 
         if(curr_time==session_end){
@@ -265,10 +265,8 @@ function days_table(tt_obj, day_i){
 
         
     }
-
-    css = generateCSS(tt_obj)
-    dayHTML += '</tbody></table>'
-    return css+dayHTML
+    
+    return dayHTML
 }
 
 function is_on_hour(time){

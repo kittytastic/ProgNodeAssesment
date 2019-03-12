@@ -109,19 +109,24 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 /* ********************************************************************* */
 /* ******************************** SORT ****************************** */
 /* ******************************************************************* */
+.row h1 {text-align: center;}
+
 .colour_me td {
-  background-color: aqua;
+  /*background-color: aqua;*/
   vertical-align:top;
+  padding: 0;
 }
 
 .colour_me tr {
-  background-color: #ff00ff;
+  /*background-color: #ff00ff;*/
   height: 2em;
 }
 
 .colour_me {
-  background-color: brown;
+  /*background-color: brown;*/
   width:100%;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
 .colour_me .session{
@@ -133,7 +138,8 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 }
 
 .colour_me tr td div {
-  background-color: chartreuse;
+  /*background-color: chartreuse;*/
+  margin-right: 0.5em;
   position: relative;
   top: -0.75em;
   float: right;
@@ -141,4 +147,14 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 
 #tt-mobile {
   width: 100%;
+}
+
+.colour_me .tick_width {
+  width: 0.3em;
+}
+
+.colour_me .tick_mark {
+  border-top-style: solid;
+  border-color: black;
+  border-width: 3px;
 }

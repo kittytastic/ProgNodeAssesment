@@ -13,11 +13,14 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   border: 1px black solid;*/
   padding: 2em;
   margin: 1em;
+  width: 100%;
 }
 
 .row {
   background-color: transparent;
   border: none;
+  width: 100%;
+  
 }  
 
 
@@ -106,3 +109,36 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 /* ********************************************************************* */
 /* ******************************** SORT ****************************** */
 /* ******************************************************************* */
+.colour_me td {
+  background-color: aqua;
+  vertical-align:top;
+}
+
+.colour_me tr {
+  background-color: #ff00ff;
+  height: 2em;
+}
+
+.colour_me {
+  background-color: brown;
+  width:100%;
+}
+
+.colour_me .session{
+  width: 80%;
+}
+
+.colour_me .session-none {
+  background-color:  #2E282A;
+}
+
+.colour_me tr td div {
+  background-color: chartreuse;
+  position: relative;
+  top: -0.75em;
+  float: right;
+}
+
+#tt-mobile {
+  width: 100%;
+}

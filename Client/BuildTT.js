@@ -171,3 +171,137 @@ function find_time_limits(tt_data){
     
     return [smallest, largest]
 }
+
+
+function generateMobileTT(tt_json){
+    var tt_obj = JSON.parse(tt_json);
+
+    let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
+
+    outHMTL = ""
+
+    let first_day = tt_obj.meta.start_day
+    for(let i =0; i < tt_obj.days.length; i++){
+        outHMTL+='<div class = "column">'
+        outHMTL+=day_names[(first_day+i)%7]
+        outHMTL+=days_table(tt_obj, i)
+        outHMTL+='</div>'
+    }
+
+    outHMTL+='<div class = "column">'
+        outHMTL+=day_names[(first_day+i)%7]
+        outHMTL+=days_table(tt_obj, 1)
+        outHMTL+='</div>'
+
+    return outHMTL;
+}
+
+function days_table(tt_obj, day_i){
+    
+
+    let temp = find_time_limits(tt_obj)
+    let start = temp[0];
+    let end = temp[1];
+
+    let dur = end - start
+    let step = 0.25
+
+    let n_time_units = dur/step 
+    let hour_step_len = 1/step
+
+    let start_pad = (Math.ceil(start)-start) / step
+    dayHTML = '<table class="colour_me"><tbody>'
+
+    let in_session = false;
+    let session_end = 0;
+
+    let last_hour = Math.floor(end)
+    let end_pad = (end - Math.floor(end)) / step
+
+
+    for(let i=0; i< n_time_units; i++){
+        let  curr_time = start + i*step;
+        
+        dayHTML += '<tr>'
+
+        if(i<start_pad){
+            dayHTML += '<td></td>'
+        }
+
+        if(is_on_hour(curr_time)){
+            let hour_box_len = hour_step_len
+            if (curr_time == last_hour){
+                hour_box_len = end_pad
+            }
+
+            dayHTML += '<td rowspan="'+hour_box_len+'"><div>'+curr_time+':00</div></td>'
+        }
+
+        if(curr_time==session_end){
+            in_session = false;
+        }
+
+        if(!in_session){
+           let session_id =  is_start_of_time_slot(tt_obj, curr_time, day_i);
+
+           if(session_id != -1){
+            let dur_steps = (tt_obj.days[day_i][session_id].end - tt_obj.days[day_i][session_id].start)/step
+            if(dur_steps>0){
+               in_session = true;
+               session_end = tt_obj.days[day_i][session_id].end
+               
+               console.log("Adding session of length "+dur_steps)
+               dayHTML+= '<td class = "session-'+session_id+'  session" rowspan = '+dur_steps+'></td>'
+            }else{
+                dayHTML+= "<td class = 'session-none'></td>"
+            }
+           } else {
+
+               dayHTML+= "<td class = 'session-none'></td>"
+           }
+        }
+
+        dayHTML += '</tr>'
+
+        
+    }
+
+    css = generateCSS(tt_obj)
+    dayHTML += '</tbody></table>'
+    return css+dayHTML
+}
+
+function is_on_hour(time){
+    if(time-Math.round(time)!=0){return false}
+    else{return true}
+}
+
+// Not used
+// Return next session transition, this could be at curr time of after
+function get_next_session_change(tt_obj, curr_time, day_i){
+    let next_earliest = 24;
+    let next_session_id = -1;
+
+    
+    
+        let n_slots = tt_data.days[day_i].length;
+        for(let j = 0; j<n_slots; j++){
+            if(tt_data.days[i][j].end-tt_data.days[i][j].start>0){
+                if(tt_data.days[i][j].end < next_earliest){
+                    if(tt_data.days[i][j].end>=curr_time)
+                        next_earliest = tt_data.days[i][j].end;
+                }
+
+                if(tt_data.days[i][j].start < next_earliest){
+                    if(tt_data.days[i][j].start>=curr_time)
+                    next_earliest = tt_data.days[i][j].start;
+                }
+            }else{
+                error("Session finished before it started")
+            }
+        }
+    
+    
+    return next_earliest;
+
+}

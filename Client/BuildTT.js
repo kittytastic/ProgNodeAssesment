@@ -1,27 +1,32 @@
 function generateFullTT(tt_json){
-    var tt_obj = JSON.parse(tt_json);
     
+    var step = 0.25
+
+    var temp = find_time_limits(tt_obj)
+    var start = temp[0];
+    var end = temp[1];
+    
+    var tt_obj = JSON.parse(tt_json);
+
     let outHTML = ''
 
     outHTML += generateCSS(tt_obj);
     outHTML += '<div class="ui stackable grid">';
     outHTML += '<div class = "tablet computer only row">'
     outHTML += '<div class="column">'
-    outHTML += generateLandscapeTT(tt_obj)
+    outHTML += generateLandscapeTT(tt_obj, start, end, step)
     outHTML += '</div></div>'
     outHTML += '<div class = "mobile only row  mobile_row">'
-    outHTML +=  generateMobileTT(tt_obj)
+    outHTML +=  generateMobileTT(tt_obj, start, end, step)
     outHTML += '</div></div>'
 
     return outHTML;
 }
 
-function generateLandscapeTT(tt_obj){
+function generateLandscapeTT(tt_obj, start, end, step){
     
-    var temp = find_time_limits(tt_obj)
-    var start = temp[0];
-    var end = temp[1];
-    var step = 0.25
+    
+    
     let day_name_span = 4
 
     var n_rows = tt_obj.days.length;
@@ -185,18 +190,18 @@ function find_time_limits(tt_data){
 }
 
 
-function generateMobileTT(tt_obj){
+function generateMobileTT(tt_obj, start, end, step){
    
     let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
 
-    let outHTML = ""
+    let outHTML = ''
 
     let first_day = tt_obj.meta.start_day
     for(let i =0; i < tt_obj.days.length; i++){
         outHTML +='<div class = "column">'
         outHTML += '<table class="mobile_tt"><tbody>'
         outHTML += '<tr><td></td><td></td><td><h1>'+day_names[(first_day+i)%7]+'</h1></td></tr>'
-        outHTML += days_table_body(tt_obj, i)
+        outHTML += days_table_body(tt_obj, i, start, end, step)
         outHTML += '</tbody></table>'
         outHTML+='</div>'
     }
@@ -204,14 +209,10 @@ function generateMobileTT(tt_obj){
     return outHTML;
 }
 
-function days_table_body(tt_obj, day_i){
+function days_table_body(tt_obj, day_i, start, end, step){
     
     let dayHTML = ''
-    let step = 0.25
-
-    let temp = find_time_limits(tt_obj)
-    let start = temp[0];
-    let end = temp[1];
+    
     let dur = end - start
     
     let n_time_units = dur/step 

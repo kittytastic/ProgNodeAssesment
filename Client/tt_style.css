@@ -13,11 +13,14 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   border: 1px black solid;*/
   padding: 2em;
   margin: 1em;
+  width: 100%;
 }
 
 .row {
   background-color: transparent;
   border: none;
+  width: 100%;
+  
 }  
 
 
@@ -85,7 +88,7 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 /* ****************** Row names - days ****************** */
 
 .ttable .tt_day_row .tt-days div{
-  float:right;
+  float: right;
   margin-right: 1em;
   border-top-style: none;
 }
@@ -102,6 +105,55 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
 /* ********************************************************************* */
 /* ************************* Portrait timetable *********************** */
 /* ******************************************************************* */
+
+
+.mobile_tt{
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+#tt-mobile {
+  width: 100%;
+}
+
+.mobile_row h1 {text-align: center;}
+
+.mobile_tt tr td {
+  vertical-align:top;
+  padding: 0;
+}
+
+.mobile_tt tr td div {
+  margin-right: 0.5em;
+  position: relative;
+  top: -0.75em;
+  float: right;
+}
+
+
+/******************** Optional *********************/
+.mobile_tt tr {
+  height: 2em;
+}
+
+.mobile_tt .session{
+  width: 80%;
+}
+
+.mobile_tt .session-none {
+  background-color:  #2E282A;
+}
+
+.mobile_tt .tick_width {
+  width: 0.3em;
+}
+
+.mobile_tt .tick_mark {
+  border-top-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
 
 /* ********************************************************************* */
 /* ******************************** SORT ****************************** */

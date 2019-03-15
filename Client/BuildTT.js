@@ -1,22 +1,23 @@
 function generateFullTT(tt_json){
+    var tt_obj = JSON.parse(tt_json);
+    
     let outHTML = ''
-    //outHTML += generateCSS(tt_json)
 
-    outHTML = '<div class="ui stackable grid">';
+    outHTML += generateCSS(tt_obj);
+    outHTML += '<div class="ui stackable grid">';
     outHTML += '<div class = "tablet computer only row">'
     outHTML += '<div class="column">'
-    outHTML += generateLandscapeTT(tt_json)
+    outHTML += generateLandscapeTT(tt_obj)
     outHTML += '</div></div>'
     outHTML += '<div class = "mobile only row  mobile_row">'
-    outHTML +=  generateMobileTT(tt_json)
+    outHTML +=  generateMobileTT(tt_obj)
     outHTML += '</div></div>'
 
     return outHTML;
 }
 
-function generateLandscapeTT(tt_json){
-    var tt_obj = JSON.parse(tt_json); 
-
+function generateLandscapeTT(tt_obj){
+    
     var temp = find_time_limits(tt_obj)
     var start = temp[0];
     var end = temp[1];
@@ -131,13 +132,8 @@ function generateLandscapeTT(tt_json){
     // Add close table
     table_html += table_end
 
-    
 
-    // ----------- Generate the table css ----------------
-    let css = generateCSS(tt_obj)
-
-
-    return css+table_html
+    return table_html
 
 }
 
@@ -189,13 +185,11 @@ function find_time_limits(tt_data){
 }
 
 
-function generateMobileTT(tt_json){
-    var tt_obj = JSON.parse(tt_json);
-
+function generateMobileTT(tt_obj){
+   
     let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
 
     let outHTML = ""
-    outHTML += generateCSS(tt_obj)
 
     let first_day = tt_obj.meta.start_day
     for(let i =0; i < tt_obj.days.length; i++){

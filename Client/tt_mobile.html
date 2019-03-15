@@ -33,27 +33,29 @@
   <br/>
   <br/>
   <br/>
-  <div class="ui stackable grid">
+  <!---<div class="ui stackable grid">
     <div class = "tablet computer only row"> 
       <div class="column"> <span id = "tt-here"></span></div>
     </div>
-    <div class = "mobile only row">
+    <div class = "mobile only row  mobile_row">
       <span id = "tt-mobile">
 
       </span>
       
     </div>
-  </div>
+  </div>-->
+
+  <span id="tt-full"></span>
 
 <script>
     console.log("Generating example JSON")
     example_JSON = makeExampleJSON()
      
     console.log("Rendering example JSON into HTML")
-    table_html = generateMobileTT(example_JSON)
+    table_html = generateFullTT(example_JSON)
 
     console.log("Displaying HTML")
-    document.getElementById("tt-mobile").innerHTML = table_html
+    document.getElementById("tt-full").innerHTML = table_html
 </script>
 
   </body>

@@ -1,4 +1,20 @@
-function generateHTML(tt_json){
+function generateFullTT(tt_json){
+    let outHTML = ''
+    //outHTML += generateCSS(tt_json)
+
+    outHTML = '<div class="ui stackable grid">';
+    outHTML += '<div class = "tablet computer only row">'
+    outHTML += '<div class="column">'
+    outHTML += generateLandscapeTT(tt_json)
+    outHTML += '</div></div>'
+    outHTML += '<div class = "mobile only row  mobile_row">'
+    outHTML +=  generateMobileTT(tt_json)
+    outHTML += '</div></div>'
+
+    return outHTML;
+}
+
+function generateLandscapeTT(tt_json){
     var tt_obj = JSON.parse(tt_json); 
 
     var temp = find_time_limits(tt_obj)
@@ -184,7 +200,7 @@ function generateMobileTT(tt_json){
     let first_day = tt_obj.meta.start_day
     for(let i =0; i < tt_obj.days.length; i++){
         outHTML +='<div class = "column">'
-        outHTML += '<table class="colour_me"><tbody>'
+        outHTML += '<table class="mobile_tt"><tbody>'
         outHTML += '<tr><td></td><td></td><td><h1>'+day_names[(first_day+i)%7]+'</h1></td></tr>'
         outHTML += days_table_body(tt_obj, i)
         outHTML += '</tbody></table>'
@@ -196,37 +212,39 @@ function generateMobileTT(tt_json){
 
 function days_table_body(tt_obj, day_i){
     
+    let dayHTML = ''
+    let step = 0.25
 
     let temp = find_time_limits(tt_obj)
     let start = temp[0];
     let end = temp[1];
-
     let dur = end - start
-    let step = 0.25
-
+    
     let n_time_units = dur/step 
     let hour_step_len = 1/step
 
-    let start_pad = (Math.ceil(start)-start) / step
-    let dayHTML = ''
+    let start_pad = (Math.ceil(start) - start) / step
+    let end_pad = (end - Math.floor(end)) / step
+    let last_hour = Math.floor(end)
 
     let in_session = false;
     let session_end = 0;
 
-    let last_hour = Math.floor(end)
-    let end_pad = (end - Math.floor(end)) / step
-
-
+    // For every time chunk in the day
     for(let i=0; i< n_time_units; i++){
+        // Calculate relative time for that day
         let  curr_time = start + i*step;
         
+
         dayHTML += '<tr>'
 
+        // If it is in the start padding add empty td
         if(i<start_pad){
             dayHTML += '<td></td>'
             dayHTML += '<td class="tick_width"></td>'
         }
 
+        // If it is on an hour add an hour size box and fill with time
         if(is_on_hour(curr_time)){
             let hour_box_len = hour_step_len
             if (curr_time == last_hour){
@@ -237,10 +255,12 @@ function days_table_body(tt_obj, day_i){
             dayHTML += '<td rowspan="'+hour_box_len+'" class="tick_width tick_mark"></td>'
         }
 
-        if(curr_time==session_end){
+        // Check if we are newly at the end of a session
+        if(curr_time == session_end){
             in_session = false;
         }
 
+        // If we are not in a session check for any sessions and add them, else no nothing as session td has already been added
         if(!in_session){
            let session_id =  is_start_of_time_slot(tt_obj, curr_time, day_i);
 

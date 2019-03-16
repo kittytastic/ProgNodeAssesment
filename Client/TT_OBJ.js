@@ -29,7 +29,7 @@ class day {
 class tt_data {
     constructor(){
         this.days  = [];
-        this.session_types = [];
+        this.session_type = [];
         this.meta = new tt_meta(0)
     }
 }
@@ -123,23 +123,124 @@ class tt_manager{
             return false;
         }
 
+
+        for(let i = 0; i < this.tt_data.days[to_day].length; i ++){
+            if(start > this.tt_data.days[to_day][i].start && start < this.tt_data.days[to_day][i].end){
+                return false;
+            }
+
+            if(end > this.tt_data.days[to_day][i].start && end < this.tt_data.days[to_day][i].end){
+                return false;
+            }
+        }
+
+
         this.tt_data.days[to_day].push(temp_ts)
+        return true
     }
 
-    remove_time_slot(){}
+    remove_time_slot(day, index){
+        if(day>=this.tt_data.days.length){
+            return false;
+        }
 
-    add_session(){
+        if(index>=this.tt_data.days[day].length){
+            return false;
+        }
 
+        this.tt_data.days[day].splice(index, 1)
+        return true;
     }
 
-    remove_session(){
+    add_session(col, name){
+        this.tt_data.session_type.push(new session_type(col, name, 0))
+    }
 
+    remove_session(id){
+        if(id >= this.tt_data.session_type.length || id<0){
+            return false;
+        }
+
+        let n_days = this.tt_data.days.length;
+        for(let i = 0; i < n_days; i++){
+            let n_t_slots = this.tt_data.days[i].length
+            for(let j = 0; j<n_t_slots; j++){
+                if (this.tt_data.days[i][j].session==id){
+                    return false;
+                }
+
+            }
+        }
+
+        this._delete_session_refactor(id);
+
+        return true;
+    }
+
+    remove_session_force(id){
+        if(id >= this.tt_data.session_type.length || id<0){
+            return false;
+        }
+
+        let n_days = this.tt_data.days.length;
+        for(let i = 0; i < n_days; i++){
+            let n_t_slots = this.tt_data.days[i].length
+            for(let j = n_t_slots-1; j>=0; j--){
+                if (this.tt_data.days[i][j].session==id){
+                    this.remove_time_slot(i,j)
+                }
+
+            }
+        }
+
+        this._delete_session_refactor(id);
+
+        return true;
+    }
+
+    remove_session_change(id, new_session){
+        if(id >= this.tt_data.session_type.length || id < 0){
+            return false;
+        }
+
+        if(new_session >= this.tt_data.session_type.length || new_session < 0){
+            return false;
+        }
+
+        let n_days = this.tt_data.days.length;
+        for(let i = 0; i < n_days; i++){
+            let n_t_slots = this.tt_data.days[i].length
+            for(let j = n_t_slots-1; j>=0; j--){
+                if (this.tt_data.days[i][j].session==id){
+                    this.tt_data.days[i][j].session= new_session
+                }
+
+            }
+        }
+
+        this._delete_session_refactor(id);
+
+        return true;
+    }
+
+    _delete_session_refactor(id){
+        this.tt_data.session_type.splice(id, 1)
+
+        for(let i = 0; i < n_days; i++){
+            let n_t_slots = this.tt_data.days[i].length
+            for(let j = 0; j<n_t_slots; j++){
+                if (this.tt_data.days[i][j].session>id){
+                    this.tt_data.days[i][j].session -= 1;
+                }
+
+            }
+        }
     }
 
     
     digest_JSON(tt_json){
         console.log("Digesting JSON")
-        if(this.tt_obj != null){
+        if(this.tt_data != null){
             console.log("Error digesting JSON. TT Object already exists are you sure you want to overwrite?")
             return;
         }
@@ -150,8 +251,8 @@ class tt_manager{
             console.log("Error digesting JSON. JSON given wasn't a valid TT object.")
             return;
         }
-
-        this.tt_obj = temp_obj;
+        console.log(tt_data)
+        this.tt_data = temp_obj;
     }
 
     get JSON(){
@@ -179,10 +280,11 @@ function makeExampleJSON(){
     
     tt_dat.days[4].push(new time_slot(6.5,21, 3))
 
-    tt_dat.session_type = [new session_type("#E4572E", "Boring", 1, 0), 
-                            new session_type("#17BEBB", "General", 1, 0),
-                            new session_type("#FFC914", "Public", 1, 0),
-                            new session_type("#76B041", "Normal", 1, 0)]
+    tt_dat.session_type = [new session_type("#E4572E", "Boring", 1), 
+                            new session_type("#17BEBB", "General", 1),
+                            new session_type("#FFC914", "Public", 1),
+                            new session_type("#76B041", "Normal", 1),
+                            new session_type("#76B041", "Normal", 1)]
     
     tt_dat.meta = new tt_meta(0);
 
@@ -191,3 +293,6 @@ function makeExampleJSON(){
 
 let json = makeExampleJSON()
 let tt_man = new tt_manager(json);
+console.log(tt_man.tt_data)
+console.log("Removing: "+tt_man.remove_session_force(4))
+console.log(tt_man.tt_data)

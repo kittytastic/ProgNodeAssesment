@@ -62,14 +62,3 @@ function makeExampleJSON(){
 
     return JSON.stringify(tt_data)
 }
-
-
-function validateJSON(){
-// times between 24 hr
-// Slot finishes after it starts
-
-// Days 0-6
-// No repeat ID's
-
-
-}

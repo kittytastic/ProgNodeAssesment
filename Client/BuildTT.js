@@ -1,13 +1,13 @@
 function generateFullTT(tt_json){
-    
+    var tt_obj = JSON.parse(tt_json);
+
     var step = 0.25
+
 
     var temp = find_time_limits(tt_obj)
     var start = temp[0];
     var end = temp[1];
     
-    var tt_obj = JSON.parse(tt_json);
-
     let outHTML = ''
 
     outHTML += generateCSS(tt_obj);

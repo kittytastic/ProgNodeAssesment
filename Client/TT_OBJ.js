@@ -43,7 +43,7 @@ class tt_manager{
         }
     }
 
-
+    /******** Checks of an [tt_obj] arg is valid *********/
     validate(obj){
         console.log("Validating object")
         
@@ -87,6 +87,7 @@ class tt_manager{
         return true;
     }
 
+    /******** Checks if a timeslot ends after it starts and in in a 24hr day *********/
     _is_logically_valid_time_slot(ts){
         let duration = ts.end - ts.start
         if(duration<=0){
@@ -105,10 +106,12 @@ class tt_manager{
 
     }
 
+    /******** Check if arg is undefined *********/
     _is_undefined(x){
         return (typeof x === 'undefined')
     }
 
+    /******** Check time slot and then adds it *********/
     add_time_slot(start, end, session_id, to_day){
         let temp_ts = new time_slot(start, end, session_id);
         if(!this._is_logically_valid_time_slot(temp_ts)){
@@ -139,6 +142,7 @@ class tt_manager{
         return true
     }
 
+    /******** checks then remoes timeslot *********/
     remove_time_slot(day, index){
         if(day>=this.tt_data.days.length){
             return false;
@@ -152,10 +156,12 @@ class tt_manager{
         return true;
     }
 
+    /******** Add session *********/
     add_session(col, name){
         this.tt_data.session_type.push(new session_type(col, name, 0))
     }
 
+    /******** removes session, fails if it is in use *********/
     remove_session(id){
         if(id >= this.tt_data.session_type.length || id<0){
             return false;
@@ -177,6 +183,7 @@ class tt_manager{
         return true;
     }
 
+    /******** Removes session, deletes all time slots referencing it *********/
     remove_session_force(id){
         if(id >= this.tt_data.session_type.length || id<0){
             return false;
@@ -198,6 +205,7 @@ class tt_manager{
         return true;
     }
 
+    /******** Removes session, changes all timeslots referencing it to a  new session *********/
     remove_session_change(id, new_session){
         if(id >= this.tt_data.session_type.length || id < 0){
             return false;
@@ -223,6 +231,7 @@ class tt_manager{
         return true;
     }
 
+    /******** Deletes session and refactors the list *********/
     _delete_session_refactor(id){
         this.tt_data.session_type.splice(id, 1)
 
@@ -237,7 +246,7 @@ class tt_manager{
         }
     }
 
-    
+    /******** changes json to obj if the json is a valid obj *********/
     digest_JSON(tt_json){
         console.log("Digesting JSON")
         if(this.tt_data != null){

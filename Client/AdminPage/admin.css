@@ -1,3 +1,24 @@
 .page-body {
-      margin: 2em;
+      margin-left: 2em;
+      margin-top:0em;
+      margin-right: 0em;
+      /*background-color: blueviolet;*/
+}
+
+.editing-bar {
+      background-color: #d0d0d0
+}
+
+.edit-menu ul{ 
+      margin: 0em;
+      list-style-type: none;
+      }
+
+.add-icon {
+      float:right;
+}
+
+.colour-show{
+      height: 1em;
+      width: 1em;
 }

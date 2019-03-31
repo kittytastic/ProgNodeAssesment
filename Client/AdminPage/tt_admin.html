@@ -10,10 +10,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
+
+    <script language='javascript'>
+      $(document).ready(function(){
+         $('.ui.accordion').accordion();
+      });
+    </script>
+
     <!-- TT rendering scripts -->
     <script src = "../JSONTT.js"></script>
     <script src = "../BuildTT.js"></script>
     <script src = "../error.js"></script>
+    <script src = "./admin.js"></script>
 
     <!-- TT styling -->
     <link rel="stylesheet" href="../tt_style.css">
@@ -26,13 +34,27 @@
   <body>
     
     <div class = "page-body">
-  <br/>
-  <br/>
-  <br/>
+ 
 
   
+    
+  <div class="ui two column stackable equal width grid">
+    <div class="column">
+      <span id="tt-full"></span>
+    </div>
+    <div class="four wide column editing-bar">
+      
+      
 
-  <span id="tt-full"></span>
+      <span id="editor_here"></span>
+    
+
+    </div>
+    <!--<div class="mobile only column">
+      <p>editing isnt suported on mobile</p>
+    </div>-->
+  </div>
+  
 
 <script>
     console.log("Generating example JSON")
@@ -43,6 +65,9 @@
 
     console.log("Displaying HTML")
     document.getElementById("tt-full").innerHTML = table_html
+
+    console.log("Displaying editing bar")
+    document.getElementById("editor_here").innerHTML = generateEditingMenu(example_JSON);
 </script>
 
   </body>

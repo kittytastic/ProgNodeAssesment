@@ -1,67 +1,54 @@
-function generateEditingMenu(json){
-    var tt_obj = JSON.parse(json);
+var tt_man;
 
-    let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
-    let outHTML = '<div class="ui accordion edit-menu">'
 
-    outHTML+='<h2 style="text-align: center"> Edit Time Slots</h2>'
-
-    for(let i = 0; i < tt_obj.days.length; i++){
-        outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type)
-    }
-
-    outHTML+='<h2 style="text-align: center">Edit Sessison</h2>'
-
-    outHTML += gernerateEditingSessions(tt_obj.session_type)
-
-    outHTML += '</div>'
-    return outHTML
-}
-
-function generateEditingDay(day_obj, day_name, sessions){
-    let outHTML = '<div class="title">'
-    outHTML += ' <i class="dropdown icon"></i>'
-    outHTML += day_name
-    outHTML += '</div>'
-    outHTML += '<div class="content"><table><tbody>'
-         
-   
+// Build Page
+$(document).ready(function(){
+    console.log("Generating example JSON")
+    let example_JSON = makeExampleJSON()
     
-    for(i =0 ; i< day_obj.length; i++){
-            outHTML += '<tr>'
-            outHTML += '<td>'+timeFormat(day_obj[i].start)+'</td><td>-</td><td>'+timeFormat(day_obj[i].end)+'</td><td>'+sessions[day_obj[i].session].title+'</td>'
-            outHTML += '<td><div class="colour-show" style="background-color: '+sessions[day_obj[i].session].col+'"></div></td></tr>'
-            outHTML += '</tr>'
-        }
-        outHTML += '<tr><th colspan=4>Add new activity on '+ day_name +'</th><td><i class="plus icon add-icon"></i></td></tr>'
-    outHTML += '</tbody></table></div>'
-    return outHTML
+    tt_man = new tt_manager(example_JSON);
+
+    buildPageHTML();
+
+
+
+    
+});
+
+function buildPageHTML(){
+    
+    console.log("Displaying TT")
+   $("#tt-full").html(generateFullTT(tt_man.JSON))
+
+    console.log("Displaying editing bar")
+    $("#editor_here").html(generateEditingMenu(tt_man.JSON));
+
+    $('.ui.accordion').accordion();
 }
 
-function gernerateEditingSessions(sesh_obj){
-    let outHTML = "<table><tbody>"
-    for(let i=0; i<sesh_obj.length; i++){
-        outHTML += '<tr><td>'+sesh_obj[i].title+'</td><td>'+colourBox(sesh_obj[i].col)+'</td></tr>'
-    }
-    outHTML += '<tr><th> Add </th><td><i class="plus icon"></i></td></tr>'
-    outHTML += "</tbody></table>"
-
-    return outHTML;
+// Event listeners
+function deleteTimeSlot(day, index){
+    console.log("Deleting time slot day: "+day+"  Index:"+index)
+    tt_man.remove_time_slot(day,index);
+    buildPageHTML();
 }
 
-function colourBox(colourHex){
-    return '<div class="colour-show" style="background-color: '+colourHex+'"></div>'
+function editTimeSlot(day, index){
+    console.log("Editing time slot day: "+day+"  Index:"+index)
 }
 
-function timeFormat(time){
-    let min = time-Math.floor(time);
+function newTimeSlot(day){
+    console.log("adding new time slot to day: "+day)
+}
 
-    if(min==0){
-        min = "00"
-    }else{
-        min = 60 * min;
-    }
+function deleteSession(index){
+    console.log("Deleting session: "+index)
+}
 
-    let format = ''+Math.floor(time)+':'+min;
-    return format;
+function newSession(){
+    console.log("Adding session")
+}
+
+function editSession(index){
+    console.log("Editing session:"+index)
 }

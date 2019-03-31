@@ -265,7 +265,6 @@ function days_table_body(tt_obj, day_i, start, end, step){
                in_session = true;
                session_end = tt_obj.days[day_i][session_id].end
                
-               console.log("Adding session of length "+dur_steps)
                dayHTML+= '<td class = "session-'+session_id+'  session" rowspan = '+dur_steps+'></td>'
             }else{
                 dayHTML+= "<td class = 'session-none'></td>"

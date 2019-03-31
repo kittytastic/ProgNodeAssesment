@@ -235,6 +235,7 @@ class tt_manager{
     _delete_session_refactor(id){
         this.tt_data.session_type.splice(id, 1)
 
+        let n_days = this.tt_data.days.length;
         for(let i = 0; i < n_days; i++){
             let n_t_slots = this.tt_data.days[i].length
             for(let j = 0; j<n_t_slots; j++){
@@ -300,8 +301,8 @@ function makeExampleJSON(){
     return JSON.stringify(tt_dat)
 }
 
-let json = makeExampleJSON()
-let tt_man = new tt_manager(json);
+//let json = makeExampleJSON()
+/*
 console.log(tt_man.tt_data)
 console.log("Removing: "+tt_man.remove_session_force(4))
-console.log(tt_man.tt_data)
+console.log(tt_man.tt_data)*/

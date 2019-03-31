@@ -10,17 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
-
-    <script language='javascript'>
-      $(document).ready(function(){
-         $('.ui.accordion').accordion();
-      });
-    </script>
-
     <!-- TT rendering scripts -->
-    <script src = "../JSONTT.js"></script>
+    <script src = "../TT_OBJ.js"></script>
     <script src = "../BuildTT.js"></script>
     <script src = "../error.js"></script>
+    <script src = "./editGen.js"></script>
     <script src = "./admin.js"></script>
 
     <!-- TT styling -->
@@ -57,7 +51,7 @@
   
 
 <script>
-    console.log("Generating example JSON")
+    /*console.log("Generating example JSON")
     example_JSON = makeExampleJSON()
      
     console.log("Rendering example JSON into HTML")
@@ -67,7 +61,7 @@
     document.getElementById("tt-full").innerHTML = table_html
 
     console.log("Displaying editing bar")
-    document.getElementById("editor_here").innerHTML = generateEditingMenu(example_JSON);
+    document.getElementById("editor_here").innerHTML = generateEditingMenu(example_JSON);*/
 </script>
 
   </body>

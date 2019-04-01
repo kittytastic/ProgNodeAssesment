@@ -10,7 +10,8 @@ function generateEditingMenu(json){
         outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i)
     }
 
-    outHTML+='<h2 style="text-align: center">Edit Sessison</h2>'
+    outHTML += '<hr/>'
+    outHTML += '<h2 style="text-align: center">Edit Sessison</h2>'
 
     outHTML += gernerateEditingSessions(tt_obj.session_type)
 
@@ -19,11 +20,8 @@ function generateEditingMenu(json){
 }
 
 function generateEditingDay(day_obj, day_name, sessions, day_id){
-    let outHTML = '<div class="title">'
-    outHTML += ' <i class="dropdown icon"></i>'
-    outHTML += day_name
-    outHTML += '</div>'
-    outHTML += '<div class="content"><table><tbody>'
+    let outHTML = '<h3>'+day_name+'</h3>'
+    outHTML += '<div class="editing-day-content"><table><tbody>'
          
    
     

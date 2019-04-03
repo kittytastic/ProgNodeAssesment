@@ -8,29 +8,41 @@ $(document).ready(function(){
     
     tt_man = new tt_manager(example_JSON);
 
-    buildPageHTML();
+    buildTimeHTML();
+    buildExampleBar();
 
 
-
+    //$('.visible.example .ui.sidebar').sidebar();
     
 });
 
-function buildPageHTML(){
+function buildTimeHTML(){
     
     console.log("Displaying TT")
    $("#tt-full").html(generateFullTT(tt_man.JSON))
 
-    console.log("Displaying editing bar")
-    $("#editor_here").html(generateEditingMenu(tt_man.JSON));
-
-    $('.ui.accordion').accordion();
+    
 }
 
+function buildExampleBar(){
+    console.log("Displaying editing bar")
+    $("#editor_here").html(generateEditingMenu(tt_man.JSON));
+}
+
+var editor_lock = false;
+
 // Event listeners
-function deleteTimeSlot(day, index){
+function deleteTimeSlot(day, index, object){
     console.log("Deleting time slot day: "+day+"  Index:"+index)
-    tt_man.remove_time_slot(day,index);
-    buildPageHTML();
+    if(!editor_lock){
+        editor_lock = true;
+        tt_man.remove_time_slot(day,index);
+        buildTimeHTML()
+        $(object).parent().hide(200, function() {
+            buildExampleBar();
+            editor_lock = false;
+        });
+    }
 }
 
 function editTimeSlot(day, index){

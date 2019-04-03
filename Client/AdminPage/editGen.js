@@ -32,7 +32,7 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
              // Icon and event listener for edit time slot
             outHTML += '<td onclick = "editTimeSlot('+day_id+','+i+')"><i class="edit icon"></i></td>'
             // Icon and event listener for delete time slot
-            outHTML += '<td onclick = "deleteTimeSlot('+day_id+','+i+')"><i class="trash icon"></i></td>'
+            outHTML += '<td onclick = "deleteTimeSlot('+day_id+','+i+', this)"><i class="trash icon"></i></td>'
             outHTML += '</tr>'
         }
         // Icon and event listener for add time slot

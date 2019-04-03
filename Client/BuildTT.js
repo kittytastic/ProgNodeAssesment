@@ -8,6 +8,10 @@ function generateFullTT(tt_json){
     var start = temp[0];
     var end = temp[1];
     
+    if(!exists_any_timeslots(tt_obj)){
+        return '<div class="empty_tt"><div class="empty_tt_center"><h1> No content to display </h1></div></div>';
+    }
+
     let outHTML = ''
 
     outHTML += generateCSS(tt_obj);
@@ -189,6 +193,18 @@ function find_time_limits(tt_data){
     return [smallest, largest]
 }
 
+function exists_any_timeslots(tt_data){
+    let n_days = tt_data.days.length;
+    for(let i = 0; i< n_days; i++){
+        let n_slots = tt_data.days[i].length;
+        if(n_slots>0){
+            return true;
+        }
+    }
+
+    return false;
+
+}
 
 function generateMobileTT(tt_obj, start, end, step){
    

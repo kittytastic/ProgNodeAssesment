@@ -23,10 +23,20 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   
 }  
 
+.empty_tt {
+  height: 100%;
+}
+
+.empty_tt_center{
+  position: relative;
+  top: 30%;
+  text-align: center;
+}
 
 /* ********************************************************************* */
 /* ************************ Landscape timetable *********************** */
 /* ******************************************************************* */
+
 .ttable {
   width: 100%;
   table-layout: fixed ;

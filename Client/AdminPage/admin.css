@@ -9,10 +9,7 @@
       background-color: #d0d0d0
 }
 
-.edit-menu ul{ 
-      margin: 0em;
-      list-style-type: none;
-      }
+
 
 .add-icon {
       float:right;
@@ -25,4 +22,81 @@
 
 .editing-day-content {
       padding-left: 1em;
+}
+
+
+
+    
+.sidenav {
+height: 100%;
+position: fixed;
+z-index: 1;
+top: 0;
+right: 0;
+padding-top: 1em;
+width:30%;
+}
+
+
+.main {
+width:70%;
+}
+
+body {
+      background-color: blueviolet;
+}
+
+/* tablet */
+@media screen and (max-width: 991px) and (min-width: 768px){
+      body{
+            background-color: aqua;
+      }
+
+      /* hide the computer only grid */
+      .tablet.computer.only.row {
+            display: none;
+      }
+
+      /* show the mobile only grid */
+      #mobile_row {
+            display: flex !important;
+      }
+
+      #mobile_row .column {
+            width: 100%;
+      }
+
+      /* column width */
+      .main {
+            width: 50%;
+      }
+
+      .sidenav {
+            width: 50%;
+            padding-left: 1em;
+            padding-right:1em;
+      }
+
+}
+
+/* mobile */
+@media screen and (max-width: 767px){
+      body{
+            background-color:green;;
+      }
+
+      .sidenav {
+            position: static;
+            width:100%;
+            border-bottom: 2px solid black;
+            padding-left: 1em;
+            padding-right:1em;
+      }
+
+      .main {
+            width: 100%;
+            margin-top: 1em;
+      }
+      
+      
 }

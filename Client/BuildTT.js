@@ -20,7 +20,7 @@ function generateFullTT(tt_json){
     outHTML += '<div class="column">'
     outHTML += generateLandscapeTT(tt_obj, start, end, step)
     outHTML += '</div></div>'
-    outHTML += '<div class = "mobile only row  mobile_row">'
+    outHTML += '<div class = "mobile only row  mobile_row" id="mobile_row">'
     outHTML +=  generateMobileTT(tt_obj, start, end, step)
     outHTML += '</div></div>'
 

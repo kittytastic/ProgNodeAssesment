@@ -2,7 +2,6 @@
       margin-left: 2em;
       margin-top:0em;
       margin-right: 0em;
-      /*background-color: blueviolet;*/
 }
 
 .editing-bar {
@@ -87,10 +86,12 @@ body {
 
       .sidenav {
             position: static;
-            width:100%;
+            width: 100%;
+            height: auto;
             border-bottom: 2px solid black;
             padding-left: 1em;
             padding-right:1em;
+            padding-bottom: 1em; 
       }
 
       .main {

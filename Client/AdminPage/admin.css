@@ -81,7 +81,6 @@ body {
             position: static;
             width: 100%;
             height: auto;
-            border-bottom: 2px solid black;
             padding-left: 1em;
              
             overflow-y: hidden;

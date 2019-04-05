@@ -29,7 +29,7 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
    
     
     for(i =0 ; i< day_obj.length; i++){
-            outHTML += '<tr>'
+            outHTML += '<tr id="edit-ts-'+day_id+'-'+i+'">';
             outHTML += '<td>'+timeFormat(day_obj[i].start)+' - '+timeFormat(day_obj[i].end)+'</td><td>'+sessions[day_obj[i].session].title+'</td>'
             outHTML += '<td>'+colourBox(sessions[day_obj[i].session].col)+'</td>'
              // Icon and event listener for edit time slot
@@ -47,7 +47,7 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
 function generateEditingSessions(sesh_obj){
     let outHTML = "<table><tbody>"
     for(let i=0; i<sesh_obj.length; i++){
-        outHTML += '<tr><td>'+sesh_obj[i].title+'</td><td>'+colourBox(sesh_obj[i].col)+'</td>'
+        outHTML += '<tr id="edit-s-'+i+'"><td>'+sesh_obj[i].title+'</td><td>'+colourBox(sesh_obj[i].col)+'</td>'
         outHTML += '<td onclick="editSession('+i+')"><i class="edit icon"></i></td>'
         outHTML += '<td onclick="deleteSession('+i+')"><i class="trash icon"></i></td></tr>'
         

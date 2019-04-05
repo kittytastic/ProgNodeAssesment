@@ -54,7 +54,50 @@ function newTimeSlot(day){
 }
 
 function deleteSession(index){
-    console.log("Deleting session: "+index)
+    
+    $('#delete-modal')
+    .modal({
+      onApprove : function() {
+        deleteSessionAndChildren(index)
+      }
+    })
+    .modal('show')
+    ;
+}
+
+function deleteSessionAndChildren(index){
+    console.log("Deleting session: "+index);
+    let data = tt_man.tt_data;
+    if(!editor_lock){
+        // Lock editor
+        editor_lock = true;
+        
+        
+
+        // Remove all timeslots from GUI 
+        for(let i = 0; i<data.days.length; i++){
+            for(let j = 0 ; j< data.days[i].length; j++){
+                if(data.days[i][j].session==index){
+                    console.log("Removing day: "+i+" ts: "+j+" SID: "+data.days[i][j].session)
+                    $("#edit-ts-"+i+"-"+j).hide(200)
+                }
+            }
+        }
+
+        // Update tt data object
+        tt_man.remove_session_force(index);
+
+        // Remove session from GUI
+        $("#edit-s-"+index).hide(200, function (){
+            // After session has been removed from GUI rebuild editing bar and unlock 
+            buildExampleBar();
+            editor_lock = false;
+        });
+
+        // Build TT whilst editing bar items are fading
+        buildTimeHTML()
+
+    }
 }
 
 function newSession(){

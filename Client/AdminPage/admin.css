@@ -1,56 +1,47 @@
-.page-body {
-      margin-left: 2em;
-      margin-top:0em;
-      margin-right: 0em;
-}
-
-.editing-bar {
-      background-color: #d0d0d0
-}
-
-
-
-.add-icon {
-      float:right;
-}
-
 .colour-show{
       height: 1em;
       width: 1em;
 }
 
-.editing-day-content {
-      padding-left: 1em;
+.editing-menu {
+      height: 100%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-left:1em;
+      padding-right: 1em; 
+      width:30%;
+      overflow-y: scroll;
+      background-color: #1d1d1d;
+      color:#dadfea; 
 }
 
-
-
-    
-.sidenav {
-height: 100%;
-position: fixed;
-z-index: 1;
-top: 0;
-right: 0;
-padding-top: 1em;
-padding-bottom: 1em;
-width:30%;
-overflow-y: scroll;
+.editing-menu .icon {
+      color: #979ba3;
 }
-
 
 .main {
-width:70%;
+      width:70%;
 }
 
 body {
-      background-color: blueviolet;
+      /*background-color: blueviolet;*/
 }
 
-/* tablet */
+/* Computer Only */
+@media screen and (min-width: 992px){
+      .main {
+            padding-left: 2em;
+      }
+}
+
+/* Tablet Only */
 @media screen and (max-width: 991px) and (min-width: 768px){
       body{
-            background-color: aqua;
+            /*background-color: aqua;*/
       }
 
       /* hide the computer only grid */
@@ -72,27 +63,26 @@ body {
             width: 50%;
       }
 
-      .sidenav {
+      .editing-menu {
             width: 50%;
             padding-left: 1em;
-            padding-right:1em;
+            
       }
 
 }
 
-/* mobile */
+/* Mobile Only */
 @media screen and (max-width: 767px){
       body{
-            background-color:green;;
+            /*background-color:green;*/
       }
 
-      .sidenav {
+      .editing-menu {
             position: static;
             width: 100%;
             height: auto;
             border-bottom: 2px solid black;
             padding-left: 1em;
-            padding-right:1em;
              
             overflow-y: hidden;
       }

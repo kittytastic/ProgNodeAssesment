@@ -15,3 +15,7 @@ everything
 
 # API to use
 http://colormind.io/api-access/
+
+
+#Known issues
+On words over 20 characters long they can overflow the editing bar

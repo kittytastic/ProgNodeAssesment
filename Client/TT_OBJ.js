@@ -294,7 +294,7 @@ function makeExampleJSON(){
                             new session_type("#17BEBB", "General", 1),
                             new session_type("#FFC914", "Public", 1),
                             new session_type("#76B041", "Normal", 1),
-                            new session_type("#76B041", "Normal", 1)]
+                            new session_type("#76B041", "Really Long Session Name", 1)]
     
     tt_dat.meta = new tt_meta(0);
 

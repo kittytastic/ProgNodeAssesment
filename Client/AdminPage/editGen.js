@@ -2,10 +2,12 @@ function generateEditingMenu(json){
     var tt_obj = JSON.parse(json);
 
     let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
-    let outHTML = '<div class="ui accordion edit-menu">'
+    
+    let outHTML = '<div>'
 
-    outHTML+='<h2 style="text-align: center"> Edit Time Slots</h2>'
+    outHTML+='<h2 style="text-align: center">Edit Time Slots</h2>'
 
+    // Add all editing days
     for(let i = 0; i < tt_obj.days.length; i++){
         outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i)
     }
@@ -13,7 +15,8 @@ function generateEditingMenu(json){
     outHTML += '<hr/>'
     outHTML += '<h2 style="text-align: center">Edit Sessison</h2>'
 
-    outHTML += gernerateEditingSessions(tt_obj.session_type)
+     
+    outHTML += generateEditingSessions(tt_obj.session_type)
 
     outHTML += '</div>'
     return outHTML
@@ -27,7 +30,7 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
     
     for(i =0 ; i< day_obj.length; i++){
             outHTML += '<tr>'
-            outHTML += '<td>'+timeFormat(day_obj[i].start)+'</td><td>-</td><td>'+timeFormat(day_obj[i].end)+'</td><td>'+sessions[day_obj[i].session].title+'</td>'
+            outHTML += '<td>'+timeFormat(day_obj[i].start)+' - '+timeFormat(day_obj[i].end)+'</td><td>'+sessions[day_obj[i].session].title+'</td>'
             outHTML += '<td>'+colourBox(sessions[day_obj[i].session].col)+'</td>'
              // Icon and event listener for edit time slot
             outHTML += '<td onclick = "editTimeSlot('+day_id+','+i+')"><i class="edit icon"></i></td>'
@@ -36,12 +39,12 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
             outHTML += '</tr>'
         }
         // Icon and event listener for add time slot
-        outHTML += '<tr  onclick = "newTimeSlot('+day_id+','+i+')"><th colspan=4>Add new activity on '+ day_name +'</th><td><i class="plus icon add-icon"></i></td></tr>'
+        outHTML += '<tr  onclick = "newTimeSlot('+day_id+','+i+')"><th colspan=2>Add new activity on '+ day_name +'</th><td><i class="plus icon add-icon"></i></td></tr>'
     outHTML += '</tbody></table></div>'
     return outHTML
 }
 
-function gernerateEditingSessions(sesh_obj){
+function generateEditingSessions(sesh_obj){
     let outHTML = "<table><tbody>"
     for(let i=0; i<sesh_obj.length; i++){
         outHTML += '<tr><td>'+sesh_obj[i].title+'</td><td>'+colourBox(sesh_obj[i].col)+'</td>'

@@ -281,13 +281,13 @@ function days_table_body(tt_obj, day_i, start, end, step){
                in_session = true;
                session_end = tt_obj.days[day_i][session_id].end
                
-               dayHTML+= '<td class = "session-'+session_id+'  session" rowspan = '+dur_steps+'></td>'
+               dayHTML+= '<td class = "session-'+tt_obj.days[day_i][session_id].session+'  session" rowspan = '+dur_steps+'></td>'
             }else{
-                dayHTML+= "<td class = 'session-none'></td>"
+                dayHTML+= "<td class = 'session-none session'></td>"
             }
            } else {
 
-               dayHTML+= "<td class = 'session-none'></td>"
+               dayHTML+= "<td class = 'session-none session'></td>"
            }
         }
 

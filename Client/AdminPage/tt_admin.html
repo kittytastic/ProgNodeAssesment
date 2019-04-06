@@ -8,7 +8,12 @@
     <!-- Semantic CSS -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>-->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    
+    <!-- Farbtastic (the colour selector) -->
+    <script type="text/javascript" src="./nm/farbtastic.js"></script>
+    <link rel="stylesheet" href="./nm/farbtastic.css" type="text/css" />
 
     <!-- TT rendering scripts -->
     <script src = "../TT_OBJ.js"></script>
@@ -27,30 +32,6 @@
   </head>
   <body>
     
-  <!-- <div class = "page-body">
- 
-
-  
-    
-  
-     <div class="ui two column stackable equal width grid">
-    <div class="column">
-      <span id="tt-full"></span>
-    </div>
-    <div class="four wide column editing-bar">
-      
-      
-
-      <span id="editor_here"></span>
-    
-
-    </div>
-    <div class="mobile only column">
-      <p>editing isnt suported on mobile</p>
-    </div>
-  </div>
-  </div> -->
-
 
   <div class="editing-menu">
     <span id="editor_here"></span>
@@ -84,7 +65,11 @@
     <span id="tt-full"></span>  
   </div>
 
-
+  <!-- ########################################
+       #                Popups                #
+       ######################################## -->
+  
+       <!-- Are you sure you want to delete a session? -->
   <div class="ui tiny modal" id = "delete-modal">
     <div class="header">Are You sure?</div>
     <div class="content">
@@ -93,6 +78,82 @@
     <div class="actions">
       <div class="ui green approve button">Okay</div>
       <div class="ui secondary cancel button">Cancel</div>
+  </div>
+  
+  <!-- Edit a timeslot -->
+  <div class="ui modal" id="edit-ts">
+    
+    <i class="close icon"></i>
+
+    <div class="header">
+      Edit Timeslot
+    </div>
+    
+    <div class="content">
+      <div class="ui form">
+        
+        <div class="field">
+          <label>Time</label>
+          <div class="two fields">
+            <div class="field">
+              <span id = "edit-ts-st-dd-here"></span>
+            </div>
+            
+            <div class="field">
+              
+              <span id = "edit-ts-et-dd-here"></span>
+            </div>
+          </div>
+        </div>
+    
+        <!--<div class="field">
+          <label>Colour</label>
+          <div class = "two fields">
+            <div class="field">
+              <input type="text" id="colour-ets" name="color" value="#ffffff">
+            </div>
+
+            <div class="field">
+              <div id = "col-picker-ets"></div>
+            </div>
+          </div>
+        </div>-->
+        
+        <div class="field">
+            <label>Session</label>
+            <div class = "inline fields">
+              <div class="field">
+                <span id = "edit-ts-dd-here"></span>
+                
+              </div>
+              <div class="field">
+                  <div class = "colour-show-large" id="edit-ts-col-pre"></div>
+              </div>
+            </div>
+            
+          </div>
+
+
+      </div>
+
+      <div class="ui negative message" id="edit-ts-error">
+          <div class="header">
+           Error
+          </div>
+          <p>The new times given overlap with an existing timeslot!
+        </p></div>
+
+    </div>
+    
+    
+    <div class="actions">
+      <div class="ui black deny button">
+        Cancel
+      </div>
+      <div class="ui positive right labeled icon button">
+        Save
+        <i class="checkmark icon"></i>
+      </div>
     </div>
   </div>
 

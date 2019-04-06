@@ -49,7 +49,7 @@ function generateEditingSessions(sesh_obj){
     for(let i=0; i<sesh_obj.length; i++){
         outHTML += '<tr id="edit-s-'+i+'"><td>'+sesh_obj[i].title+'</td><td>'+colourBox(sesh_obj[i].col)+'</td>'
         outHTML += '<td onclick="editSession('+i+')"><i class="edit icon"></i></td>'
-        outHTML += '<td onclick="deleteSession('+i+')"><i class="trash icon"></i></td></tr>'
+        outHTML += '<td onclick="deleteSession('+i+', this)"><i class="trash icon"></i></td></tr>'
         
     }
     outHTML += '<tr onclick="newSession()"><th> Add </th><td><i class="plus icon"></i></td></tr>'

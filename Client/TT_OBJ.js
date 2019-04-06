@@ -142,6 +142,24 @@ class tt_manager{
         return true
     }
 
+    can_edit_ts(day, index, new_start, new_end){
+        
+        for(let i = 0; i < this.tt_data.days[day].length; i ++){
+            // Dont check against its old self
+            if(i!= index){
+                if(new_start > this.tt_data.days[day][i].start && new_start < this.tt_data.days[day][i].end){
+                    return false;
+                }
+
+                if(new_end > this.tt_data.days[day][i].start && new_end < this.tt_data.days[day][i].end){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /******** checks then remoes timeslot *********/
     remove_time_slot(day, index){
         if(day>=this.tt_data.days.length){

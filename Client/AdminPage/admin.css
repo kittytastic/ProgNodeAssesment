@@ -3,6 +3,12 @@
       width: 1em;
 }
 
+.colour-show-large{
+      height: 2em;
+      width: 2em;
+      background-color: aqua;
+}
+
 .editing-menu {
       height: 100%;
       position: fixed;

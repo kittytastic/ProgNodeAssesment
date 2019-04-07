@@ -50,7 +50,6 @@ function editTimeSlot(day, index){
     console.log("Editing time slot day: "+day+"  Index:"+index)
 
     // Session select
-    //$('#edit-ts-dd-here').html('<select class="ui search dropdown" id="edit-ts-ses"></select>');
       
     $('#edit-ts-dd-here').html('<div class="ui search selection dropdown"  id="edit-ts-ses"><input type="hidden" name="edit-ts-session"> <div class="text"></div><i class="dropdown icon"></i><div class="menu"> </div></div>');
     let search_dat = []
@@ -72,9 +71,10 @@ function editTimeSlot(day, index){
     $('#edit-ts-ses').dropdown({values: search_dat})
     $('#edit-ts-ses').dropdown('setting', 'onChange', 
     function(new_val){setEditTSColPreview(parseInt(new_val))});
+
     makeTimeDD("edit-ts-st-dd-here", "edit-ts-start", day_obj[index].start, 'edit-ts-et-dd-here', 'edit-ts-end', day_obj[index].end);
     $("#edit-ts-error").hide();
-    setEditTSColPreview(day_obj[index].session)
+    setEditTSColPreview(day_obj[index].session);
 
     // Show modal
     $('#edit-ts')
@@ -129,12 +129,13 @@ function makeTimeDD(start_dom_id, start_id, start_t, end_dom_id, end_id, end_t){
     let search_dat = genSearchTimeObj(0, start_t);
     $('#'+start_id).dropdown({values: search_dat});
 
+
     // Update endtime DD everytime start time changes
     $('#'+start_id)
     .dropdown('setting', 'onChange', 
     function(new_val) {createEndTimeDD(end_dom_id, end_id, $('#'+end_id).dropdown('get value'), new_val)}
     );
-
+    
     // Create and populate end time dropdown
     createEndTimeDD(end_dom_id, end_id, end_t, start_t);
 

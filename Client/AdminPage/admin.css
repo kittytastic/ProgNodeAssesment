@@ -37,6 +37,21 @@ body {
       /*background-color: blueviolet;*/
 }
 
+.info-feed {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding-right: 2em;
+      width: 40%;
+      margin-left: 1em;
+      margin-bottom: 1em;
+}
+
+#edit-buttons {
+      padding-top: 1.5em;
+      float: right;
+}
+
 /* Computer Only */
 @media screen and (min-width: 992px){
       .main {
@@ -75,6 +90,10 @@ body {
             
       }
 
+      .info-feed {
+            width: 50%;
+      }
+
 }
 
 /* Mobile Only */
@@ -97,5 +116,8 @@ body {
             margin-top: 1em;
       }
       
+      .info-feed {
+            width: 100%;
+      }
       
 }

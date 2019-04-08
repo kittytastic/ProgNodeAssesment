@@ -7,13 +7,18 @@ $(document).ready(function(){
     console.log("Generating example JSON")
     let example_JSON = makeExampleJSON()
     
+    // Turn json into tt manager object
     tt_man = new tt_manager(example_JSON);
 
+    // Build editing bar and TT
     buildTimeHTML();
     buildExampleBar();
 
+    // Set up colour pickers in the session popups
     $('#edit-col-picker').farbtastic('#edit-colour');
     $('#add-col-picker').farbtastic('#add-colour');
+
+    initiateInfoFeed();
     
     
 });

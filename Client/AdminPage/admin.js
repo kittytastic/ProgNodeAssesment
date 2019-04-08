@@ -1,7 +1,7 @@
 var tt_man;
 var time_interval = 0.25;
-
 var defualt_col = "#2E282A"
+
 // Build Page
 $(document).ready(function(){
     console.log("Generating example JSON")
@@ -19,6 +19,7 @@ $(document).ready(function(){
     $('#add-col-picker').farbtastic('#add-colour');
 
     initiateInfoFeed();
+    initiateAjaxButtons();
     
     
 });
@@ -34,6 +35,46 @@ function buildTimeHTML(){
 function buildExampleBar(){
     console.log("Displaying editing bar")
     $("#editor_here").html(generateEditingMenu(tt_man.JSON));
+}
+
+function initiateAjaxButtons(){
+    $("#save_but").on('click', function(){ 
+        console.log("saving")
+        saveButLoad(true);
+        saveTT();
+    })
+
+    $("#undo_but").on('click', function(){ 
+        $('#undo-all-modal').modal({
+            onApprove : function() {
+                undoButLoad(true);
+                pullTT();
+            }
+          }).modal('show');
+    })
+
+}
+
+function saveButLoad(state){
+    if(state){
+        // Set button to load state
+        $("#save_but").addClass("loading");
+        $("#save_but i").hide();
+    }else{
+        // Set button to normal state
+        $("#save_but").removeClass("loading");
+        $("#save_but i").show();
+    }
+}
+
+function undoButLoad(state){
+    if(state){
+        // Set button to load state
+        $("#undo_but").addClass("loading");
+    }else{
+        // Set button to normal state
+        $("#undo_but").removeClass("loading");
+    }
 }
 
 var editor_lock = false;

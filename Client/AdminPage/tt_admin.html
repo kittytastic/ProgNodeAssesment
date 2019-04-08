@@ -22,6 +22,7 @@
     <script src = "./editGen.js"></script>
     <script src = "./admin.js"></script>
     <script src = "./infofeed.js"></script>
+    <script src = "./serverConnect.js"></script>
 
     <!-- TT styling -->
     <link rel="stylesheet" href="../tt_style.css">
@@ -37,12 +38,12 @@
   <div class="editing-menu">
     <span id="editor_here"></span>
     <div id = "edit-buttons">
-        <div class="ui deny button">
+        <div class="ui deny button" id = "undo_but">
             Undo all
           </div>
-          <div class="ui positive right labeled icon button loading">
+          <div class="ui positive right labeled icon button" id="save_but">
             Save
-            <!--<i class="checkmark icon"></i>-->
+            <i class="checkmark icon"></i>
           </div>
     </div>
     
@@ -69,6 +70,17 @@
       <div class="ui green approve button">Yes</div>
       <div class="ui secondary cancel button">Cancel</div>
   </div>
+
+  <!-- Are you sure you want to undo all ? -->
+  <div class="ui tiny modal" id = "undo-all-modal">
+      <div class="header">Are You sure?</div>
+      <div class="content">
+        <p>Proceeding will delete all your changes since you last saved</p>
+      </div>
+      <div class="actions">
+        <div class="ui green approve button">Yes</div>
+        <div class="ui secondary cancel button">Cancel</div>
+    </div>
   
   <!-- Edit a timeslot -->
   <div class="ui tiny modal" id="edit-ts">

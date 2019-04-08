@@ -11,7 +11,6 @@ $(document).ready(function(){
     buildTimeHTML();
     buildExampleBar();
 
-
     //$('#col-picker-ets').farbtastic('#colour-ets');
     
     
@@ -32,9 +31,12 @@ function buildExampleBar(){
 
 var editor_lock = false;
 
+/* -------------------------------------------------------
+   |                    Delete TS                        |
+   ------------------------------------------------------- */
+
 // Event listeners
 function deleteTimeSlot(day, index, object){
-    console.log("Deleting time slot day: "+day+"  Index:"+index)
     if(!editor_lock){
         editor_lock = true;
         tt_man.remove_time_slot(day,index);
@@ -46,25 +48,23 @@ function deleteTimeSlot(day, index, object){
     }
 }
 
+/* -----------------------------------------------------
+   |                    Edit TS                        |
+   ----------------------------------------------------- */
 function editTimeSlot(day, index){
-    console.log("Editing time slot day: "+day+"  Index:"+index)
-
     // Session select
-      
     $('#edit-ts-dd-here').html('<div class="ui search selection dropdown"  id="edit-ts-ses"><input type="hidden" name="edit-ts-session"> <div class="text"></div><i class="dropdown icon"></i><div class="menu"> </div></div>');
     let search_dat = []
     let sessions = tt_man.tt_data.session_type;
     let day_obj = tt_man.tt_data.days[day];
 
-   
     for(let i=0; i<sessions.length; i++){
         if(day_obj[index].session == i){
             search_dat.push({value: ""+i+"", name:sessions[i].title, selected: true});
-            console.log("Setting defualt to "+sessions[i].title)
+            
         }else{
             search_dat.push({value: ""+i+"", name:sessions[i].title});
         }
-           
     }
 
     // Ready modal components
@@ -84,12 +84,10 @@ function editTimeSlot(day, index){
         }
       })
       .modal('show');
-
-    
 }
 
 function setEditTSColPreview(s_id){
-    console.log("Changing col for "+s_id+ " to "+tt_man.tt_data.session_type[s_id].col);
+   
     $("#edit-ts-col-pre").css("background-color", tt_man.tt_data.session_type[s_id].col);
 }
 
@@ -142,7 +140,6 @@ function makeTimeDD(start_dom_id, start_id, start_t, end_dom_id, end_id, end_t){
 }
 
 function createEndTimeDD(end_dom_id, end_id, cur_val, start_t){
-    console.log("Setting end time with args: "+end_dom_id+", "+end_id+", "+cur_val+"")
     
     // parse to make sure they are integers
     cur_val = parseFloat(cur_val);
@@ -179,10 +176,91 @@ function genSearchTimeObj(start_t, selected){
 
 }
 
+/* -----------------------------------------------------
+   |                     Add TS                        |
+   ----------------------------------------------------- */
+
 function newTimeSlot(day){
     console.log("adding new time slot to day: "+day)
+
+    $('#add-ts-dd-here').html('<div class="ui search selection dropdown"  id="add-ts-ses"><input type="hidden" name="add-ts-session"> <div class="text"></div><i class="dropdown icon"></i><div class="menu"> </div></div>');
+    let search_dat = []
+    let sessions = tt_man.tt_data.session_type;
+    let day_obj = tt_man.tt_data.days[day];
+
+    for(let i=0; i<sessions.length; i++){
+            search_dat.push({value: ""+i+"", name:sessions[i].title});
+    }
+
+    // Ready modal components
+    $('#add-ts-ses').dropdown({values: search_dat})
+    $('#add-ts-ses').dropdown('setting', 'onChange', 
+    function(new_val){setAddTSColPreview(parseInt(new_val))});
+
+    makeTimeDD("add-ts-st-dd-here", "add-ts-start", time_interval, 'add-ts-et-dd-here', 'add-ts-end', 24 - time_interval);
+    $("#add-ts-error-overlap").hide();
+    $("#add-ts-error-ses").hide();
+    
+    // TODO change to a default colour stored in the meta
+    $("#add-ts-col-pre").css("background-color", "#2E282A")
+
+    // Show modal
+    $('#add-ts')
+    .modal({
+        onApprove : function() {
+          return addTSSave(day);
+        }
+      })
+      .modal('show');
+
+
 }
 
+function setAddTSColPreview(s_id){
+   
+    $("#add-ts-col-pre").css("background-color", tt_man.tt_data.session_type[s_id].col);
+}
+
+function addTSSave(day){
+     // Get new values
+     let new_start = $('#add-ts-start').dropdown('get value');
+     let new_end = $('#add-ts-end').dropdown('get value');
+     let new_session = $('#add-ts-ses').dropdown('get value');
+ 
+     console.log("ST" + new_start + " ET: "+ new_end + " SSS: "+new_session);
+
+     // Make sure they are all numbers
+     new_start = parseFloat(new_start);
+     new_end = parseFloat(new_end);
+     new_session = parseFloat(new_session);
+
+     if(isNaN(new_session)){
+         // Error a session hasnt been selected
+         $("#add-ts-error-ses").show();
+
+         $("#add-ts-ses").addClass("error");
+         $("#add-ts-ses").dropdown('setting', 'onChange', 
+         function(new_val) {$("#add-ts-ses").removeClass("error"); setAddTSColPreview(parseInt(new_val)); $("#add-ts-error-ses").hide();}
+         );
+
+         return false;
+     }
+ 
+     console.log("ST" + new_start + " ET: "+ new_end + " SSS: "+new_session);
+
+     if(!tt_man.add_time_slot(new_start, new_end, new_session, day)){
+        $("#add-ts-error-overlap").show();
+        return false;
+    }
+
+    buildExampleBar();
+    buildTimeHTML();
+    
+}
+
+/* -----------------------------------------------------
+   |                  Delete Session                   |
+   ----------------------------------------------------- */
 function deleteSession(index){
     
     $('#delete-modal')
@@ -202,13 +280,10 @@ function deleteSessionAndChildren(index){
         // Lock editor
         editor_lock = true;
         
-        
-
         // Remove all timeslots from GUI 
         for(let i = 0; i<data.days.length; i++){
             for(let j = 0 ; j< data.days[i].length; j++){
                 if(data.days[i][j].session==index){
-                    console.log("Removing day: "+i+" ts: "+j+" SID: "+data.days[i][j].session)
                     $("#edit-ts-"+i+"-"+j).hide(200)
                 }
             }
@@ -230,10 +305,18 @@ function deleteSessionAndChildren(index){
     }
 }
 
+/* -----------------------------------------------------
+   |                    Add Session                    |
+   ----------------------------------------------------- */
+
 function newSession(){
     console.log("Adding session")
 }
 
+
+/* -----------------------------------------------------
+   |                   Edit Session                    |
+   ----------------------------------------------------- */
 function editSession(index){
     console.log("Editing session:"+index)
 }

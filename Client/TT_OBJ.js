@@ -128,11 +128,12 @@ class tt_manager{
 
 
         for(let i = 0; i < this.tt_data.days[to_day].length; i ++){
-            if(start > this.tt_data.days[to_day][i].start && start < this.tt_data.days[to_day][i].end){
+            if(start >= this.tt_data.days[to_day][i].start && start < this.tt_data.days[to_day][i].end){
                 return false;
             }
 
-            if(end > this.tt_data.days[to_day][i].start && end < this.tt_data.days[to_day][i].end){
+            if(end > this.tt_data.days[to_day][i].start && end <=
+                this.tt_data.days[to_day][i].end){
                 return false;
             }
         }

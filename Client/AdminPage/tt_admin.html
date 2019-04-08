@@ -159,5 +159,94 @@
     </div>
   </div>
 
+
+    <!-- Add a timeslot -->
+    <div class="ui tiny modal" id="add-ts">
+    
+      <i class="close icon"></i>
+  
+      <div class="header">
+        Add a Timeslot
+      </div>
+      
+      <div class="content">
+        <div class="ui form">
+          
+          <div class="field">
+            <label>Start Time</label>
+           
+              <div class="field">
+                <span id = "add-ts-st-dd-here"></span>
+              </div>
+          </div> 
+          <div class="field">
+              <label>End Time</label>
+              <div class="field">
+                
+                <span id = "add-ts-et-dd-here"></span>
+              </div>
+            
+          </div>
+      
+          <!--<div class="field">
+            <label>Colour</label>
+            <div class = "two fields">
+              <div class="field">
+                <input type="text" id="colour-ets" name="color" value="#ffffff">
+              </div>
+  
+              <div class="field">
+                <div id = "col-picker-ets"></div>
+              </div>
+            </div>
+          </div>-->
+          
+          <div class="field">
+              <label>Session</label>
+              <div class = "inline fields">
+                <div class="field">
+                  <span id = "add-ts-dd-here"></span>
+                  
+                </div>
+                <div class="field">
+                    <div class = "colour-show-large" id="add-ts-col-pre"></div>
+                </div>
+              </div>
+              
+            </div>
+  
+  
+        </div>
+  
+        <div class="ui negative message" id="add-ts-error-overlap">
+            <div class="header">
+             Error
+            </div>
+            <p>The times given overlap with an existing timeslot!
+          </p></div>
+  
+        
+
+        <div class="ui negative message" id="add-ts-error-ses">
+          <div class="header">
+           Error
+          </div>
+          <p>Please select a session!
+        </p></div>
+
+    </div>
+      
+      
+      <div class="actions">
+        <div class="ui black deny button">
+          Cancel
+        </div>
+        <div class="ui positive right labeled icon button">
+          Save
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

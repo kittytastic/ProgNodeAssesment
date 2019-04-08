@@ -76,7 +76,7 @@
       <p>Deleting a session will delete all corresponding sessions on the timetable.</p>
     </div>
     <div class="actions">
-      <div class="ui green approve button">Okay</div>
+      <div class="ui green approve button">Yes</div>
       <div class="ui secondary cancel button">Cancel</div>
   </div>
   
@@ -108,18 +108,6 @@
           
         </div>
     
-        <!--<div class="field">
-          <label>Colour</label>
-          <div class = "two fields">
-            <div class="field">
-              <input type="text" id="colour-ets" name="color" value="#ffffff">
-            </div>
-
-            <div class="field">
-              <div id = "col-picker-ets"></div>
-            </div>
-          </div>
-        </div>-->
         
         <div class="field">
             <label>Session</label>
@@ -187,19 +175,6 @@
               </div>
             
           </div>
-      
-          <!--<div class="field">
-            <label>Colour</label>
-            <div class = "two fields">
-              <div class="field">
-                <input type="text" id="colour-ets" name="color" value="#ffffff">
-              </div>
-  
-              <div class="field">
-                <div id = "col-picker-ets"></div>
-              </div>
-            </div>
-          </div>-->
           
           <div class="field">
               <label>Session</label>
@@ -233,6 +208,153 @@
           </div>
           <p>Please select a session!
         </p></div>
+
+    </div>
+      
+      
+      <div class="actions">
+        <div class="ui black deny button">
+          Cancel
+        </div>
+        <div class="ui positive right labeled icon button">
+          Save
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
+
+     <!-- Edit a Session -->
+     <div class="ui tiny modal" id="edit-ses">
+    
+      <i class="close icon"></i>
+  
+      <div class="header">
+        Edit a Session
+      </div>
+      
+      <div class="content">
+        <div class="ui form">
+          
+          <div class="field" id= "edit-ses-name-f">
+            <label>Name</label>
+           
+              
+                <input type = "text" id= "edit-ses-name">
+              
+          </div> 
+         
+
+          <div class="field">
+            <label>Colour</label>
+            <div class = "two fields">
+              <div class="field">
+                <input type="text" id="edit-colour" name="color" value="#ffffff">
+              </div>
+  
+              <div class="field">
+                <div id = "edit-col-picker"></div>
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+        
+        <div class="ui negative message" id="edit-ses-error-empty">
+          <div class="header">
+           Error
+          </div>
+          <p>Please enter a name.
+        </p></div>
+
+        <div class="ui negative message" id="edit-ses-error-sym">
+          <div class="header">
+           Error
+          </div>
+          <p>Names cannot contain any symbols.
+        </p></div>
+
+        <div class="ui negative message" id="edit-ses-error-col">
+          <div class="header">
+           Error
+          </div>
+          <p>Please select a colour.
+        </p></div>
+
+
+    </div>
+      
+      
+      <div class="actions">
+        <div class="ui black deny button">
+          Cancel
+        </div>
+        <div class="ui positive right labeled icon button">
+          Save
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add a Session -->
+    <div class="ui tiny modal" id="add-ses">
+    
+      <i class="close icon"></i>
+  
+      <div class="header">
+        Add a Session
+      </div>
+      
+      <div class="content">
+        <div class="ui form">
+          
+          <div class="field" id= "add-ses-name-f">
+            <label>Name</label>
+           
+              
+                <input type = "text" id= "add-ses-name">
+              
+          </div> 
+         
+
+          <div class="field">
+            <label>Colour</label>
+            <div class = "two fields">
+              <div class="field">
+                <input type="text" id="add-colour" name="color" value="#ffffff">
+              </div>
+  
+              <div class="field">
+                <div id = "add-col-picker"></div>
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+        
+        <div class="ui negative message" id="add-ses-error-empty">
+          <div class="header">
+           Error
+          </div>
+          <p>Please enter a name.
+        </p></div>
+
+        <div class="ui negative message" id="add-ses-error-sym">
+          <div class="header">
+           Error
+          </div>
+          <p>Names cannot contain any symbols.
+        </p></div>
+
+        <div class="ui negative message" id="add-ses-error-col">
+          <div class="header">
+           Error
+          </div>
+          <p>Please select a colour.
+        </p></div>
+
 
     </div>
       

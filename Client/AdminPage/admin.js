@@ -1,6 +1,7 @@
 var tt_man;
 var time_interval = 0.25;
 
+var defualt_col = "#2E282A"
 // Build Page
 $(document).ready(function(){
     console.log("Generating example JSON")
@@ -11,7 +12,8 @@ $(document).ready(function(){
     buildTimeHTML();
     buildExampleBar();
 
-    //$('#col-picker-ets').farbtastic('#colour-ets');
+    $('#edit-col-picker').farbtastic('#edit-colour');
+    $('#add-col-picker').farbtastic('#add-colour');
     
     
 });
@@ -202,7 +204,7 @@ function newTimeSlot(day){
     $("#add-ts-error-ses").hide();
     
     // TODO change to a default colour stored in the meta
-    $("#add-ts-col-pre").css("background-color", "#2E282A")
+    $("#add-ts-col-pre").css("background-color", defualt_col)
 
     // Show modal
     $('#add-ts')
@@ -255,7 +257,7 @@ function addTSSave(day){
 
     buildExampleBar();
     buildTimeHTML();
-    
+
 }
 
 /* -----------------------------------------------------
@@ -310,7 +312,58 @@ function deleteSessionAndChildren(index){
    ----------------------------------------------------- */
 
 function newSession(){
-    console.log("Adding session")
+
+    $.farbtastic('#add-col-picker').setColor(defualt_col);
+
+    $('#add-ses-error-empty').hide()
+    $('#add-ses-error-sym').hide()
+    $('#add-ses-error-col').hide()
+    
+    $("#add-ses").modal({
+        onApprove : function() {
+          return addSessionSave();
+        }
+      }).modal('show');
+}
+
+function addSessionSave(){
+    let new_col = $('#add-colour').val();
+    let new_name = $('#add-ses-name').val();
+
+    $('#add-ses-name-f').removeClass('error');
+
+    // check for empty name
+    if(new_name == ""){
+        $('#add-ses-name-f').addClass('error');
+        $('#add-ses-name').keyup(function(){
+            console.log("Changed!!!");
+            if($('#add-ses-name').val()==""){
+                $('#add-ses-name-f').addClass('error');
+            }else{
+                $('#add-ses-error-empty').hide();
+                $('#add-ses-name-f').removeClass('error');
+                
+            }
+        })
+        $('#add-ses-error-empty').show();
+        return false;
+    }
+
+    if(hasSymbols(new_name)){
+        $('#add-ses-error-sym').show();
+        $('#add-ses-name-f').addClass('error');
+        return false;
+    }
+
+    if(!isHexCol(new_col)){
+        $('#add-ses-error-col').show();
+        return false;
+    }
+
+    tt_man.add_session(new_col, new_name);
+
+    buildExampleBar();
+    buildTimeHTML();
 }
 
 
@@ -318,5 +371,70 @@ function newSession(){
    |                   Edit Session                    |
    ----------------------------------------------------- */
 function editSession(index){
-    console.log("Editing session:"+index)
+    
+    $('#edit-ses-name').val(tt_man.tt_data.session_type[index].title);
+    $.farbtastic('#edit-col-picker').setColor(tt_man.tt_data.session_type[index].col);
+    
+    $('#edit-ses-error-empty').hide()
+    $('#edit-ses-error-sym').hide()
+    $('#edit-ses-error-col').hide()
+    
+    $("#edit-ses").modal({
+        onApprove : function() {
+          return editSessionSave(index);
+        }
+      }).modal('show');
+}
+
+function editSessionSave(index){
+    let new_col = $('#edit-colour').val();
+    let new_name = $('#edit-ses-name').val();
+
+
+    $('#edit-ses-name-f').removeClass('error');
+
+    // check for empty name
+    if(new_name == ""){
+        $('#edit-ses-name-f').addClass('error');
+        $('#edit-ses-name').keyup(function(){
+            console.log("Changed!!!");
+            if($('#edit-ses-name').val()==""){
+                $('#edit-ses-name-f').addClass('error');
+            }else{
+                $('#edit-ses-error-empty').hide();
+                $('#edit-ses-name-f').removeClass('error');
+                
+            }
+        })
+        $('#edit-ses-error-empty').show();
+        return false;
+    }
+
+    if(hasSymbols(new_name)){
+        $('#edit-ses-error-sym').show();
+        $('#edit-ses-name-f').addClass('error');
+        return false;
+    }
+
+    if(!isHexCol(new_col)){
+        $('#edit-ses-error-col').show();
+        return false;
+    }
+
+    tt_man.tt_data.session_type[index].title = new_name;
+    tt_man.tt_data.session_type[index].col = new_col;
+
+    buildExampleBar();
+    buildTimeHTML();
+}
+
+
+function hasSymbols(string){
+    var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    return format.test(string)
+}
+
+function isHexCol(string){
+    let format = /^(#)([0-9A-F]{6})$/i;
+    return format.test(string)
 }

@@ -2,9 +2,27 @@ var tt_man;
 var time_interval = 0.25;
 var defualt_col = "#2E282A"
 
+let u_id = 1
+let tt_id = 1
 // Build Page
 $(document).ready(function(){
-    console.log("Generating example JSON")
+
+    /*
+    fetch('/api/tt?tt_id=1&u_id=1')
+    .then(status)
+    .then(json)
+    .then(function(data) {
+        console.log('Request succeeded with JSON response', data);
+        tt_man = new tt_manager();
+        tt_man.tt_data = data;
+        buildTimeHTML();
+        buildExampleBar();
+    }).catch(function(error) {
+        console.log('Request failed', error);
+    });*/
+
+    pullTT();
+    /*console.log("Generating example JSON")
     let example_JSON = makeExampleJSON()
     
     // Turn json into tt manager object
@@ -13,6 +31,7 @@ $(document).ready(function(){
     // Build editing bar and TT
     buildTimeHTML();
     buildExampleBar();
+    */
 
     // Set up colour pickers in the session popups
     $('#edit-col-picker').farbtastic('#edit-colour');
@@ -49,7 +68,7 @@ function initiateAjaxButtons(){
         $('#undo-all-modal').modal({
             onApprove : function() {
                 undoButLoad(true);
-                pullTT();
+                pullTT(tt_id, u_id, function () {undoButLoad(false)}, function () {undoButLoad(false)});
             }
           }).modal('show');
     })

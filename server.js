@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const port = 8080
 
+const db = require('./Server/mock_db');
+
 app.use('/test_stat', express.static('Client'))
 
 
@@ -11,8 +13,25 @@ app.use('/Admin', express.static('./Client/Admin'));
 app.use('/External', express.static('./Client/ExternalDependencies'));
 
   app.get('/api/tt', function (req, res) {
-    res.send('GET sent to timetable API')
-    console.log('GET sent to timetable API')
+    let tt_id = req.query.tt_id
+    let u_id = req.query.u_id
+
+    // Check if the correct arguments have been supplied
+    if(!tt_id){
+        res.status(400);
+        res.send({err: 'no tt_id argument given'})
+        return
+    }
+
+    if(!u_id){
+        res.status(400);
+        res.send({err: 'no u_id argument given'})
+        return
+    }
+
+    // Send tt_data
+    res.send(db.load_tt(tt_id, u_id))
+    console.log('GET request for tt_id: ' + tt_id + " u_id: "+u_id)
   })
 
   app.post('/api/tt', function (req, res) {

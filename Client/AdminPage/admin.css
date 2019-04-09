@@ -38,7 +38,7 @@ body {
 }
 
 .info-feed {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       padding-right: 2em;
@@ -54,6 +54,11 @@ body {
 
 #edit-buttons i {
       color: white;
+}
+
+.feedback-container {
+      width: 70%;
+      padding: 1em;
 }
 
 /* Computer Only */
@@ -98,6 +103,10 @@ body {
             width: 50%;
       }
 
+      .feedback-container {
+            width: 50%;
+      }
+
 }
 
 /* Mobile Only */
@@ -121,6 +130,10 @@ body {
       }
       
       .info-feed {
+            width: 100%;
+      }
+
+      .feedback-container {
             width: 100%;
       }
       

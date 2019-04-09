@@ -18,8 +18,9 @@ $(document).ready(function(){
     $('#edit-col-picker').farbtastic('#edit-colour');
     $('#add-col-picker').farbtastic('#add-colour');
 
-    initiateInfoFeed();
+    //initiateInfoFeed();
     initiateAjaxButtons();
+    initFeedback();
     
     
 });

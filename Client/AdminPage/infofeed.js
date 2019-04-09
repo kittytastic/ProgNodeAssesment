@@ -3,6 +3,7 @@ let max_info = 5;
 
 let success_save = '<div class="ui positive message"><i class="close icon"></i><div class="header">Success!</div>Timetable was succesfully saved.</div>';
 let error_connection = '<div class="ui negative message"><i class="close icon"></i><div class="header">Connection Lost </div>Unable to save timetable. Please try again later.</div>'
+let error_connection_com = '<div class="ui negative message"><i class="close icon"></i><div class="header">Connection Lost </div>Unable to delete comment. Please try again later.</div>'
 function initiateInfoFeed(){
   addCloseListeners();  
 
@@ -49,5 +50,9 @@ function info_success_save(){
 }
 
 function info_error_save(){
+    addInfo(error_connection);
+}
+
+function info_error_comm_delete(){
     addInfo(error_connection);
 }

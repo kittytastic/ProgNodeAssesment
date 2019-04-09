@@ -1,0 +1,16 @@
+.page-body {
+      margin: 2em;
+}
+
+.ui.inverted.menu {
+      border-radius: 0;
+}
+
+#welcome_message {
+      padding-top: 5em;
+      text-align: center;
+}
+
+#send_feedback {
+      margin-top: 3em;
+}

@@ -15,7 +15,7 @@
       z-index: 1;
       top: 0;
       right: 0;
-      padding-top: 1em;
+      padding-top: 4em;
       padding-bottom: 1em;
       padding-left:1em;
       padding-right: 1em; 
@@ -46,11 +46,16 @@ body {
       margin-left: 1em;
       margin-bottom: 1em;
 }
+.all_edit_buttons{
+      float: right;
+      
+}
 
 #edit-buttons {
       padding-top: 1.5em;
-      float: right;
+      
 }
+
 
 #edit-buttons i {
       color: white;
@@ -59,6 +64,19 @@ body {
 .feedback-container {
       width: 70%;
       padding: 1em;
+}
+
+.ui.inverted.menu {
+      position: relative;
+      border-radius: 0;
+      z-index: 2;
+}
+
+#get_share {
+      margin-top: 2em;
+      float: right;
+      
+      
 }
 
 /* Computer Only */
@@ -120,7 +138,8 @@ body {
             width: 100%;
             height: auto;
             padding-left: 1em;
-             
+             padding-top: 2em;
+
             overflow-y: hidden;
       }
 
@@ -135,6 +154,10 @@ body {
 
       .feedback-container {
             width: 100%;
+      }
+
+      .ui.inverted.menu {
+            margin-bottom: 0;
       }
       
 }

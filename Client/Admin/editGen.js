@@ -52,7 +52,7 @@ function generateEditingSessions(sesh_obj){
         outHTML += '<td onclick="deleteSession('+i+', this)"><i class="trash icon"></i></td></tr>'
         
     }
-    outHTML += '<tr onclick="newSession()"><th> Add </th><td><i class="plus icon"></i></td></tr>'
+    outHTML += '<tr onclick="newSession()"><th>Add new session</th><td><i class="plus icon"></i></td></tr>'
     outHTML += "</tbody></table>"
 
     return outHTML;

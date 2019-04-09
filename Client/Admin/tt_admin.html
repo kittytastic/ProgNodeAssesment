@@ -34,11 +34,44 @@
     <title>Timetable</title>
   </head>
   <body>
+    <!-- Menu -->
+      <div class="ui inverted menu">
+          <div class="header item"><a href = "\">TT viewer</a></div>
+          
+          <div class="ui dropdown item" tabindex="0">
+            My Timetables
+            <i class="dropdown icon"></i>
+            <div class="menu transition hidden" tabindex="-1">
+              <div class="item">Action</div>
+              <div class="item">Another Action</div>
+              <div class="item">Something else here</div>
+              <div class="divider"></div>
+              <div class="item">Separated Link</div>
+              <div class="divider"></div>
+              <div class="item">One more separated link</div>
+            </div>
+          </div>
+          <div class="right menu">
+            <div class="item">
+              <div class="ui search">
+                <div class="ui transparent inverted icon input">
+                  <i class="search icon"></i>
+                  <input class="prompt" type="text" placeholder="Search">
+                </div>
+                <div class="results"></div>
+              </div>
+            </div>
+          </div>
+        </div>
     
 
+  <!-- Editing Menu-->
   <div class="editing-menu">
     <span id="editor_here"></span>
+    
+    <div class= "all_edit_buttons">
     <div id = "edit-buttons">
+       
         <div class="ui deny button" id = "undo_but">
             Undo all
           </div>
@@ -46,14 +79,21 @@
             Save
             <i class="checkmark icon"></i>
           </div>
+          
     </div>
-    
+ 
+  <div class="ui primary button" id = "get_share">
+      Get share link
+    </div>
+  </div>
   </div>
   
+  <!-- Time table container -->
   <div class="main">
     <span id="tt-full"></span>  
   </div>
 
+  <!-- Feedback container -->
   <div class="feedback-container">
     <h1> Feedback </h1>
     <div class = "ui cards" id="feedback-box">
@@ -61,6 +101,7 @@
       </div>
   </div>
 
+  <!-- infomation feed container -->
   <div class="info-feed" id = "info-feed">
   </div>
 

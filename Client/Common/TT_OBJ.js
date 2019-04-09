@@ -36,7 +36,7 @@ class tt_data {
 
 class tt_manager{
     constructor(optional_json){
-        console.log("Creating manager")
+        
         this.tt_data = null; 
         if (typeof optional_json !== 'undefined') { 
             this.digest_JSON(optional_json);
@@ -45,7 +45,7 @@ class tt_manager{
 
     /******** Checks of an [tt_obj] arg is valid *********/
     validate(obj){
-        console.log("Validating object")
+        
         
         if(this._is_undefined(obj.days)){
             console.log("TT obj is not valid missing: tt.days")
@@ -268,7 +268,7 @@ class tt_manager{
 
     /******** changes json to obj if the json is a valid obj *********/
     digest_JSON(tt_json){
-        console.log("Digesting JSON")
+        
         if(this.tt_data != null){
             console.log("Error digesting JSON. TT Object already exists are you sure you want to overwrite?")
             return;
@@ -280,7 +280,7 @@ class tt_manager{
             console.log("Error digesting JSON. JSON given wasn't a valid TT object.")
             return;
         }
-        console.log(tt_data)
+        
         this.tt_data = temp_obj;
     }
 
@@ -319,9 +319,3 @@ function makeExampleJSON(){
 
     return JSON.stringify(tt_dat)
 }
-
-//let json = makeExampleJSON()
-/*
-console.log(tt_man.tt_data)
-console.log("Removing: "+tt_man.remove_session_force(4))
-console.log(tt_man.tt_data)*/

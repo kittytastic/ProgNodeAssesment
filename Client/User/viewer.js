@@ -136,7 +136,25 @@ function displayTT(json){
     let table_html = generateFullTT(json)
     document.getElementById("tt-full").innerHTML = table_html
 
+    let key = generateKey(json)
+    document.getElementById("key-holder").innerHTML = key
+
 } 
+
+function generateKey(json){
+    let tt_obj = JSON.parse(json)
+    let outHTML = "<h3> Key </h3><table><tbody>"
+    for(let i=0; i<tt_obj.session_type.length; i++){
+        outHTML += '<tr><td>'+tt_obj.session_type[i].title+'</td><td>'+colourBox(tt_obj.session_type[i].col)+'</td></tr>'
+    }
+    outHTML += "</tbody></table>"
+    return outHTML;
+}
+
+function colourBox(colourHex){
+    return '<div class="colour-show" style="background-color: '+colourHex+'"></div>'
+}
+
 
 function escapeHtml(unsafe) {
     return unsafe

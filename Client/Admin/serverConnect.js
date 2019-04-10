@@ -32,6 +32,7 @@ function pullTT(tt_id, u_id, success_cb, fail_cb){
 
 
 
+
 function status(response) {
     if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response)

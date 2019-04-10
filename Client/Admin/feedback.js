@@ -1,10 +1,13 @@
 let comment_obj={};
 
 function initFeedback(){
-    let mock_json = mock_comments_json()
+    //let mock_json = mock_comments_json()
 
-    comment_obj = JSON.parse(mock_json)
-    drawComments()
+    //comment_obj = JSON.parse(mock_json)
+
+    serverGetFeedback(1, 1, function(){drawComments()}, function(){})
+
+    //drawComments()
 }
 
 
@@ -65,8 +68,25 @@ function serverDelete(global_id, success_callback){
     }
 }
 
-function serverGet(){
+function serverGetFeedback(tt_id, u_id, success_cb, fail_cb){
 console.log("Getting comments from server ");
+
+fetch('/api/feedback?tt_id='+tt_id+'&u_id='+u_id+'&c_id=all')
+.then(status)
+.then(json)
+.then(function(data) {
+    console.log('Request succeeded with JSON response', data);
+    comment_obj = data;
+    if(success_cb){
+        success_cb();
+    }
+}).catch(function(error) {
+    console.log('Request failed', error);
+   
+    if(fail_cb){
+        fail_cb();
+    }
+});
 
 
 

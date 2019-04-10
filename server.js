@@ -40,7 +40,40 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   })
 
   app.get('/api/feedback', function (req, res) {
-    res.send('GET request to comment API')
+
+    let tt_id = req.query.tt_id
+    let u_id = req.query.u_id
+    let c_id = req.query.c_id
+
+    // Check if the correct arguments have been supplied
+    if(!tt_id){
+        res.status(400);
+        res.send({err: 'no tt_id argument given'})
+        return
+    }
+
+    if(!u_id){
+        res.status(400);
+        res.send({err: 'no u_id argument given'})
+        return
+    }
+
+    if(!c_id){
+      res.status(400);
+      res.send({err: 'no u_id argument given'})
+      return
+  }
+
+  if(c_id=="all"){
+    res.send(db.load_all_comments(tt_id, u_id));
+    return
+  } else {
+    res.send(db.load_comment(tt_id, u_id, c_id))
+  }
+
+  
+
+
     console.log('GET request to comment API')
   })
 

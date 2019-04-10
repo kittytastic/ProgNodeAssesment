@@ -7,31 +7,8 @@ let tt_id = 1
 // Build Page
 $(document).ready(function(){
 
-    /*
-    fetch('/api/tt?tt_id=1&u_id=1')
-    .then(status)
-    .then(json)
-    .then(function(data) {
-        console.log('Request succeeded with JSON response', data);
-        tt_man = new tt_manager();
-        tt_man.tt_data = data;
-        buildTimeHTML();
-        buildExampleBar();
-    }).catch(function(error) {
-        console.log('Request failed', error);
-    });*/
 
     pullTT();
-    /*console.log("Generating example JSON")
-    let example_JSON = makeExampleJSON()
-    
-    // Turn json into tt manager object
-    tt_man = new tt_manager(example_JSON);
-
-    // Build editing bar and TT
-    buildTimeHTML();
-    buildExampleBar();
-    */
 
     // Set up colour pickers in the session popups
     $('#edit-col-picker').farbtastic('#edit-colour');

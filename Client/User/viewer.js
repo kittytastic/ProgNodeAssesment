@@ -20,6 +20,7 @@ $( document ).ready(function() {
         $("#send_feedback").hide();
     }
 
+   
 });
 
 function openFeedbackForm(){

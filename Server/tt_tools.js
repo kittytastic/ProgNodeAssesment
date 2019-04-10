@@ -35,85 +35,76 @@ class tt_data {
     }
 }
 
-class tt_manager{
-    constructor(optional_json){
-        
-        this.tt_data = null; 
-        if (typeof optional_json !== 'undefined') { 
-            this.digest_JSON(optional_json);
-        }
+
+
+/******** Checks of an [tt_obj] arg is valid *********/
+function validate(obj){
+    
+    
+    if(is_undefined(obj.days)){
+        console.log("TT obj is not valid missing: tt.days")
+        return false;
     }
 
-    /******** Checks of an [tt_obj] arg is valid *********/
-    validate(obj){
-        
-        
-        if(this._is_undefined(obj.days)){
-            console.log("TT obj is not valid missing: tt.days")
-            return false;
-        }
+    if(is_undefined(obj.session_type)){
+        console.log("TT obj is not valid missing: tt.session_type")
+        return false;
+    }
+    
+    if(is_undefined(obj.meta)){
+        console.log("TT obj is not valid missing: tt.meta")
+        return false;
+    }
 
-        if(this._is_undefined(obj.session_type)){
-            console.log("TT obj is not valid missing: tt.session_type")
-            return false;
-        }
-        
-        if(this._is_undefined(obj.meta)){
-            console.log("TT obj is not valid missing: tt.meta")
-            return false;
-        }
+    /* Check all sub classes have the required fields???? */
 
-        /* Check all sub classes have the required fields???? */
+    /* ------- Check all days ------- */
+    let n_days = obj.days.length;
+    let greatest_s_type = obj.session_type.length-1;
 
-        /* ------- Check all days ------- */
-        let n_days = obj.days.length;
-        let greatest_s_type = obj.session_type.length-1;
-
-        for(let i = 0; i < n_days; i++){
-            let n_t_slots = obj.days[i].length
-            for(let j = 0; j<n_t_slots; j++){
-                if(!this._is_logically_valid_time_slot(obj.days[i][j])){
-                    console.log("TT obj is not valid day["+i+"]["+j+"] time slot isn't logically valid")
-                    return false;
-                }
-
-                if(obj.days[i][j].session > greatest_s_type || obj.days[i][j].session < 0){
-                    console.log("TT obj is not valid day["+i+"]["+j+"] times slot doesn't point to an existing session")
-                    return false;
-                }
-
+    for(let i = 0; i < n_days; i++){
+        let n_t_slots = obj.days[i].length
+        for(let j = 0; j<n_t_slots; j++){
+            if(!is_logically_valid_time_slot(obj.days[i][j])){
+                console.log("TT obj is not valid day["+i+"]["+j+"] time slot isn't logically valid")
+                return false;
             }
-        }
 
-        return true;
+            if(obj.days[i][j].session > greatest_s_type || obj.days[i][j].session < 0){
+                console.log("TT obj is not valid day["+i+"]["+j+"] times slot doesn't point to an existing session")
+                return false;
+            }
+
+        }
     }
 
-    /******** Checks if a timeslot ends after it starts and in in a 24hr day *********/
-    _is_logically_valid_time_slot(ts){
-        let duration = ts.end - ts.start
-        if(duration<=0){
-            return false;
-        }
+    return true;
+}
 
-        if(ts.start<0){
-            return false;
-        }
-
-        if(ts.end>24){
-            return false;
-        }
-
-        return true;
-
+/******** Checks if a timeslot ends after it starts and in in a 24hr day *********/
+function is_logically_valid_time_slot(ts){
+    let duration = ts.end - ts.start
+    if(duration<=0){
+        return false;
     }
 
-
-
-    get JSON(){
-        return JSON.stringify(this.tt_data);
+    if(ts.start<0){
+        return false;
     }
+
+    if(ts.end>24){
+        return false;
+    }
+
+    return true;
 
 }
+
+/******** Check if arg is undefined *********/
+function is_undefined(x){
+    return (typeof x === 'undefined')
+}
+
 
 function makeExampleObj(){
     var tt_dat = new tt_data();
@@ -148,5 +139,8 @@ function makeExampleObj(){
 module.exports = {
     mock_tt: function () {
       return makeExampleObj();
+    },
+    validate: function(obj){
+        return validate(obj)
     }
   };

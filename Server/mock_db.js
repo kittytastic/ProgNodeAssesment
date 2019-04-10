@@ -159,7 +159,22 @@ module.exports = {
 
       return false;
 
-    } 
+    }, 
+
+    add_tt: function (u_id, data){
+      if(u_id>=tt.length){return false;}
+      if(!tt_tools.validate(data)){return false;}
+      tt[u_id].push(data)
+      return true;
+    },
+
+    edit_tt: function (u_id, tt_id, data){
+      if(u_id>=tt.length){return false;}
+      if(tt_id>=tt[u_id].length){return false;}
+      if(!tt_tools.validate(data)){return false;}
+      tt[u_id][tt_id]=data;
+      return true;
+    }
 
 
   };

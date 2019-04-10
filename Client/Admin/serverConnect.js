@@ -1,5 +1,19 @@
-function saveTT(json){
+function saveTT(obj){
     console.log("Saving timetable to server")
+
+    // Send comment off to server
+    fetch('/api/tt?tt_id='+global_tt_id+'&u_id='+global_u_id, {method:'post', body:JSON.stringify(obj), headers: { "Content-Type": "application/json"}})
+    .then(status)
+    .then(json)
+    .then(function(data) {
+        console.log('Success: POST timetable', data);
+        
+    }).catch(function(error) {
+        console.log('Failed: POST timetable', error);
+
+        // TODO error feed lost connection
+        
+    });
 
 }
 

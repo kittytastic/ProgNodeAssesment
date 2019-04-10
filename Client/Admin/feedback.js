@@ -1,13 +1,9 @@
 let comment_obj={};
 
 function initFeedback(){
-    //let mock_json = mock_comments_json()
-
-    //comment_obj = JSON.parse(mock_json)
 
     serverGetFeedback(1, 1, function(){drawComments()}, function(){})
 
-    //drawComments()
 }
 
 
@@ -46,7 +42,7 @@ function getDaysAgo(timestamp){
 function deleteComment(id, dom_obj){
 
     serverDelete(comment_obj[id].c_id, function () {
-        removeCommentObj();
+        removeCommentObj(id);
         $(dom_obj).closest('.card').fadeOut(200, function() {
             drawComments();
         });

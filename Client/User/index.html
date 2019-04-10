@@ -23,25 +23,17 @@
     <!-- Page styling -->
     <link rel="stylesheet" href="./viewer_page.css">
 
+    <!-- Infofeed -->
+    <script src = "/Common/infofeed.js"></script>
+    <link rel="stylesheet" href="/Common/infofeed.css">
+
     <title>Timetable</title>
   </head>
   <body>
     <div class="ui inverted menu">
       <div class="header item">TT viewer</div>
       <a href = "/Admin/tt_admin.html" class="item">Admin</a>
-      <!--<div class="ui dropdown item" tabindex="0">
-        Dropdown
-        <i class="dropdown icon"></i>
-        <div class="menu transition hidden" tabindex="-1">
-          <div class="item">Action</div>
-          <div class="item">Another Action</div>
-          <div class="item">Something else here</div>
-          <div class="divider"></div>
-          <div class="item">Separated Link</div>
-          <div class="divider"></div>
-          <div class="item">One more separated link</div>
-        </div>
-      </div>-->
+    
       <div class="right menu">
         <div class="item">
           <div class="ui search">
@@ -71,6 +63,12 @@
   </button>
     </div>
 
+    <!-- infomation feed container -->
+  <div class="info-feed" id = "info-feed">
+  </div>
+
+  <!-- Popups -->
+<!-- Send feeback form -->
   <div class="ui tiny modal" id = "feedback-modal">
     <div class="header">Send feeback</div>
     <div class="content">

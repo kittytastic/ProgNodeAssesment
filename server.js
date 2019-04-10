@@ -70,8 +70,48 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   })
 
   app.post('/api/tt', function (req, res) {
-    res.send('POST request to timetable API')
-    console.log('POST request to timetable API')
+    
+    let u_id = req.query.u_id
+    let tt_id = req.query.tt_id
+    let new_q = req.query.new
+    let tt_data = req.body
+
+    if(!u_id){
+      console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+      res.send(db.list_timetable_names());
+      return
+    }
+
+    if(new_q=="yes"){
+      // Add new TT
+      let result = db.add_tt(u_id, tt_data)
+      if(result){
+        console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+        res.send({success:''})
+        return
+      }else{
+        console.log('[FAILED] POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+        res.status(400);
+        res.send({err: 'timetable data or u_id wasnt vaild'})
+        return
+      }
+    }else{
+
+      // Edit exsisting TT
+      let result = db.edit_tt(u_id, tt_id, tt_data)
+      if(result){
+        console.log('POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+        res.send({success:''})
+        return
+      }else{
+        console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+        res.status(400);
+        res.send({err: 'timetable data or u_id/tt_id wasn\'t vaild'})
+        return
+      }
+
+    }
+    
   })
 
 
@@ -164,14 +204,12 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
 
 /* ---------- DELETE ----------- */
 app.delete('/api/feedback', function (req, res) {
-  console.log("Got a delete request");
-
   
   let tt_id = req.query.tt_id
   let u_id = req.query.u_id
   let c_id = req.query.c_id
 
-  console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+  console.log('DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
   // Check if the correct arguments have been supplied
   if(!tt_id){
     console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)

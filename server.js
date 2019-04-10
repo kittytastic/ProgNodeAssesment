@@ -17,8 +17,6 @@ db.start();
 app.use(express.json())
 app.use(express.urlencoded())
 
-app.use('/test_stat', express.static('Client'))
-
 
 app.use('/', express.static('./Client/User'));
 app.use('/Common', express.static('./Client/Common'));
@@ -26,7 +24,7 @@ app.use('/Admin', express.static('./Client/Admin'));
 app.use('/External', express.static('./Client/ExternalDependencies'));
 
   /* ************************************
-   *           Feedback Comments        *
+   *               Timetables           *
    ************************************** */
 
   /* ----------- GET ------------- */
@@ -36,34 +34,39 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
 
     // No user id, list all timetables
     if(!u_id){
-      
+      console.log('GET LIST request for timetables ' + tt_id + " u_id: "+u_id);
       res.send(db.list_timetable_names());
       return
   }
 
-    // user id but no timetable id, list all timetables for that user
+    // User ID but no timetable ID, list all timetables for that user
     if(!tt_id){
         let result = db.list_timetable_names(u_id);
         if(!result){
+          console.log('[FAILED] GET request for timetables for user: '+u_id);
           res.status(400);
           res.send({err: 'no tt_id argument given'})
           return
         }
 
+        console.log('GET LIST request for timetables for user: '+u_id);
         res.send(result);
+        return
 
     }
 
     // Send tt_data
     let results = db.load_tt(tt_id, u_id);
     if(results){
+      console.log('GET request for timetable; tt_id: ' + tt_id + " u_id: "+u_id);
       res.send(results)
+      return
     }else{
+        console.log('[FAILED] GET request for timetable; tt_id: ' + tt_id + " u_id: "+u_id);
         res.status(400);
         res.send({err: 'arguments given are out of range'})
         return
     }
-    console.log('GET request for tt_id: ' + tt_id + " u_id: "+u_id)
   })
 
   app.post('/api/tt', function (req, res) {
@@ -78,25 +81,28 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   /* ----------- GET ------------- */
  
   app.get('/api/feedback', function (req, res) {
-
+    
     let tt_id = req.query.tt_id
     let u_id = req.query.u_id
     let c_id = req.query.c_id
-
+    console.log('GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
     // Check if the correct arguments have been supplied
     if(!tt_id){
+      console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
         res.status(400);
         res.send({err: 'no tt_id argument given'})
         return
     }
 
     if(!u_id){
+      console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
         res.status(400);
         res.send({err: 'no u_id argument given'})
         return
     }
 
     if(!c_id){
+      console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
       res.status(400);
       res.send({err: 'no c_id argument given'})
       return
@@ -105,6 +111,7 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   if(c_id=="all"){
     let results = db.load_all_comments(tt_id, u_id)
     if(!results){
+      console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
       res.status(400);
       res.send({err: 'Arguments out of range'})
       return
@@ -114,6 +121,7 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   } else {
     let results = db.load_comment(tt_id, u_id, c_id)
     if(!results){
+      console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
       res.status(400);
       res.send({err: 'Arguments out of range'})
       return
@@ -124,31 +132,34 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
   
 
 
-    console.log('GET request to comment API')
+    
   })
 
   /* ----------- POST ------------ */
   app.post('/api/feedback', function (req, res) {
     let tt_id = req.query.tt_id
     let u_id = req.query.u_id
+    console.log('POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
 
     // Check if the correct arguments have been supplied
     if(!tt_id){
-        res.status(400);
-        res.send({err: 'no tt_id argument given'})
-        return
+      console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id);  
+      res.status(400);
+      res.send({err: 'no tt_id argument given'})
+      return
     }
 
     if(!u_id){
-        res.status(400);
-        res.send({err: 'no u_id argument given'})
-        return
+      console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
+      res.status(400);
+      res.send({err: 'no u_id argument given'})
+      return
     }
 
-    console.log(req.body);
+    
     db.add_comment(tt_id, u_id, req.body.title, req.body.comment, req.body.timestamp)
     res.send({success:''})
-    console.log('POST request to comment API')
+    
   })
 
 /* ---------- DELETE ----------- */
@@ -160,20 +171,24 @@ app.delete('/api/feedback', function (req, res) {
   let u_id = req.query.u_id
   let c_id = req.query.c_id
 
+  console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
   // Check if the correct arguments have been supplied
   if(!tt_id){
+    console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
       res.status(400);
       res.send({err: 'no tt_id argument given'})
       return
   }
 
   if(!u_id){
+    console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
       res.status(400);
       res.send({err: 'no u_id argument given'})
       return
   }
 
   if(!c_id){
+    console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
     res.status(400);
     res.send({err: 'no c_id argument given'})
     return
@@ -182,6 +197,7 @@ app.delete('/api/feedback', function (req, res) {
   if(db.delete_comment(tt_id, u_id, c_id)){
     res.send({success: ''});  
   }else{
+    console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
     res.status(400);
     res.send({err: 'couldnt find comment to delete'})
   }
@@ -197,5 +213,7 @@ app.use(function (req, res, next) {
   })
 
 
-
-app.listen(port, () => console.log(`TT server listening on port ${port}!\nStatic access at: \\test_stat\\filename.js`))
+/* *********************************
+   *         Start server          *
+   ********************************* */
+app.listen(port, () => console.log(`Timetable server started on port: ${port}`))

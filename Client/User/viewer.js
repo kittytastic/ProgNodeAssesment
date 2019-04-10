@@ -1,9 +1,9 @@
-$( document ).ready(function() {
-    console.log( "ready!" );
+let global_tt_id =  false;
+let global_u_id = false;
 
+$( document ).ready(function() {
    
     getTTList(function (content) {
-        console.log("Setting up search")
         $('.ui.search').search({
             source: content,
             onSelect: function(a){getTT(a.u_id, a.tt_id)}
@@ -15,10 +15,6 @@ $( document ).ready(function() {
     // Get url arg and check if a time table id has been provided. If not show user welcome message.
     var urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('tt_id')&&urlParams.has('u_id')){
-        console.log("Getting tt from server");
-
-        
-       
         getTT(urlParams.get('u_id'), urlParams.get('tt_id'));
     }else{
         $("#send_feedback").hide();
@@ -27,7 +23,7 @@ $( document ).ready(function() {
 });
 
 function openFeedbackForm(){
-    console.log("opening modal");
+   
     $('#error-comment-empty').hide();
     $("#feedback-modal")
     .modal({onApprove : function() {
@@ -37,7 +33,6 @@ function openFeedbackForm(){
 }
 
 function saveFeedback(){
-    console.log("Saving feedback")
 
     let comment_in = $('#comment').val();
     let title_in = $('#title').val();
@@ -48,7 +43,7 @@ function saveFeedback(){
     if(comment_in == ""){
         $('#comment-f').addClass('error');
         $('#comment').keyup(function(){
-            console.log("Changed!!!");
+            
             if($('#comment').val()==""){
                 $('#comment-f').addClass('error');
             }else{
@@ -69,24 +64,22 @@ function saveFeedback(){
                 time: today.toJSON()
     }
 
-    console.log(JSON.stringify(com_obj))
+   
     // Send comment off to server
-    
-    fetch('/api/feedback?tt_id=1&u_id=1', {method:'post', body:JSON.stringify(com_obj), headers: { "Content-Type": "application/json"}})
+    fetch('/api/feedback?tt_id='+global_tt_id+'&u_id='+global_u_id, {method:'post', body:JSON.stringify(com_obj), headers: { "Content-Type": "application/json"}})
     .then(status)
     .then(json)
     .then(function(data) {
-        console.log('Succeeded with JSON response', data);
+        console.log('Success: POST feedback', data);
         
     }).catch(function(error) {
-        console.log('Request failed', error);
+        console.log('Failed: POST feedback', error);
 
         // TODO error feed lost connection
         
     });
 
 
-    console.log(com_obj);
 }
 
 function getTT(u_id, tt_id){
@@ -95,8 +88,11 @@ function getTT(u_id, tt_id){
     .then(status)
     .then(json)
     .then(function(data) {
-        console.log('Succeeded with JSON response', data);
+        console.log('Success: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, data);
+
         if(!data.err){
+            global_u_id = u_id;
+            global_tt_id = tt_id;
             displayTT(JSON.stringify(data));
         }else{
             // TODO timetable doesnt exist
@@ -104,7 +100,7 @@ function getTT(u_id, tt_id){
 
         
     }).catch(function(error) {
-        console.log('Request failed', error);
+        console.log('Failed: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, error);
 
         // TODO error feed lost connection
         
@@ -114,18 +110,17 @@ function getTT(u_id, tt_id){
 }
 
 function getTTList(success_callback){
-    console.log("Setting up search 1")
 
     fetch('/api/tt')
     .then(status)
     .then(json)
     .then(function(data) {
-        console.log('Succeeded with JSON response', data);
+        console.log('Success: GET List all tt', data);
         success_callback(data);
 
         
     }).catch(function(error) {
-        console.log('Request failed', error);
+        console.log('Failed: GET List all tt', error);
 
         // TODO error feed lost connection
         
@@ -136,10 +131,8 @@ function getTTList(success_callback){
 function displayTT(json){
     $("#send_feedback").show();
     $("#welcome_message").hide();
-    console.log("Rendering example JSON into HTML")
+   
     let table_html = generateFullTT(json)
-
-    console.log("Displaying HTML")
     document.getElementById("tt-full").innerHTML = table_html
 
 } 

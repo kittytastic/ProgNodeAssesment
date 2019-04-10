@@ -4,13 +4,12 @@ function saveTT(json){
 }
 
 function pullTT(tt_id, u_id, success_cb, fail_cb){
-    console.log("Pulling timetable form server")
     
     fetch('/api/tt?tt_id=1&u_id=1')
     .then(status)
     .then(json)
     .then(function(data) {
-        console.log('Request succeeded with JSON response', data);
+        console.log('Succes: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, data);
         tt_man = new tt_manager();
         tt_man.tt_data = data;
         buildTimeHTML();
@@ -19,13 +18,32 @@ function pullTT(tt_id, u_id, success_cb, fail_cb){
             success_cb();
         }
     }).catch(function(error) {
-        console.log('Request failed', error);
+        console.log('Failed: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, error);
         info_error_load();
         if(fail_cb){
             fail_cb();
         }
     });
     
+}
+
+function serverGetUserTT(u_id, success_cb){
+  console.log(u_id)
+  fetch('/api/tt?u_id='+u_id)
+  .then(status)
+  .then(json)
+  .then(function(data) {
+      console.log('Succes: GET list user tts; tt_id: '+tt_id+' u_id: '+u_id, data);
+     
+      if(success_cb){
+          success_cb();
+      }
+  }).catch(function(error) {
+      console.log('Failed: GET list user tts; tt_id: '+tt_id+' u_id: '+u_id, error);
+      // TODO error handeler
+      
+      
+  });
 }
 
 

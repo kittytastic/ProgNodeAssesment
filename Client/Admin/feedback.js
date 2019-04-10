@@ -57,19 +57,21 @@ function removeCommentObj(local_id){
     comment_obj.splice(local_id, 1);
 }
 
-function serverDelete(c_id, success_callback){
-    console.log("Deleting comment from server with global id: "+c_id)
-  
+/* **************************************
+   *                AJAX                *
+   ************************************** */
 
-    fetch('/api/feedback?tt_id=1&u_id=1&c_id='+c_id, {method:'delete'})
+   // 
+function serverDelete(c_id, success_callback){
+  
+    fetch('/api/feedback?tt_id='+global_u_id+'&u_id='+global_tt_id+'&c_id='+c_id, {method:'delete'})
     .then(status)
     .then(json)
     .then(function(data) {
-        console.log('Succeeded with JSON response', data);
+        console.log("Success: deleting comment; u_id: "+global_u_id+" tt_id: "+global_tt_id+" c_id: "+c_id, data);
         success_callback();
-        
     }).catch(function(error) {
-        console.log('Request failed', error);
+        console.log("Failed: deleting comment; u_id: "+global_u_id+" tt_id: "+global_tt_id+" c_id: "+c_id, error);
         info_error_comm_delete();
         
     });
@@ -77,25 +79,22 @@ function serverDelete(c_id, success_callback){
 }
 
 function serverGetFeedback(tt_id, u_id, success_cb, fail_cb){
-console.log("Getting comments from server ");
 
-fetch('/api/feedback?tt_id='+tt_id+'&u_id='+u_id+'&c_id=all')
-.then(status)
-.then(json)
-.then(function(data) {
-    console.log('Request succeeded with JSON response', data);
-    comment_obj = data;
-    if(success_cb){
-        success_cb();
-    }
-}).catch(function(error) {
-    console.log('Request failed', error);
-   
-    if(fail_cb){
-        fail_cb();
-    }
-});
-
-
+    fetch('/api/feedback?tt_id='+tt_id+'&u_id='+u_id+'&c_id=all')
+    .then(status)
+    .then(json)
+    .then(function(data) {
+        console.log("Success: GET list feedback; u_id: "+u_id+" tt_id: "+tt_id+" c_id=all", data);
+        comment_obj = data;
+        if(success_cb){
+            success_cb();
+        }
+    }).catch(function(error) {
+        console.log("Failed: Get list feedback; u_id: "+u_id+" tt_id: "+tt_id+" c_id=all", error);
+    
+        if(fail_cb){
+            fail_cb();
+        }
+    });
 
 }

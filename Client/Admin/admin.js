@@ -2,8 +2,10 @@ var tt_man;
 var time_interval = 0.25;
 var defualt_col = "#2E282A"
 
-let u_id = 1
-let tt_id = 1
+var u_id = 1
+var tt_id = 1
+var global_u_id = 1
+var global_tt_id = 1
 // Build Page
 $(document).ready(function(){
 
@@ -17,26 +19,23 @@ $(document).ready(function(){
     //initiateInfoFeed();
     initiateAjaxButtons();
     initFeedback();
+    initiateMyTTDD();
     
     
 });
 
 function buildTimeHTML(){
-    
-    console.log("Displaying TT")
    $("#tt-full").html(generateFullTT(tt_man.JSON))
 
     
 }
 
 function buildExampleBar(){
-    console.log("Displaying editing bar")
     $("#editor_here").html(generateEditingMenu(tt_man.JSON));
 }
 
 function initiateAjaxButtons(){
     $("#save_but").on('click', function(){ 
-        console.log("saving")
         saveButLoad(true);
         saveTT();
     })
@@ -226,7 +225,6 @@ function genSearchTimeObj(start_t, selected){
    ----------------------------------------------------- */
 
 function newTimeSlot(day){
-    console.log("adding new time slot to day: "+day)
 
     $('#add-ts-dd-here').html('<div class="ui search selection dropdown"  id="add-ts-ses"><input type="hidden" name="add-ts-session"> <div class="text"></div><i class="dropdown icon"></i><div class="menu"> </div></div>');
     let search_dat = []
@@ -272,7 +270,7 @@ function addTSSave(day){
      let new_end = $('#add-ts-end').dropdown('get value');
      let new_session = $('#add-ts-ses').dropdown('get value');
  
-     console.log("ST" + new_start + " ET: "+ new_end + " SSS: "+new_session);
+     
 
      // Make sure they are all numbers
      new_start = parseFloat(new_start);
@@ -291,7 +289,7 @@ function addTSSave(day){
          return false;
      }
  
-     console.log("ST" + new_start + " ET: "+ new_end + " SSS: "+new_session);
+    
 
      if(!tt_man.add_time_slot(new_start, new_end, new_session, day)){
         $("#add-ts-error-overlap").show();
@@ -319,7 +317,7 @@ function deleteSession(index){
 }
 
 function deleteSessionAndChildren(index){
-    console.log("Deleting session: "+index);
+    
     let data = tt_man.tt_data;
     if(!editor_lock){
         // Lock editor
@@ -379,7 +377,7 @@ function addSessionSave(){
     if(new_name == ""){
         $('#add-ses-name-f').addClass('error');
         $('#add-ses-name').keyup(function(){
-            console.log("Changed!!!");
+           
             if($('#add-ses-name').val()==""){
                 $('#add-ses-name-f').addClass('error');
             }else{
@@ -440,7 +438,7 @@ function editSessionSave(index){
     if(new_name == ""){
         $('#edit-ses-name-f').addClass('error');
         $('#edit-ses-name').keyup(function(){
-            console.log("Changed!!!");
+            
             if($('#edit-ses-name').val()==""){
                 $('#edit-ses-name-f').addClass('error');
             }else{
@@ -481,3 +479,17 @@ function isHexCol(string){
     let format = /^(#)([0-9A-F]{6})$/i;
     return format.test(string)
 }
+
+function initiateMyTTDD(){
+   /* serverGetUserTT(u_id, function(server_data){
+        let dd_data = []
+        for(let i=0; i<server_data.length; i++){
+            dd_data.push({name: server_data[i].title, value:server_data[i].u_id +"-"+server_data[i].tt_id})
+        }
+        $("my_tt").dropdown({values: dd_data});
+    })*/
+}
+
+function changeTT(){}
+
+function addTT(){}

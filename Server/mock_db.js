@@ -99,10 +99,6 @@ module.exports = {
           return false;
         }
 
-        console.log(typeof uu_id);
-        console.log(uu_id);
-        console.log(tt[uu_id]);
-       
         for(let j=0; j<tt[uu_id].length; j++){
           names.push({title: tt[uu_id][j].meta.name, tt_id:j, u_id:uu_id })
         }

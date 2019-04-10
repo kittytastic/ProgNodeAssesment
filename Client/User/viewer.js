@@ -11,13 +11,13 @@ $( document ).ready(function() {
     })
    
    $("#send_feedback").click(function () {openFeedbackForm()});
-     
+   
     // Get url arg and check if a time table id has been provided. If not show user welcome message.
     var urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('tt_id')&&urlParams.has('u_id')){
         getTT(urlParams.get('u_id'), urlParams.get('tt_id'));
     }else{
-        $("#send_feedback").hide();
+        
     }
 
    
@@ -72,12 +72,10 @@ function saveFeedback(){
     .then(json)
     .then(function(data) {
         console.log('Success: POST feedback', data);
-        
+        info_sent_feedback();
     }).catch(function(error) {
         console.log('Failed: POST feedback', error);
-
-        // TODO error feed lost connection
-        
+        info_error_sent_feedback()
     });
 
 
@@ -94,16 +92,17 @@ function getTT(u_id, tt_id){
         if(!data.err){
             global_u_id = u_id;
             global_tt_id = tt_id;
+            $("#send_feedback").show();
             displayTT(JSON.stringify(data));
         }else{
-            // TODO timetable doesnt exist
+            addInfo(negativeM('Error', 'Can\'t find timetable'));
         };
 
         
     }).catch(function(error) {
         console.log('Failed: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, error);
 
-        // TODO error feed lost connection
+        addInfo(negativeM('Error', 'Can\'t find timetable'));
         
     });
 
@@ -122,7 +121,7 @@ function getTTList(success_callback){
         
     }).catch(function(error) {
         console.log('Failed: GET List all tt', error);
-
+        addInfo(negativeM('Error', 'Can\'t load timetable search results'));
         // TODO error feed lost connection
         
     });

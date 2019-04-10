@@ -38,6 +38,10 @@
   flex-wrap: nowrap;
 }
 
+#send_feedback {
+      display: none;
+}
+
 @media screen and (max-width: 767px){
       .tt_key_container {
             display: flex;

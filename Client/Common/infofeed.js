@@ -46,6 +46,13 @@ function removeOldestInfo(){
 
 }
 
+function positiveM(title, text){
+   return '<div class="ui positive message"><i class="close icon"></i><div class="header">'+title+'</div>'+text+'</div>';
+}
+
+function negativeM(title, text){
+    return '<div class="ui negative message"><i class="close icon"></i><div class="header">'+title+'</div>'+text+'</div>'
+}
 
 function info_success_save(){
     addInfo(success_save);
@@ -61,4 +68,12 @@ function info_error_load(){
 
 function info_error_comm_delete(){
     addInfo(error_connection_com);
+}
+
+function info_sent_feedback(){
+    addInfo(positiveM('Success!', 'Feedback sent.'))
+}
+
+function info_error_sent_feedback(){
+    addInfo(negativeM('Lost connection', 'Unable to send feedback. Please try again later.'))
 }

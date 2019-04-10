@@ -15,8 +15,9 @@ class time_slot  {
 }
 
 class tt_meta  {
-    constructor(start_day) {
+    constructor(start_day, name) {
     this.start_day = start_day;
+    this.name = name;
   }
 }
 
@@ -139,7 +140,7 @@ function makeExampleObj(){
                             new session_type("#76B041", "Normal", 1),
                             new session_type("#76B041", "Really Long Session Name", 1)]
     
-    tt_dat.meta = new tt_meta(0);
+    tt_dat.meta = new tt_meta(0, "Swim TT");
 
     return tt_dat;
 }

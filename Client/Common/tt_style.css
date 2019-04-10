@@ -23,6 +23,18 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   
 }  
 
+
+.tt_title {
+  padding-top: 0.5em;
+  margin-left: 1em;
+  text-align: left;
+  width: 100%; 
+}
+
+#computer_row {
+  padding-top: 0;
+}
+
 /* Ghetto vertical center align */
 .empty_tt {
   height: 100%;
@@ -33,6 +45,7 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   top: 30%;
   text-align: center;
 }
+
 
 /* ********************************************************************* */
 /* ************************ Landscape timetable *********************** */

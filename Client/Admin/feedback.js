@@ -45,7 +45,7 @@ function getDaysAgo(timestamp){
 
 function deleteComment(id, dom_obj){
 
-    serverDelete(comment_obj[id].global_id, function () {
+    serverDelete(comment_obj[id].c_id, function () {
         removeCommentObj();
         $(dom_obj).closest('.card').fadeOut(200, function() {
             drawComments();
@@ -57,15 +57,23 @@ function removeCommentObj(local_id){
     comment_obj.splice(local_id, 1);
 }
 
-function serverDelete(global_id, success_callback){
-    console.log("Deleting comment from server with global id: "+global_id)
-    let success = false;
+function serverDelete(c_id, success_callback){
+    console.log("Deleting comment from server with global id: "+c_id)
+  
 
-    if(success){
+    fetch('/api/feedback?tt_id=1&u_id=1&c_id='+c_id, {method:'delete'})
+    .then(status)
+    .then(json)
+    .then(function(data) {
+        console.log('Succeeded with JSON response', data);
         success_callback();
-    }else{
+        
+    }).catch(function(error) {
+        console.log('Request failed', error);
         info_error_comm_delete();
-    }
+        
+    });
+
 }
 
 function serverGetFeedback(tt_id, u_id, success_cb, fail_cb){
@@ -88,48 +96,6 @@ fetch('/api/feedback?tt_id='+tt_id+'&u_id='+u_id+'&c_id=all')
     }
 });
 
-
-
-}
-
-
-function mock_comments_json(){
-    let small_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-    let mid_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus"
-    let large_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus. Praesent accumsan lacinia dolor, et ultricies tortor imperdiet vitae. Sed ultricies et elit eu consectetur."
-    
-
-    let mock_comment_obj = []
-
-    let global_id = 0;
-
-    for(let i = 0; i<3; i++){
-        let comment = {};
-        comment.title = "Doge forever "+global_id
-        comment.content = small_content;
-        comment.timestamp = "now" 
-        comment.global_id = global_id;
-        global_id +=1;
-        mock_comment_obj.push(comment)
-
-        comment = {};
-        comment.title = "Doge forever "+global_id
-        comment.content = mid_content;
-        comment.timestamp = "now"
-        comment.global_id = global_id;
-        global_id +=1; 
-        mock_comment_obj.push(comment)
-
-        comment = {};
-        comment.title = "Doge forever "+global_id
-        comment.content = large_content;
-        comment.timestamp = "now"
-        comment.global_id = global_id;
-        global_id +=1; 
-        mock_comment_obj.push(comment)
-    }
-
-    return JSON.stringify(mock_comment_obj)
 
 
 }

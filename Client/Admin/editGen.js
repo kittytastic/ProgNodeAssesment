@@ -1,10 +1,11 @@
 function generateEditingMenu(json){
+    
     var tt_obj = JSON.parse(json);
-
+    console.log(tt_obj)
     let day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
     
     let outHTML = '<div>'
-
+    
     outHTML+='<h2 style="text-align: center">Edit Time Slots</h2>'
 
     // Add all editing days
@@ -17,7 +18,7 @@ function generateEditingMenu(json){
 
      
     outHTML += generateEditingSessions(tt_obj.session_type)
-
+    outHTML += '<h2> Currently editing: '+tt_obj.meta.name+' </h2>'
     outHTML += '</div>'
     return outHTML
 }

@@ -12,12 +12,13 @@ function generateFullTT(tt_json){
         return '<div class="empty_tt"><div class="empty_tt_center"><h1> No content to display </h1></div></div>';
     }
 
-    let outHTML = ''
+    let outHTML = '';
 
     outHTML += generateCSS(tt_obj);
     outHTML += '<div class="ui stackable grid">';
+    outHTML += '<h1 class="tt_title">'+tt_obj.meta.name+'</h1>';
     outHTML += '<div class = "tablet computer only row">'
-    outHTML += '<div class="column">'
+    outHTML += '<div class="column" id="computer_row">'
     outHTML += generateLandscapeTT(tt_obj, start, end, step)
     outHTML += '</div></div>'
     outHTML += '<div class = "mobile only row  mobile_row" id="mobile_row">'

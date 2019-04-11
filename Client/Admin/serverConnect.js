@@ -1,4 +1,4 @@
-function saveTT(obj){
+function saveTT(obj, success_cb){
     console.log("Saving timetable to server")
 
     // Send comment off to server
@@ -7,6 +7,9 @@ function saveTT(obj){
     .then(json)
     .then(function(data) {
         console.log('Success: POST timetable', data);
+        if(success_cb){
+            success_cb();
+        }
         
     }).catch(function(error) {
         console.log('Failed: POST timetable', error);
@@ -19,7 +22,7 @@ function saveTT(obj){
 
 function pullTT(tt_id, u_id, success_cb, fail_cb){
     
-    fetch('/api/tt?tt_id=1&u_id=1')
+    fetch('/api/tt?tt_id='+tt_id+'&u_id='+u_id)
     .then(status)
     .then(json)
     .then(function(data) {
@@ -42,18 +45,18 @@ function pullTT(tt_id, u_id, success_cb, fail_cb){
 }
 
 function serverGetUserTT(u_id, success_cb){
-  console.log(u_id)
+ 
   fetch('/api/tt?u_id='+u_id)
   .then(status)
   .then(json)
   .then(function(data) {
-      console.log('Succes: GET list user tts; tt_id: '+tt_id+' u_id: '+u_id, data);
+      console.log('Succes: GET list user tts; tt_id: null u_id: '+u_id, data);
      
       if(success_cb){
-          success_cb();
+          success_cb(data);
       }
   }).catch(function(error) {
-      console.log('Failed: GET list user tts; tt_id: '+tt_id+' u_id: '+u_id, error);
+      console.log('Failed: GET list user tts; tt_id: null u_id: '+u_id, error);
       // TODO error handeler
       
       

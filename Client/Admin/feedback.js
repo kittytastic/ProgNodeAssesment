@@ -2,7 +2,7 @@ let comment_obj={};
 
 function initFeedback(){
 
-    serverGetFeedback(1, 1, function(){drawComments()}, function(){})
+    serverGetFeedback(global_tt_id, global_u_id, function(){drawComments()}, function(){})
 
 }
 

@@ -2,15 +2,15 @@ var tt_man;
 var time_interval = 0.25;
 var defualt_col = "#2E282A"
 
-var u_id = 1
-var tt_id = 1
+//var u_id = 1
+//var tt_id = 1
 var global_u_id = 1
 var global_tt_id = 1
 // Build Page
 $(document).ready(function(){
 
 
-    pullTT();
+    
 
     // Set up colour pickers in the session popups
     $('#edit-col-picker').farbtastic('#edit-colour');
@@ -18,24 +18,49 @@ $(document).ready(function(){
 
     //initiateInfoFeed();
     initiateAjaxButtons();
-    initFeedback();
-    initiateMyTTDD();
+   drawPage(0,1)
     
     
 });
 
+function drawPage(tt_id, u_id){
+    global_tt_id = tt_id
+    global_u_id = u_id
+    pullTT(global_tt_id, global_u_id);
+    initFeedback();
+    initiateMyTTDD();
+}
 
 
 function initiateMyTTDD(){
-   /* serverGetUserTT(u_id, function(server_data){
+    serverGetUserTT(global_u_id, function(server_data){
         let dd_data = []
+       
         for(let i=0; i<server_data.length; i++){
-            dd_data.push({name: server_data[i].title, value:server_data[i].u_id +"-"+server_data[i].tt_id})
+            
+                dd_data.push({name: server_data[i].title, value:""+server_data[i].tt_id})
+            
         }
-        $("my_tt").dropdown({values: dd_data});
-    })*/
+        dd_data.push({name: "Add new", value: "new"})
+       
+        $("#my_tt").dropdown({values: dd_data});
+        $("#my_tt").dropdown('setting', 'onChange',function(value){
+            changeTT(value)
+
+        })
+    })
 }
 
-function changeTT(){}
+function changeTT(value){
+    
+    if(value=="new"){
+        addTT();
+    }else{
+        
+        drawPage(parseInt(value), global_u_id);
+    }
+}
 
-function addTT(){}
+function addTT(){
+
+}

@@ -11,7 +11,7 @@ function buildTimeHTML(){
  function initiateAjaxButtons(){
      $("#save_but").on('click', function(){ 
          saveButLoad(true);
-         saveTT(tt_man.tt_data);
+         saveTT(tt_man.tt_data, function(){saveButLoad(false)});
      })
  
      $("#undo_but").on('click', function(){ 

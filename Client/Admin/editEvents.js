@@ -11,14 +11,14 @@ function buildTimeHTML(){
  function initiateAjaxButtons(){
      $("#save_but").on('click', function(){ 
          saveButLoad(true);
-         saveTT(tt_man.tt_data, function(){saveButLoad(false)});
+         saveTT(tt_man.tt_data, function(){saveButLoad(false); setUnsavedChanges(false);});
      })
  
      $("#undo_but").on('click', function(){ 
          $('#undo-all-modal').modal({
              onApprove : function() {
                  undoButLoad(true);
-                 pullTT(tt_id, u_id, function () {undoButLoad(false)}, function () {undoButLoad(false)});
+                 pullTT(global_tt_id, global_u_id, function () {undoButLoad(false); setUnsavedChanges(false);}, function () {undoButLoad(false)});
              }
            }).modal('show');
      })
@@ -55,6 +55,7 @@ function buildTimeHTML(){
  
  // Event listeners
  function deleteTimeSlot(day, index, object){
+    setUnsavedChanges(true);
      if(!editor_lock){
          editor_lock = true;
          tt_man.remove_time_slot(day,index);
@@ -110,6 +111,8 @@ function buildTimeHTML(){
  }
  
  function editTSSave(day, index){
+    setUnsavedChanges(true);
+
      // Get new values
      let new_start = $('#edit-ts-start').dropdown('get value');
      let new_end = $('#edit-ts-end').dropdown('get value');
@@ -239,6 +242,8 @@ function buildTimeHTML(){
  }
  
  function addTSSave(day){
+    setUnsavedChanges(true);
+
       // Get new values
       let new_start = $('#add-ts-start').dropdown('get value');
       let new_end = $('#add-ts-end').dropdown('get value');
@@ -291,6 +296,7 @@ function buildTimeHTML(){
  }
  
  function deleteSessionAndChildren(index){
+    setUnsavedChanges(true);
      
      let data = tt_man.tt_data;
      if(!editor_lock){
@@ -342,6 +348,8 @@ function buildTimeHTML(){
  }
  
  function addSessionSave(){
+    setUnsavedChanges(true);
+
      let new_col = $('#add-colour').val();
      let new_name = $('#add-ses-name').val();
  
@@ -402,6 +410,8 @@ function buildTimeHTML(){
  }
  
  function editSessionSave(index){
+    setUnsavedChanges(true);
+
      let new_col = $('#edit-colour').val();
      let new_name = $('#edit-ses-name').val();
  

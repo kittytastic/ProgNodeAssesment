@@ -20,10 +20,12 @@ $(document).ready(function(){
     initiateAjaxButtons();
    drawPage(0,1)
     
+  
     
 });
 
 function drawPage(tt_id, u_id){
+    unsavedChanges = false;
     global_tt_id = tt_id
     global_u_id = u_id
     pullTT(global_tt_id, global_u_id);
@@ -56,8 +58,8 @@ function changeTT(value){
     if(value=="new"){
         addTT();
     }else{
+        nagigateAway(function(){drawPage(parseInt(value), global_u_id);  })
         
-        drawPage(parseInt(value), global_u_id);
     }
 }
 
@@ -119,4 +121,28 @@ $('#add-tt-form')
 
     }).modal('show');
     
+}
+
+var unsavedChanges = true;
+
+function nagigateAway(yes_cb){
+    if(unsavedChanges){
+      // Check if you are sure you want ot navigate away
+      $('#change-tt').modal({
+        onApprove : function() {
+            yes_cb();
+        }
+      }).modal('show');
+    }else{
+      return true;
+    }
+}
+
+function setUnsavedChanges(state){
+  unsavedChanges = state
+  if(state){
+    window.onbeforeunload = function() {return true;};
+  }else {
+    window.onbeforeunload = null;
+  }
 }

@@ -31,6 +31,7 @@ function drawPage(tt_id, u_id){
     pullTT(global_tt_id, global_u_id);
     initFeedback();
     initiateMyTTDD();
+    initiateGetShare();
 }
 
 
@@ -145,4 +146,12 @@ function setUnsavedChanges(state){
   }else {
     window.onbeforeunload = null;
   }
+}
+
+function initiateGetShare(){
+  document.getElementById("share-link").value = (window.location.origin+"?u_id="+global_u_id+"&tt_id="+global_tt_id);
+  $("#get_share").on('click', function() {
+    $('#share-modal').modal('show')}
+  )
+ 
 }

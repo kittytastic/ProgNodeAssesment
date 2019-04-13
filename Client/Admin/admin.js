@@ -135,7 +135,7 @@ function nagigateAway(yes_cb){
         }
       }).modal('show');
     }else{
-      return true;
+      yes_cb();
     }
 }
 

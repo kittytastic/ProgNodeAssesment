@@ -6,7 +6,7 @@ function mockComments(){
     let mid_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus"
     let large_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus. Praesent accumsan lacinia dolor, et ultricies tortor imperdiet vitae. Sed ultricies et elit eu consectetur."
     
-
+    let today = new Date();
     let mock_comment_obj = []
 
     let c_id = 0;
@@ -15,7 +15,8 @@ function mockComments(){
         let comment = {};
         comment.title = "Doge forever "+c_id
         comment.content = small_content;
-        comment.timestamp = "now" 
+        today.setDate(today.getDate()-1);
+        comment.timestamp = today.toJSON() 
         comment.c_id = c_id;
         c_id +=1;
         mock_comment_obj.push(comment)
@@ -23,7 +24,8 @@ function mockComments(){
         comment = {};
         comment.title = "Doge forever "+c_id
         comment.content = mid_content;
-        comment.timestamp = "now"
+        today.setDate(today.getDate()-1);
+        comment.timestamp = today.toJSON()
         comment.c_id = c_id;
         c_id +=1; 
         mock_comment_obj.push(comment)
@@ -31,7 +33,8 @@ function mockComments(){
         comment = {};
         comment.title = "Doge forever "+c_id
         comment.content = large_content;
-        comment.timestamp = "now"
+        today.setDate(today.getDate()-1);
+        comment.timestamp = today.toJSON()
         comment.c_id = c_id;
         c_id +=1; 
         mock_comment_obj.push(comment)

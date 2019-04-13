@@ -194,9 +194,10 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
       res.send({err: 'no u_id argument given'})
       return
     }
+    let today = new Date()
 
     
-    db.add_comment(tt_id, u_id, req.body.title, req.body.comment, req.body.timestamp)
+    db.add_comment(tt_id, u_id, req.body.title, req.body.comment, today.toJSON())
     res.send({success:''})
     
   })

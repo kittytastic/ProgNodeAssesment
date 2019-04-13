@@ -35,8 +35,13 @@ function commentHTML(local_id, title, content, days_ago){
 } 
 
 function getDaysAgo(timestamp){
+    let today = new Date();
+    let day = new Date(timestamp)
 
-    return 1
+    const diffTime = Math.abs(today.getTime() - day.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+    
+    return diffDays;
 }
 
 function deleteComment(id, dom_obj){

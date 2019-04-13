@@ -58,11 +58,10 @@ function saveFeedback(){
     }
 
     let safer_com = escapeHtml(comment_in);
-    let today = new Date();
     let com_obj = {
                 title: title_in,
                 comment: safer_com,
-                time: today.toJSON()
+                
     }
 
    

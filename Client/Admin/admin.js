@@ -62,5 +62,61 @@ function changeTT(value){
 }
 
 function addTT(){
+$('#add-tt-form')
+.form({
+  fields: {
+    name: {
+        identifier  : 'name',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter a name'
+          }
+        ]
+    },
+    day: {
+        identifier  : 'day',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please choice a starting day'
+          }
+        ]
+    },
+    dur: {
+      identifier  : 'dur',
+      rules: [
+        {
+          type   : 'integer[1..14]',
+          prompt : 'Please enter a number between 1 and 14 for the duration'
+        }
+      ]
 
+    }
+  }
+});
+    $('#pick-day').dropdown();
+    $("#add-tt").modal({
+        onApprove : function(){
+          //$('#add-tt-form').submit(); 
+          //console.log($('#add-tt-form').form('validate form'))
+          //$('#add-tt-form').form('submit')
+          if($('#add-tt-form').form('validate form')){
+            let n = $('#add-tt-name').val();
+            let sd = $('#pick-day').dropdown('get value')
+            let d = $('#add-tt-dur').val();
+
+            sd= parseInt(sd)
+            d = parseInt(d)
+           
+            serverAddTT(n, sd, d, function(data){
+              drawPage(data.tt_id, global_u_id);
+            })
+          } 
+          else{
+            return false;
+          }}
+
+    }).modal('show');
+    
 }

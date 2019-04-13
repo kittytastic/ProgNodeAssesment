@@ -15,7 +15,7 @@ db.start();
 //})); 
 
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.use('/', express.static('./Client/User'));
@@ -84,10 +84,13 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
 
     if(new_q=="yes"){
       // Add new TT
-      let result = db.add_tt(u_id, tt_data)
+      let meta_name = tt_data.name
+      let meta_day = tt_data.start_day
+      let meta_dur = tt_data.dur
+      let result = db.add_tt(u_id, meta_name, meta_day, meta_dur)
       if(result){
         console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
-        res.send({success:''})
+        res.send({success:'', tt_id: result})
         return
       }else{
         console.log('[FAILED] POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
@@ -168,10 +171,6 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
     }
     res.send(results);
   }
-
-  
-
-
     
   })
 

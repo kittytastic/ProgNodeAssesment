@@ -79,3 +79,25 @@ function status(response) {
   function json(response) {
     return response.json()
   }
+
+
+function serverAddTT(n, sd, d, success_cb){
+    // Send comment off to server
+    fetch('/api/tt?new=yes&u_id='+global_u_id, {method:'post', body:JSON.stringify({name: n, start_day: sd, dur: d}), headers: { "Content-Type": "application/json"}})
+    .then(status)
+    .then(json)
+    .then(function(data) {
+        console.log('Success: POST new timetable', data);
+        // TODO got bad response from server
+        if(success_cb){
+            success_cb(data);
+        }
+        
+    }).catch(function(error) {
+        console.log('Failed: POST new timetable', error);
+
+        // TODO error feed lost connection
+        
+    });
+
+}

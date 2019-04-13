@@ -423,5 +423,89 @@
       </div>
     </div>
 
+
+     <!-- Add a timetable -->
+     <div class="ui tiny modal" id="add-tt">
+    
+      <i class="close icon"></i>
+  
+      <div class="header">
+        Add a Timetable
+      </div>
+      
+      <div class="content">
+        <div class="ui form" id = "add-tt-form">
+          
+          <div class="field">
+            <label>Name</label>
+           
+              
+                <input type = "text" name = "name" id= "add-tt-name">
+              
+          </div> 
+          <div class="field">
+          <div class="ui search selection dropdown" id="pick-day">
+            <input type="hidden" name="day" id="pick-day-i">
+            <i class="dropdown icon"></i>
+            <div class="default text">Day</div>
+            <div class="menu">
+              <div class="item" data-value="0">Monday</div>
+              <div class="item" data-value="1">Tuesday</div>
+              <div class="item" data-value="2">Wednesday</div>
+              <div class="item" data-value="3">Thursday</div>
+              <div class="item" data-value="4">Friday</div>
+              <div class="item" data-value="5">Saturday</div>
+              <div class="item" data-value="6">Sunday</div>
+            </div>
+          </div>
+        </div> 
+          <div class="field">
+            <label>Duration</label>
+           
+              
+                <input type = "text" id= "add-tt-dur" placeholder="Days" name="dur">
+              
+          </div> 
+          <div class="ui error message"></div>
+        </div>
+        
+        <!--<div class="ui negative message" id="add-ses-error-empty">
+          <div class="header">
+           Error
+          </div>
+          <p>Please enter a name.
+        </p></div>
+
+        
+
+        <div class="ui negative message" id="add-ses-error-col">
+          <div class="header">
+           Error
+          </div>
+          <p>Please select a start day.
+        </p></div>
+
+        <div class="ui negative message" id="add-ses-error-sym">
+          <div class="header">
+           Error
+          </div>
+          <p>Duration must be a number less than 14.
+        </p></div>
+-->
+
+    </div>
+      
+      
+      <div class="actions">
+        <div class="ui black deny button">
+          Cancel
+        </div>
+        <div class="ui positive right labeled icon button">
+          Save
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

@@ -138,11 +138,16 @@ module.exports = {
       if(u_id>=comments.length){return false;}
       if(tt_id>=comments[u_id].length){return false;}
 
+      let new_c_id = 0;
+      if(comments[u_id][tt_id]>0){
+        new_c_id = (comments[u_id][tt_id][comments[u_id][tt_id].length-1].com_id +1 );
+      }
       comments[u_id][tt_id].push({
         title: t, 
         content:com, 
-        timestamp:ts, 
-        com_id:(comments[u_id][tt_id][comments[u_id][tt_id].length-1].com_id +1 )})
+        timestamp:ts,
+        
+        com_id:new_c_id})
     } ,
 
     delete_comment: function(tt_id, u_id, c_id){
@@ -161,11 +166,14 @@ module.exports = {
 
     }, 
 
-    add_tt: function (u_id, data){
+    add_tt: function (u_id, name, day, dur){
       if(u_id>=tt.length){return false;}
-      if(!tt_tools.validate(data)){return false;}
-      tt[u_id].push(data)
-      return true;
+      if(day>6 || dur < 1 || dur > 14){return false;}
+      //if(!tt_tools.validate(data)){return false;}
+      let new_tt = tt_tools.new_tt(name, day, dur)
+      tt[u_id].push(new_tt);
+      comments[u_id].push([])
+      return tt[u_id].length-1;
     },
 
     edit_tt: function (u_id, tt_id, data){

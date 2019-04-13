@@ -105,6 +105,15 @@ function is_undefined(x){
     return (typeof x === 'undefined')
 }
 
+function new_tt(name, start_day, dur){
+    var tt_dat = new tt_data();
+    
+    for(i =0 ;i<dur; i++) tt_dat.days.push([]);
+    tt_dat.meta = new tt_meta(start_day, name);
+
+    return tt_dat;
+}
+
 
 function makeExampleObj(){
     var tt_dat = new tt_data();
@@ -142,5 +151,8 @@ module.exports = {
     },
     validate: function(obj){
         return validate(obj)
+    },
+    new_tt: function(n,s,d){
+        return new_tt(n,s,d);
     }
   };

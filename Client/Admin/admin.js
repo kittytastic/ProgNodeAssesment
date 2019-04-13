@@ -2,32 +2,44 @@ var tt_man;
 var time_interval = 0.25;
 var defualt_col = "#2E282A"
 
-//var u_id = 1
-//var tt_id = 1
 var global_u_id = 1
 var global_tt_id = 1
-// Build Page
+var unsavedChanges = false;
+
+// On page ready
 $(document).ready(function(){
 
-
-    
 
     // Set up colour pickers in the session popups
     $('#edit-col-picker').farbtastic('#edit-colour');
     $('#add-col-picker').farbtastic('#add-colour');
 
-    //initiateInfoFeed();
-    initiateAjaxButtons();
-   drawPage(0,1)
     
+    
+    showHide(false);
+    initiateAjaxButtons();
+    initiateMyTTDD();
   
     
 });
+
+// Shows/hides elements with classes .init_show and .init_hide 
+function showHide(show){
+  if(show){
+    $(".init_show").hide()
+    $(".init_hidden").show()
+  }else{
+    $(".init_hidden").hide()
+    $(".init_show").show()
+  }
+
+}
 
 function drawPage(tt_id, u_id){
     unsavedChanges = false;
     global_tt_id = tt_id
     global_u_id = u_id
+    showHide(true);
     pullTT(global_tt_id, global_u_id);
     initFeedback();
     initiateMyTTDD();
@@ -124,7 +136,7 @@ $('#add-tt-form')
     
 }
 
-var unsavedChanges = true;
+
 
 function nagigateAway(yes_cb){
     if(unsavedChanges){

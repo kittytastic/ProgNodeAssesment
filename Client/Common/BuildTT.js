@@ -9,7 +9,7 @@ function generateFullTT(tt_json){
     var end = temp[1];
     
     if(!exists_any_timeslots(tt_obj)){
-        return '<div class="empty_tt"><div class="empty_tt_center"><h1> No content to display </h1></div></div>';
+        return '<div class="empty_tt"><h1 class="tt_title">'+tt_obj.meta.name+'</h1><div class="empty_tt_center"><h1> No content to display </h1></div></div>';
     }
 
     let outHTML = '';

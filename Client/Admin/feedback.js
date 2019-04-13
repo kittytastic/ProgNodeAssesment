@@ -10,6 +10,9 @@ function initFeedback(){
 function drawComments(){
    
     let all_comments_html = ''
+    if(comment_obj.length==0){
+        all_comments_html += "<h2>No comments to display</h2>"
+    }
     for(let i=0; i< comment_obj.length; i++){
         all_comments_html += commentHTML(i, comment_obj[i].title, comment_obj[i].content, getDaysAgo(comment_obj[i].timestamp))
     }

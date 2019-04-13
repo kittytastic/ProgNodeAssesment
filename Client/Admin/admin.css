@@ -36,15 +36,23 @@
 body {
       /*background-color: blueviolet;*/
 }
-y
+
+.welcome_message {
+      width: 100%;
+      text-align: center;
+      margin-top: 3em;
+}
+
+.init_hidden {
+      display: none;
+}
+
 .all_edit_buttons{
-      float: right;
-      
+      float: right;   
 }
 
 #edit-buttons {
-      padding-top: 1.5em;
-      
+      padding-top: 1.5em;   
 }
 
 

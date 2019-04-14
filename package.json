@@ -4,7 +4,8 @@
   "description": "Node Server for timetable publishing app",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "pretest":"eslint ./Client/*/*.js && eslint server.js && eslint ./Server/*.js "
   },
   "jest": {
     "testEnvironment":"node"

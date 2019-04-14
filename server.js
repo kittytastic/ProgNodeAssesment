@@ -1,5 +1,5 @@
 const app = require('./Server/app')
-const port = 8080
+const port = 80
 
 /* *********************************
    *         Start server          *

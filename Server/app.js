@@ -87,6 +87,13 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
       let meta_name = tt_data.name
       let meta_day = tt_data.start_day
       let meta_dur = tt_data.dur
+
+      if(!meta_day || !meta_day || !meta_dur){
+        res.status(400);
+        res.send({err: 'add timetable data didn\'t contain required fields'});
+        return
+      }
+
       let result = db.add_tt(u_id, meta_name, meta_day, meta_dur)
       if(result){
         //console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );

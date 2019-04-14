@@ -13,7 +13,7 @@ Get timetable data
 [GET] /api/tt?u_id=(number)&tt_id=(number)
 returns json timetable
 
-Updatade timetable data
+Update timetable data
 [POST] /api/tt?u_id=(number)&tt_id=(number)
 body should contain:
 tt object
@@ -32,24 +32,33 @@ returns:
 on error
 error message
 on success:
-success message in json feild "success":""
+success message in json field "success":""
 new timetables timetable ID: "tt_id":(number)
 
 
 ## Feedback
 Get feedback for timetable
 [GET] /api/feedback?u_id=(number)&tt_id=(number)&c_id=all
-returns json list of comments / error
+on success
+returns json list of comment array
+on failure
+returns json error message
 
-Get feedback for timetable
+Get single feedback comment
 [GET] /api/feedback?u_id=(number)&tt_id=(number)&c_id=(number)
-returns json comment / error
+on success
+returns json comment 
+on failure
+returns json error message
 
 
 Post feedback for timetable
 [POST] /api/feedback?u_id=(number)&tt_id=(number)
 body should contain:
-TODO
+{
+    title: "Title of feedback",
+    comment: "Comment of feedback"
+}
 returns json success/failure message
 
 Delete a feedback comment

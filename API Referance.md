@@ -38,8 +38,12 @@ new timetables timetable ID: "tt_id":(number)
 
 ## Feedback
 Get feedback for timetable
-[GET] /api/feedback?u_id=(number)&tt_id=(number)
-returns json list of comments
+[GET] /api/feedback?u_id=(number)&tt_id=(number)&c_id=all
+returns json list of comments / error
+
+Get feedback for timetable
+[GET] /api/feedback?u_id=(number)&tt_id=(number)&c_id=(number)
+returns json comment / error
 
 
 Post feedback for timetable

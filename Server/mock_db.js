@@ -46,10 +46,11 @@ function mockComments(){
 
 function mockComment(){
  
+  let today = new Date();
         comment = {};
         comment.title = "Doge forever "
         comment.content = ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus';
-        comment.timestamp = "now"
+        comment.timestamp = today.toJSON();
         comment.c_id = 0;
 
         return comment;

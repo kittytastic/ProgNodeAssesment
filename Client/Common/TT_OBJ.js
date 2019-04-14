@@ -1,3 +1,5 @@
+/* exported tt_data, tt_manager */
+
 class session_type  {
 	constructor(col, title, status) {
 		this.col = col;
@@ -20,11 +22,12 @@ class tt_meta  {
 	}
 }
 
+/*
 class day {
 	constructor(){
 		this.activities = [];
 	}
-}
+}*/
 
 class tt_data {
 	constructor(){
@@ -48,17 +51,17 @@ class tt_manager{
         
         
 		if(this._is_undefined(obj.days)){
-			console.log('TT obj is not valid missing: tt.days');
+			//console.log('TT obj is not valid missing: tt.days');
 			return false;
 		}
 
 		if(this._is_undefined(obj.session_type)){
-			console.log('TT obj is not valid missing: tt.session_type');
+			//console.log('TT obj is not valid missing: tt.session_type');
 			return false;
 		}
         
 		if(this._is_undefined(obj.meta)){
-			console.log('TT obj is not valid missing: tt.meta');
+			//console.log('TT obj is not valid missing: tt.meta');
 			return false;
 		}
 
@@ -72,12 +75,12 @@ class tt_manager{
 			let n_t_slots = obj.days[i].length;
 			for(let j = 0; j<n_t_slots; j++){
 				if(!this._is_logically_valid_time_slot(obj.days[i][j])){
-					console.log('TT obj is not valid day['+i+']['+j+'] time slot isn\'t logically valid');
+					//console.log('TT obj is not valid day['+i+']['+j+'] time slot isn\'t logically valid');
 					return false;
 				}
 
 				if(obj.days[i][j].session > greatest_s_type || obj.days[i][j].session < 0){
-					console.log('TT obj is not valid day['+i+']['+j+'] times slot doesn\'t point to an existing session');
+					//console.log('TT obj is not valid day['+i+']['+j+'] times slot doesn\'t point to an existing session');
 					return false;
 				}
 
@@ -270,14 +273,14 @@ class tt_manager{
 	digest_JSON(tt_json){
         
 		if(this.tt_data != null){
-			console.log('Error digesting JSON. TT Object already exists are you sure you want to overwrite?');
+			//console.log('Error digesting JSON. TT Object already exists are you sure you want to overwrite?');
 			return;
 		}
 
 		let temp_obj = JSON.parse(tt_json);
 
 		if(!this.validate(temp_obj)){
-			console.log('Error digesting JSON. JSON given wasn\'t a valid TT object.');
+			//console.log('Error digesting JSON. JSON given wasn\'t a valid TT object.');
 			return;
 		}
         
@@ -290,6 +293,7 @@ class tt_manager{
 
 }
 
+/* Debug function - generates example TT
 function makeExampleJSON(){
 	var tt_dat = new tt_data();
     
@@ -318,4 +322,4 @@ function makeExampleJSON(){
 	tt_dat.meta = new tt_meta(0);
 
 	return JSON.stringify(tt_dat);
-}
+}*/

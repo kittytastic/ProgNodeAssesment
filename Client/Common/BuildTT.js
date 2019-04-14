@@ -1,3 +1,8 @@
+// From error.js
+/* global error */
+
+/* exported generateFullTT */
+
 function generateFullTT(tt_json){
 	var tt_obj = JSON.parse(tt_json);
 
@@ -307,7 +312,7 @@ function is_on_hour(time){
 
 // Not used
 // Return next session transition, this could be at curr time of after
-function get_next_session_change(tt_obj, curr_time, day_i){
+/*function get_next_session_change(tt_obj, curr_time, day_i){
 	let next_earliest = 24;
 	let next_session_id = -1;
 
@@ -333,4 +338,4 @@ function get_next_session_change(tt_obj, curr_time, day_i){
     
 	return next_earliest;
 
-}
+}*/

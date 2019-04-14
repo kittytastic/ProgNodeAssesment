@@ -1,3 +1,9 @@
+// From infofeed.js
+/* global info_sent_feedback, addInfo, negativeM, info_error_sent_feedback */
+
+// From buildTT
+/* global generateFullTT */
+
 let global_tt_id =  false;
 let global_u_id = false;
 
@@ -16,8 +22,6 @@ $( document ).ready(function() {
 	var urlParams = new URLSearchParams(window.location.search);
 	if(urlParams.has('tt_id')&&urlParams.has('u_id')){
 		getTT(urlParams.get('u_id'), urlParams.get('tt_id'));
-	}else{
-        
 	}
 
    
@@ -69,11 +73,11 @@ function saveFeedback(){
 	fetch('/api/feedback?tt_id='+global_tt_id+'&u_id='+global_u_id, {method:'post', body:JSON.stringify(com_obj), headers: { 'Content-Type': 'application/json'}})
 		.then(status)
 		.then(json)
-		.then(function(data) {
-			console.log('Success: POST feedback', data);
+		.then(function() {
+			//console.log('Success: POST feedback');
 			info_sent_feedback();
-		}).catch(function(error) {
-			console.log('Failed: POST feedback', error);
+		}).catch(function() {
+			//console.log('Failed: POST feedback');
 			info_error_sent_feedback();
 		});
 
@@ -86,7 +90,7 @@ function getTT(u_id, tt_id){
 		.then(status)
 		.then(json)
 		.then(function(data) {
-			console.log('Success: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, data);
+			//console.log('Success: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, data);
 
 			if(!data.err){
 				global_u_id = u_id;
@@ -98,8 +102,8 @@ function getTT(u_id, tt_id){
 			}
 
         
-		}).catch(function(error) {
-			console.log('Failed: GET timetable; tt_id: '+tt_id+' u_id: '+u_id, error);
+		}).catch(function() {
+			//console.log('Failed: GET timetable; tt_id: '+tt_id+' u_id: '+u_id);
 
 			addInfo(negativeM('Error', 'Can\'t find timetable'));
         
@@ -114,12 +118,12 @@ function getTTList(success_callback){
 		.then(status)
 		.then(json)
 		.then(function(data) {
-			console.log('Success: GET List all tt', data);
+			//console.log('Success: GET List all tt', data);
 			success_callback(data);
 
         
-		}).catch(function(error) {
-			console.log('Failed: GET List all tt', error);
+		}).catch(function() {
+			//console.log('Failed: GET List all tt');
 			addInfo(negativeM('Error', 'Can\'t load timetable search results'));
 			// TODO error feed lost connection
         

@@ -1,3 +1,10 @@
+
+// Debug export
+/* exported testInfoFeed */
+
+// Live exports
+/* exported info_success_save, info_error_save, info_error_load, info_error_comm_delete, info_sent_feedback, info_error_sent_feedback */
+
 let info_count = 0;
 let max_info = 5;
 

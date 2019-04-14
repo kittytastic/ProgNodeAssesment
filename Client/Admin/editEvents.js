@@ -3,7 +3,7 @@
 // From admin.js
 /* global global_tt_id, global_u_id, unsavedChanges:writable */
 // From editGen.js
-/* global generateEditingMenu */
+/* global generateEditingMenu, timeFormat */
 
 //From BuildTT.js
 /* global generateFullTT */
@@ -221,7 +221,7 @@ function newTimeSlot(day){
 	$('#add-ts-dd-here').html('<div class="ui search selection dropdown"  id="add-ts-ses"><input type="hidden" name="add-ts-session"> <div class="text"></div><i class="dropdown icon"></i><div class="menu"> </div></div>');
 	let search_dat = [];
 	let sessions = tt_man.tt_data.session_type;
-	let day_obj = tt_man.tt_data.days[day];
+	
  
 	for(let i=0; i<sessions.length; i++){
 		search_dat.push({value: ''+i+'', name:sessions[i].title});

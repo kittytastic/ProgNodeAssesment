@@ -1,3 +1,8 @@
+/* eslint no-console:0 */
+/* This file is used for debug ONLY */
+
+/* exported error, error_minor, warning */
+
 function error(msg){
 	console.log(('%cERROR: '+msg+'\n'+stackTrace()), 'color: #ff0000');
 }

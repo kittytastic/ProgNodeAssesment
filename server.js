@@ -1,7 +1,7 @@
 const app = require('./Server/app')
-const port = 80
+const port = 8080
 
 /* *********************************
    *         Start server          *
    ********************************* */
-  app.listen(port, () => console.log(`Timetable server started on port: ${port}`))
+  app.listen( process.env.PORT || port, () => console.log(`Timetable server started on port: ${port}`))

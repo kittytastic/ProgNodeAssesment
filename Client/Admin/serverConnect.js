@@ -20,7 +20,11 @@ var tt_man;
 let mostRecentError;
 let session_token;
 
-function saveTT(obj, success_cb){
+/* ******************************************
+   *                Timetable               *
+   ****************************************** */
+
+function saveTT(obj, success_cb, fail_cb){
 	console.log('Saving timetable to server');
 
 	// Send comment off to server
@@ -29,7 +33,7 @@ function saveTT(obj, success_cb){
 		.then(json)
 		.then(function() {
 			console.log('Success: POST timetable');
-
+			addInfo(positiveM('Success', 'Timetable saved.'));
 			if(success_cb){
 				success_cb();
 			}
@@ -37,8 +41,10 @@ function saveTT(obj, success_cb){
 		}).catch(function(error) {
 			console.log('Failed: POST timetable', error);
 			mostRecentError = error;
-
-			// TODO error feed lost connection
+			addInfo(negativeM('Error lost connection', 'Can\'t save timetable, please try again later'));
+			if(fail_cb){
+				fail_cb();
+			}
         
 		});
 
@@ -69,7 +75,7 @@ function pullTT(tt_id, u_id, success_cb, fail_cb){
     
 }
 
-function serverGetUserTT(u_id, success_cb){
+function serverGetUserTT(u_id, success_cb, fail_cb){
  
 	fetch('/api/tt?u_id='+u_id)
 		.then(status)
@@ -83,8 +89,10 @@ function serverGetUserTT(u_id, success_cb){
 		}).catch(function(error) {
 			mostRecentError = error;
 			console.log('Failed: GET list user tts; tt_id: null u_id: '+u_id, error);
-			// TODO error handeler
-      
+			// Ommited error message as getting a users timetables is always preceded by
+			// 1. Changing timetable
+			// 2. Sigining in
+			// Both of which have thier own connection errors 
       
 		});
 }
@@ -106,13 +114,16 @@ function serverAddTT(n, sd, d, success_cb){
 		}).catch(function(error) {
 			mostRecentError = error;
 			console.log('Failed: POST new timetable', error);
-
+			addInfo(negativeM('Error lost connection', 'Can\'t add timetable "'+n+'", please try again later'));
 			// TODO error feed lost connection
         
 		});
 
 }
 
+/* ******************************************
+   *             Authentication             *
+   ****************************************** */
 
 function serverVerify(id_token, success_cb){
  
@@ -130,8 +141,8 @@ function serverVerify(id_token, success_cb){
 		}).catch(function(error) {
 			mostRecentError = error;
 			console.log('Failed: GET verify; token: to long to show', error);
-			// TODO error handeler
-      
+			
+			addInfo(negativeM('Error lost connection', 'We couldn\'t verify you identity with our server.'));
       
 		});
 }

@@ -98,7 +98,7 @@ function getTT(u_id, tt_id){
 				$('#send_feedback').show();
 				displayTT(JSON.stringify(data));
 			}else{
-				addInfo(negativeM('Error', 'Can\'t find timetable'));
+				addInfo(negativeM('Error lost connection', 'Can\'t get timetable, please try again later'));
 			}
 
         

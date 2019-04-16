@@ -80,19 +80,21 @@ app.post('/api/tt', function (req, res) {
 	let tt_data = req.body;
 	let auth_token = req.query.auth;
 
-	console.log(auth_token)
-	if(!crypto.verify(u_id, auth_token)){
-		console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
-		res.status(403);
-		res.send({err: 'please supply valid authentication token'});
-		return;
-	}
+	
 
-
+	// Check if user exists
 	if(u_id === undefined){
 		console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 		res.status(400);
 		res.send({err: 'no u_id or auth specified'});
+		return;
+	}
+
+	// Verify user credentials
+	if(!crypto.verify(u_id, auth_token)){
+		console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		res.status(403);
+		res.send({err: 'please supply valid authentication token'});
 		return;
 	}
 
@@ -102,15 +104,17 @@ app.post('/api/tt', function (req, res) {
 		let meta_day = tt_data.start_day;
 		let meta_dur = tt_data.dur;
 
-		console.log(tt_data)
+		// Check the required feilds have been supplied
 		if(!meta_name || meta_day===undefined || !meta_dur){
-			
 			res.status(400);
 			res.send({err: 'add timetable data didn\'t contain required fields'});
 			return;
 		}
 
+		// Add the tt to the database
 		let result = db.add_tt(u_id, meta_name, meta_day, meta_dur);
+		
+		// Check the results of the addition
 		if(result != "fail"){
 			console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 			res.send({success:'', tt_id: result});
@@ -121,6 +125,7 @@ app.post('/api/tt', function (req, res) {
 			res.send({err: 'timetable data or u_id wasnt vaild'});
 			return;
 		}
+		
 	}else{
 
 		// Edit exsisting TT

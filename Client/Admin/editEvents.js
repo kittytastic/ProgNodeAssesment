@@ -16,7 +16,6 @@ var defualt_col = '#2E282A';
 function buildTimeHTML(){
 	$('#tt-full').html(generateFullTT(tt_man.JSON));
  
-     
 }
  
 function buildExampleBar(){
@@ -26,7 +25,7 @@ function buildExampleBar(){
 function initiateAjaxButtons(){
 	$('#save_but').on('click', function(){ 
 		saveButLoad(true);
-		saveTT(tt_man.tt_data, function(){saveButLoad(false); setUnsavedChanges(false);});
+		saveTT(tt_man.tt_data, function(){saveButLoad(false); setUnsavedChanges(false);}, function() { saveButLoad(false); });
 	});
  
 	$('#undo_but').on('click', function(){ 

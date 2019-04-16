@@ -5,14 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "pretest":"eslint ./Client/*/*.js && eslint server.js && eslint ./Server/*.js "
+    "pretest": "eslint ./Client/*/*.js && eslint server.js && eslint ./Server/*.js "
   },
   "jest": {
-    "testEnvironment":"node"
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },

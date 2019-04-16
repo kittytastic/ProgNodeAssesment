@@ -43,6 +43,16 @@ body {
       margin-top: 3em;
 }
 
+.welcome_message div{
+      margin-left:auto;
+      margin-right:auto;
+}
+
+
+.page_state_0 .page_state_1 .page_state_2 {
+      display: none;
+}
+
 .init_hidden {
       display: none;
 }

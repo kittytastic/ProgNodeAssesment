@@ -5,6 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Google sign-in  -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="9478045862-k3c40ln9u21tu06slm5jrhfvdi6hcbq6.apps.googleusercontent.com">
+
     <!-- Semantic CSS -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -63,40 +67,52 @@
             </div>
           </div>
 
+          <div class="right menu">
+            <div class="item">
+              <button class=" page_state_1 page_state_2 ui button" onclick="signOut();">
+                Sign-out
+              </button>
+             
+            </div>
+          </div>
+
           
         </div>
-    
-        <div class='init_show welcome_message'><h1>Please select a timetable</h1><p>Please select a timetable from the "My Timetables" menu.</p></div>
+        
+        <div class='page_state_0 welcome_message'><h1> Please sign-in to access your timetables</h1><div class="g-signin2 signed_out_only" data-onsuccess="onSignIn"></div></div>
+       
+
+        <div class='welcome_message page_state_1'><h1>Please select a timetable</h1><p>Please select a timetable from the "My Timetables" menu.</p></div>
   <!-- Editing Menu-->
-  <div class="editing-menu init_hidden">
+  <div class="page_state_2 editing-menu">
     <span id="editor_here"></span>
     
     <div class= "all_edit_buttons">
     <div id = "edit-buttons">
        
-        <div class="ui deny button init_hidden" id = "undo_but">
+        <div class="ui deny button" id = "undo_but">
             Undo all
           </div>
-          <div class="ui positive right labeled icon button init_hidden" id="save_but">
+          <div class="ui positive right labeled icon button" id="save_but">
             Save
             <i class="checkmark icon"></i>
           </div>
           
     </div>
  
-  <div class="ui primary button init_hidden" id = "get_share">
+  <div class="ui primary button" id = "get_share">
       Get share link
     </div>
   </div>
   </div>
   
   <!-- Time table container -->
-  <div class="main">
+  <div class="page_state_2 main">
     <span id="tt-full"></span>  
   </div>
 
   <!-- Feedback container -->
-  <div class="feedback-container init_hidden">
+  <div class="page_state_2 feedback-container">
     <h1> Feedback </h1>
     <div class = "ui cards" id="feedback-box">
    

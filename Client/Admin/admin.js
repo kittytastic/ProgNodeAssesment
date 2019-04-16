@@ -4,6 +4,29 @@ var global_u_id = 1;
 var global_tt_id = 1;
 var unsavedChanges = false;
 
+function onSignIn(googleUser) {
+	
+	
+
+	var id_token = googleUser.getAuthResponse().id_token;
+	
+	serverVerify(id_token, function(){
+		setPageState(1);
+	})
+
+	
+}
+
+function signOut() {
+	setPageState(0);
+	
+	var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+			console.log('User signed out.');
+			
+    });
+  }
+
 // On page ready
 $(document).ready(function(){
 
@@ -12,14 +35,40 @@ $(document).ready(function(){
 	$('#edit-col-picker').farbtastic('#edit-colour');
 	$('#add-col-picker').farbtastic('#add-colour');
 
+	setPageState(0);
     
-    
-	showHide(false);
 	initiateAjaxButtons();
-	initiateMyTTDD();
   
     
 });
+
+function setPageState(state){
+		if(state == 1){
+			// Show "please select"
+				initiateMyTTDD();
+				$('.page_state_0').hide();
+				$('.page_state_2').hide();
+				$('.page_state_1').show();
+					
+				
+		}else if (state == 2){
+			// show editing view
+				initiateMyTTDD();
+				$('.page_state_0').hide();
+				$('.page_state_1').hide();
+				$('.page_state_2').show();
+				
+				
+		}else {
+				// Show "please sign-in"
+				clearMyTTDD();
+				$('.page_state_1').hide();
+				$('.page_state_2').hide();
+				$('.page_state_0').show();
+				
+		}
+
+}
 
 // Shows/hides elements with classes .init_show and .init_hide 
 function showHide(show){
@@ -38,7 +87,7 @@ function drawPage(tt_id, u_id){
 	unsavedChanges = false;
 	global_tt_id = tt_id;
 	global_u_id = u_id;
-	showHide(true);
+	setPageState(2);
 	pullTT(global_tt_id, global_u_id);
 	initFeedback();
 	initiateMyTTDD();
@@ -67,6 +116,10 @@ function initiateMyTTDD(){
 
 		});
 	});
+}
+
+function clearMyTTDD(){
+	$('#my_tt').dropdown({values: []});
 }
 
 // Function used to change timetable

@@ -24,7 +24,7 @@ function saveTT(obj, success_cb){
 	console.log('Saving timetable to server');
 
 	// Send comment off to server
-	fetch('/api/tt?tt_id='+global_tt_id+'&u_id='+global_u_id, {method:'post', body:JSON.stringify(obj), headers: { 'Content-Type': 'application/json'}})
+	fetch('/api/tt?tt_id='+global_tt_id+'&u_id='+global_u_id+'&auth='+session_token, {method:'post', body:JSON.stringify(obj), headers: { 'Content-Type': 'application/json'}})
 		.then(status)
 		.then(json)
 		.then(function() {
@@ -93,7 +93,7 @@ function serverGetUserTT(u_id, success_cb){
 
 function serverAddTT(n, sd, d, success_cb){
 	// Send comment off to server
-	fetch('/api/tt?new=yes&u_id='+global_u_id, {method:'post', body:JSON.stringify({name: n, start_day: sd, dur: d}), headers: { 'Content-Type': 'application/json'}})
+	fetch('/api/tt?new=yes&u_id='+global_u_id+'&auth='+session_token, {method:'post', body:JSON.stringify({name: n, start_day: sd, dur: d}), headers: { 'Content-Type': 'application/json'}})
 		.then(status)
 		.then(json)
 		.then(function(data) {

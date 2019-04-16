@@ -78,10 +78,21 @@ app.post('/api/tt', function (req, res) {
 	let tt_id = req.query.tt_id;
 	let new_q = req.query.new;
 	let tt_data = req.body;
+	let auth_token = req.query.auth;
 
-	if(!u_id){
+	console.log(auth_token)
+	if(!crypto.verify(u_id, auth_token)){
+		console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		res.status(403);
+		res.send({err: 'please supply valid authentication token'});
+		return;
+	}
+
+
+	if(u_id === undefined){
 		console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
-		res.send(db.list_timetable_names());
+		res.status(400);
+		res.send({err: 'no u_id or auth specified'});
 		return;
 	}
 

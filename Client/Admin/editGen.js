@@ -6,7 +6,14 @@ function generateEditingMenu(json){
 	let day_names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
     
 	let outHTML = '<div>';
-    
+	
+	// Edit sessions menu
+	outHTML += '<h2 style="text-align: center">Edit Sessions</h2>';
+	outHTML += generateEditingSessions(tt_obj.session_type);
+
+	outHTML += '<hr/>';
+	
+	// Edit time slots menu
 	outHTML+='<h2 style="text-align: center">Edit Time Slots</h2>';
 
 	// Add all editing days
@@ -14,11 +21,7 @@ function generateEditingMenu(json){
 		outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i);
 	}
 
-	outHTML += '<hr/>';
-	outHTML += '<h2 style="text-align: center">Edit Sessison</h2>';
-
-     
-	outHTML += generateEditingSessions(tt_obj.session_type);
+	
 	outHTML += '</div>';
 	return outHTML;
 }
@@ -40,7 +43,7 @@ function generateEditingDay(day_obj, day_name, sessions, day_id){
 		outHTML += '</tr>';
 	}
 	// Icon and event listener for add time slot
-	outHTML += '<tr  onclick = "newTimeSlot('+day_id+')"><th colspan=2>Add new activity on '+ day_name +'</th><td><i class="plus icon add-icon"></i></td></tr>';
+	outHTML += '<tr  onclick = "newTimeSlot('+day_id+')" class="clickable"><th colspan=2>Add new activity on '+ day_name +'</th><td><i class="plus icon add-icon"></i></td></tr>';
 	outHTML += '</tbody></table></div>';
 	return outHTML;
 }
@@ -53,7 +56,7 @@ function generateEditingSessions(sesh_obj){
 		outHTML += '<td onclick="deleteSession('+i+', this)"><i class="trash icon"></i></td></tr>';
         
 	}
-	outHTML += '<tr onclick="newSession()"><th>Add new session</th><td><i class="plus icon"></i></td></tr>';
+	outHTML += '<tr onclick="newSession()" class="clickable"><th>Add new session</th><td><i class="plus icon"></i></td></tr>';
 	outHTML += '</tbody></table>';
 
 	return outHTML;

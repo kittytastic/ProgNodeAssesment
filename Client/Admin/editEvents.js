@@ -1,7 +1,7 @@
 // From serverConnect.js
 /* global tt_man saveTT pullTT */
 // From admin.js
-/* global global_tt_id, global_u_id, unsavedChanges:writable */
+/* global global_tt_id, global_u_id, unsavedChanges:writable, escapeHtml */
 // From editGen.js
 /* global generateEditingMenu, timeFormat */
 
@@ -11,7 +11,8 @@
 
 /* exported initiateAjaxButtons, unsavedChanges, deleteTimeSlot, editTimeSlot, newTimeSlot, deleteSession, newSession, editSession*/
 var time_interval = 0.25;
-var defualt_col = '#2E282A';
+let defualt_col = '#2E282A'
+let init_sesh_col = '#ff00ff'
 
 function buildTimeHTML(){
 	$('#tt-full').html(generateFullTT(tt_man.JSON));
@@ -349,11 +350,13 @@ function deleteSessionAndChildren(index){
  
 function newSession(){
  
-	$.farbtastic('#add-col-picker').setColor(defualt_col);
+	$.farbtastic('#add-col-picker').setColor(init_sesh_col);
  
 	$('#add-ses-error-empty').hide();
 	$('#add-ses-error-sym').hide();
 	$('#add-ses-error-col').hide();
+
+	$('#add-ses-name-f').removeClass('error');
      
 	$('#add-ses').modal({
 		onApprove : function() {
@@ -387,7 +390,7 @@ function addSessionSave(){
 		return false;
 	}
  
-	if(hasSymbols(new_name)){
+	if(hasSymbols(new_name) || new_name.length > 20){
 		$('#add-ses-error-sym').show();
 		$('#add-ses-name-f').addClass('error');
 		return false;
@@ -409,14 +412,16 @@ function addSessionSave(){
     |                   Edit Session                    |
     ----------------------------------------------------- */
 function editSession(index){
-     
+	
+	
 	$('#edit-ses-name').val(tt_man.tt_data.session_type[index].title);
 	$.farbtastic('#edit-col-picker').setColor(tt_man.tt_data.session_type[index].col);
      
 	$('#edit-ses-error-empty').hide();
 	$('#edit-ses-error-sym').hide();
 	$('#edit-ses-error-col').hide();
-     
+	
+	$('#edit-ses-name-f').removeClass('error');
 	$('#edit-ses').modal({
 		onApprove : function() {
 			return editSessionSave(index);
@@ -450,7 +455,7 @@ function editSessionSave(index){
 		return false;
 	}
  
-	if(hasSymbols(new_name)){
+	if(hasSymbols(new_name) || new_name.length>20){
 		$('#edit-ses-error-sym').show();
 		$('#edit-ses-name-f').addClass('error');
 		return false;
@@ -487,3 +492,4 @@ function setUnsavedChanges(state){
 		window.onbeforeunload = null;
 	}
 }
+

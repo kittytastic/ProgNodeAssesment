@@ -143,6 +143,10 @@ function addTT(){
 						{
 							type   : 'empty',
 							prompt : 'Please enter a name'
+						},
+						{
+							type   : 'maxLength[20]',
+							prompt : 'Name cannot be more than {ruleValue} characters long'
 						}
 					]
 				},
@@ -178,6 +182,7 @@ function addTT(){
 				let sd = $('#pick-day').dropdown('get value');
 				let d = $('#add-tt-dur').val();
 
+				n = escapeHtml(n);
 				sd= parseInt(sd);
 				d = parseInt(d);
            
@@ -218,4 +223,14 @@ function initiateGetShare(){
 		$('#share-modal').modal('show');}
 	);
  
+}
+
+
+function escapeHtml(unsafe) {
+	return unsafe
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;');
 }

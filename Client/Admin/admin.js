@@ -1,5 +1,10 @@
 /* global initiateAjaxButtons, initFeedback, serverGetUserTT, serverAddTT, pullTT */
+// serverConnect.js
+/* global serverVerify */
 
+// Google API
+/* global gapi */
+/* exported signOut, onSignIn */
 var global_u_id = 1;
 var global_tt_id = 1;
 var unsavedChanges = false;
@@ -12,7 +17,7 @@ function onSignIn(googleUser) {
 	
 	serverVerify(id_token, function(){
 		setPageState(1);
-	})
+	});
 
 	
 }
@@ -21,11 +26,11 @@ function signOut() {
 	setPageState(0);
 	
 	var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-			console.log('User signed out.');
+	auth2.signOut().then(function () {
+		//console.log('User signed out.');
 			
-    });
-  }
+	});
+}
 
 // On page ready
 $(document).ready(function(){
@@ -43,35 +48,35 @@ $(document).ready(function(){
 });
 
 function setPageState(state){
-		if(state == 1){
-			// Show "please select"
-				initiateMyTTDD();
-				$('.page_state_0').hide();
-				$('.page_state_2').hide();
-				$('.page_state_1').show();
+	if(state == 1){
+		// Show "please select"
+		initiateMyTTDD();
+		$('.page_state_0').hide();
+		$('.page_state_2').hide();
+		$('.page_state_1').show();
 					
 				
-		}else if (state == 2){
-			// show editing view
-				initiateMyTTDD();
-				$('.page_state_0').hide();
-				$('.page_state_1').hide();
-				$('.page_state_2').show();
+	}else if (state == 2){
+		// show editing view
+		initiateMyTTDD();
+		$('.page_state_0').hide();
+		$('.page_state_1').hide();
+		$('.page_state_2').show();
 				
 				
-		}else {
-				// Show "please sign-in"
-				clearMyTTDD();
-				$('.page_state_1').hide();
-				$('.page_state_2').hide();
-				$('.page_state_0').show();
+	}else {
+		// Show "please sign-in"
+		clearMyTTDD();
+		$('.page_state_1').hide();
+		$('.page_state_2').hide();
+		$('.page_state_0').show();
 				
-		}
+	}
 
 }
 
 // Shows/hides elements with classes .init_show and .init_hide 
-function showHide(show){
+/*function showHide(show){
 	if(show){
 		$('.init_show').hide();
 		$('.init_hidden').show();
@@ -80,7 +85,7 @@ function showHide(show){
 		$('.init_show').show();
 	}
 
-}
+}*/
 
 // Draws page for user u_id and timetable tt_id
 function drawPage(tt_id, u_id){

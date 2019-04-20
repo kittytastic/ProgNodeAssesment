@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "pretest": "eslint ./Client/*/*.js && eslint server.js && eslint ./Server/*.js "
+    "pretest": "eslint ./Client/*/*.js --fix && eslint server.js --fix && eslint ./Server/*.js --fix"
   },
   "jest": {
     "testEnvironment": "node"

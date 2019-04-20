@@ -1,7 +1,7 @@
 // From serverConnect.js
 /* global tt_man saveTT pullTT */
 // From admin.js
-/* global global_tt_id, global_u_id, unsavedChanges:writable, escapeHtml */
+/* global global_tt_id, global_u_id, unsavedChanges:writable */
 // From editGen.js
 /* global generateEditingMenu, timeFormat */
 
@@ -11,8 +11,8 @@
 
 /* exported initiateAjaxButtons, unsavedChanges, deleteTimeSlot, editTimeSlot, newTimeSlot, deleteSession, newSession, editSession*/
 var time_interval = 0.25;
-let defualt_col = '#2E282A'
-let init_sesh_col = '#ff00ff'
+let defualt_col = '#2E282A';
+let init_sesh_col = '#ff00ff';
 
 function buildTimeHTML(){
 	$('#tt-full').html(generateFullTT(tt_man.JSON));

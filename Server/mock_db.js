@@ -158,8 +158,8 @@ module.exports = {
 	}, 
 
 	add_tt: function (u_id, name, day, dur){
-		if(u_id>=tt.length){return "fail";}
-		if(day>6 || dur < 1 || dur > 14){return "fail";}
+		if(u_id>=tt.length){return 'fail';}
+		if(day>6 || dur < 1 || dur > 14){return 'fail';}
 		//if(!tt_tools.validate(data)){return false;}
 		let new_tt = tt_tools.new_tt(name, day, dur);
 		tt[u_id].push(new_tt);
@@ -178,8 +178,8 @@ module.exports = {
 	check_and_fix_user_exist: function (u_id){
 		if(u_id>=tt.length){
 			
-			tt.push([])
-			comments.push([])
+			tt.push([]);
+			comments.push([]);
 		}
 
 	}

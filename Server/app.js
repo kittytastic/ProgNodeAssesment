@@ -10,13 +10,6 @@ const crypto = require('./ghettoCrypto');
 
 db.start();
 
-
-//var bodyParser = require('body-parser')
-//app.use( bodyParser.json() );       // to support JSON-encoded bodies
-//app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-// extended: true
-//})); 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,38 +27,57 @@ app.use('/External', express.static('./Client/ExternalDependencies'));
 app.get('/api/tt', function (req, res) {
 	let tt_id = req.query.tt_id;
 	let u_id = req.query.u_id;
+	
+	
 
-	// No user id, list all timetables
-	if(!u_id){
-		console.log('GET LIST request for timetables ' + tt_id + " u_id: "+u_id);
+	// No user id or tt_id, LIST ALL timetables
+	if(u_id === undefined && tt_id === undefined){
+		//console.log('GET LIST request for timetables ' + tt_id + ' u_id: '+u_id);
 		res.send(db.list_timetable_names());
 		return;
 	}
 
+	u_id = parseInt(u_id);
+	if(!isInt(u_id) || u_id === undefined){
+		res.status(400);
+		res.send({err: 'u_id must be an integer'});
+		return;
+	}
+
 	// User ID but no timetable ID, list all timetables for that user
-	if(!tt_id){
+	if(tt_id === undefined){
 		let result = db.list_timetable_names(u_id);
+		
 		if(!result){
-			console.log('[FAILED] GET request for timetables for user: '+u_id);
+			//console.log('[FAILED] GET request for timetables for user: '+u_id);
 			res.status(400);
-			res.send({err: 'no tt_id argument given'});
+			res.send({err: 'u_id is out of range'});
 			return;
 		}
 
-		console.log('GET LIST request for timetables for user: '+u_id);
+		//console.log('GET LIST request for timetables for user: '+u_id);
 		res.send(result);
 		return;
 
 	}
 
+
+	// TT is defined send timetable data
+	tt_id = parseInt(tt_id);
+	if(!isInt(tt_id)){
+		res.status(400);
+		res.send({err: 'tt_id must be an integer'});
+		return;
+	}
+
 	// Send tt_data
 	let results = db.load_tt(tt_id, u_id);
 	if(results){
-		console.log('GET request for timetable; tt_id: ' + tt_id + " u_id: "+u_id);
+		//console.log('GET request for timetable; tt_id: ' + tt_id + ' u_id: '+u_id);
 		res.send(results);
 		return;
 	}else{
-		console.log('[FAILED] GET request for timetable; tt_id: ' + tt_id + " u_id: "+u_id);
+		//console.log('[FAILED] GET request for timetable; tt_id: ' + tt_id + ' u_id: '+u_id);
 		res.status(400);
 		res.send({err: 'arguments given are out of range'});
 		return;
@@ -84,15 +96,22 @@ app.post('/api/tt', function (req, res) {
 
 	// Check if user exists
 	if(u_id === undefined){
-		console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		//console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 		res.status(400);
 		res.send({err: 'no u_id or auth specified'});
 		return;
 	}
 
+	u_id = parseInt(u_id);
+	if(!isInt(u_id)){
+		res.status(400);
+		res.send({err: 'u_id must be an integer'});
+		return;
+	}
+
 	// Verify user credentials
 	if(!crypto.verify(u_id, auth_token)){
-		console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		//console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 		res.status(403);
 		res.send({err: 'please supply valid authentication token'});
 		return;
@@ -115,27 +134,44 @@ app.post('/api/tt', function (req, res) {
 		let result = db.add_tt(u_id, meta_name, meta_day, meta_dur);
 		
 		// Check the results of the addition
-		if(result != "fail"){
-			console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		if(result != 'fail'){
+			//console.log('POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 			res.send({success:'', tt_id: result});
 			return;
 		}else{
-			console.log('[FAILED] POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+			//console.log('[FAILED] POST ADD timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 			res.status(400);
 			res.send({err: 'timetable data or u_id wasnt vaild'});
 			return;
 		}
 		
 	}else{
+		//Edit a TT
 
-		// Edit exsisting TT
+		// Check tt_id is provided
+		if(tt_id===undefined){
+			res.status(400);
+			res.send({err: 'u_id must be an integer'});
+			return;
+		}
+
+		// Check tt_id is an int
+		tt_id = parseInt(tt_id);
+		if(!isInt(tt_id)){
+			res.status(400);
+			res.send({err: 'tt_id must be an integer'});
+			return;
+		}
+
+
+		// Send to database and check response
 		let result = db.edit_tt(u_id, tt_id, tt_data);
 		if(result){
-			console.log('POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+			//console.log('POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 			res.send({success:''});
 			return;
 		}else{
-			console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+			//console.log('[FAILED] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
 			res.status(400);
 			res.send({err: 'timetable data or u_id/tt_id wasn\'t vaild'});
 			return;
@@ -156,24 +192,38 @@ app.get('/api/feedback', function (req, res) {
 	let tt_id = req.query.tt_id;
 	let u_id = req.query.u_id;
 	let c_id = req.query.c_id;
-	console.log('GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	//console.log('GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 	// Check if the correct arguments have been supplied
 	if(!tt_id){
-		console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+		//console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
 		res.send({err: 'no tt_id argument given'});
 		return;
 	}
 
-	if(!u_id){
-		console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	tt_id = parseInt(tt_id);
+	if(!isInt(tt_id)){
+		res.status(400);
+		res.send({err: 'tt_id must be an integer'});
+		return;
+	}
+
+	if(u_id==undefined){
+		//console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
 		res.send({err: 'no u_id argument given'});
 		return;
 	}
 
-	if(!c_id){
-		console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	u_id = parseInt(u_id);
+	if(!isInt(u_id)){
+		res.status(400);
+		res.send({err: 'u_id must be an integer'});
+		return;
+	}
+
+	if(c_id==undefined){
+		//console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
 		res.send({err: 'no c_id argument given'});
 		return;
@@ -182,7 +232,7 @@ app.get('/api/feedback', function (req, res) {
 	if(c_id=='all'){
 		let results = db.load_all_comments(tt_id, u_id);
 		if(!results){
-			console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+			//console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 			res.status(400);
 			res.send({err: 'Arguments out of range'});
 			return;
@@ -190,9 +240,17 @@ app.get('/api/feedback', function (req, res) {
 		res.send(results);
 		return;
 	} else {
+
+		c_id = parseInt(c_id);
+		if(!isInt(c_id)){
+			res.status(400);
+			res.send({err: 'cc_id must be an integer or value: all'});
+			return;
+		}
+
 		let results = db.load_comment(tt_id, u_id, c_id);
 		if(!results){
-			console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+			//console.log('[FAILED] GET request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 			res.status(400);
 			res.send({err: 'Arguments out of range'});
 			return;
@@ -206,21 +264,23 @@ app.get('/api/feedback', function (req, res) {
 app.post('/api/feedback', function (req, res) {
 	let tt_id = req.query.tt_id;
 	let u_id = req.query.u_id;
-	console.log('POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
+	//console.log('POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
 
 	// Check if the correct arguments have been supplied
-	if(tt_id === undefined){
-		console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id);  
+	tt_id = parseInt(tt_id);
+	if(tt_id === undefined || !isInt(tt_id)){
+		//console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id);  
 		res.status(400);
-		res.send({err: 'no tt_id argument given'});
+		res.send({err: 'tt_id must be supplied and must be an integer'});
 		
 		return;
 	}
 
-	if(u_id === undefined){
-		console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
+	u_id = parseInt(u_id);
+	if(u_id === undefined || !isInt(u_id)){
+		//console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
 		res.status(400);
-		res.send({err: 'no u_id argument given'});
+		res.send({err: ' u_id argument must be supplied and must be an integer'});
 		return;
 	}
 	let today = new Date();
@@ -240,32 +300,35 @@ app.delete('/api/feedback', function (req, res) {
 
 	
 	// Check if the correct arguments have been supplied
-	if(tt_id === undefined){
-		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	tt_id = parseInt(tt_id);
+	if(tt_id === undefined || !isInt(tt_id)){
+		//console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
-		res.send({err: 'no tt_id argument given'});
+		res.send({err: 'tt_id must be supplied and must be an integer'});
 		return;
 	}
 
-	if(u_id === undefined){
-		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	u_id = parseInt(u_id);
+	if(u_id === undefined || !isInt(u_id)){
+		//console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
-		res.send({err: 'no u_id argument given'});
+		res.send({err: 'u_id argument must be supplied and must be an integer'});
 		return;
 	}
 
-	if(c_id === undefined){
-		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	c_id = parseInt(c_id);
+	if(c_id === undefined || !isInt(c_id)){
+		//console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
-		res.send({err: 'no c_id argument given'});
+		res.send({err: 'c_id argument must be supplied and must be an integer'});
 		return;
 	}
 
 	if(db.delete_comment(tt_id, u_id, c_id)){
-		console.log('DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+		//console.log('DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.send({success: ''});  
 	}else{
-		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+		//console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
 		res.send({err: 'couldnt find comment to delete'});
 	}
@@ -279,7 +342,7 @@ app.delete('/api/feedback', function (req, res) {
 app.get('/api/verify', function (req, res) {
 	let id_token = req.query.id_token;
 
-	console.log('GET request to verify; token: too long to show')
+	//console.log('GET request to verify; token: too long to show');
 	// Check if the correct arguments have been supplied
 	if(!id_token){
 		res.status(400);
@@ -287,8 +350,8 @@ app.get('/api/verify', function (req, res) {
 		return;
 	}
 
-	crypto.first_verify(id_token, function(uid, at){db.check_and_fix_user_exist(uid); res.send({u_id: uid, auth_token: at});}, function(){console.log("fail Verify"); res.status(400);
-	res.send({err: 'couldnt verify'});});
+	crypto.first_verify(id_token, function(uid, at){db.check_and_fix_user_exist(uid); res.send({u_id: uid, auth_token: at});}, function(){//console.log('fail Verify'); res.status(400);
+		res.send({err: 'couldnt verify'});});
 
 	
 	
@@ -303,4 +366,11 @@ app.use(function (req, res) {
 });
 
 
+function isInt(x){
+	return Number.isInteger(x);
+}
+
 module.exports = app;
+
+
+

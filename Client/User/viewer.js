@@ -62,7 +62,7 @@ function saveFeedback(){
 	}
 
 	let safer_com = escapeHtml(comment_in);
-	title_in = escapeHtml(title_in)
+	title_in = escapeHtml(title_in);
 	let com_obj = {
 		title: title_in,
 		comment: safer_com,

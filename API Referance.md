@@ -3,7 +3,7 @@
 ## Timetables
 List timetables
 [GET] /api/tt
-retuns json List
+returns json List
 
 List timetables for  user
 [GET] /api/tt?u_id = (number)

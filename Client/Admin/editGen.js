@@ -22,7 +22,7 @@ function generateEditingMenu(json){
 			outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i);
 		}
 	}else{
-		outHTML += '<p style = "text-align:center; margin: 1em; padding-bottom: 2em;"> To specify when a session is on you must first add a session in the menu above!</p>'
+		outHTML += '<p style = "text-align:center; margin: 1em; padding-bottom: 2em;"> To specify when a session is on you must first add a session in the menu above!</p>';
 	}
 
 	

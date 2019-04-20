@@ -14,11 +14,15 @@ function generateEditingMenu(json){
 	outHTML += '<hr/>';
 	
 	// Edit time slots menu
-	outHTML+='<h2 style="text-align: center">Edit Time Slots</h2>';
+	outHTML+='<h2 style="text-align: center">Edit session times</h2>';
 
-	// Add all editing days
-	for(let i = 0; i < tt_obj.days.length; i++){
-		outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i);
+	if(tt_obj.session_type.length>0){
+		// Add all editing days
+		for(let i = 0; i < tt_obj.days.length; i++){
+			outHTML += generateEditingDay(tt_obj.days[i], day_names[(tt_obj.meta.start_day + i )%7], tt_obj.session_type, i);
+		}
+	}else{
+		outHTML += '<p style = "text-align:center; margin: 1em; padding-bottom: 2em;"> To specify when a session is on you must first add a session in the menu above!</p>'
 	}
 
 	

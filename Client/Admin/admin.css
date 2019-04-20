@@ -88,6 +88,14 @@ body {
       
 }
 
+.clickable {
+      cursor: pointer;
+}
+
+i {
+      cursor: pointer;
+}
+
 /* Computer Only */
 @media screen and (min-width: 992px){
       .main {

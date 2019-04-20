@@ -139,8 +139,7 @@ module.exports = {
 			title: t, 
 			content:com, 
 			timestamp:ts,
-        
-			com_id:new_c_id});
+			c_id:new_c_id});
 	} ,
 
 	delete_comment: function(tt_id, u_id, c_id){
@@ -154,14 +153,13 @@ module.exports = {
 				return true;
 			}
 		}
-
 		return false;
 
 	}, 
 
 	add_tt: function (u_id, name, day, dur){
-		if(u_id>=tt.length){console.log("Here 1");return "fail";}
-		if(day>6 || dur < 1 || dur > 14){console.log("Here 2"); return "fail";}
+		if(u_id>=tt.length){return "fail";}
+		if(day>6 || dur < 1 || dur > 14){return "fail";}
 		//if(!tt_tools.validate(data)){return false;}
 		let new_tt = tt_tools.new_tt(name, day, dur);
 		tt[u_id].push(new_tt);

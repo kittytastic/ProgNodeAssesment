@@ -209,14 +209,15 @@ app.post('/api/feedback', function (req, res) {
 	console.log('POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
 
 	// Check if the correct arguments have been supplied
-	if(!tt_id){
+	if(tt_id === undefined){
 		console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id);  
 		res.status(400);
 		res.send({err: 'no tt_id argument given'});
+		
 		return;
 	}
 
-	if(!u_id){
+	if(u_id === undefined){
 		console.log('[FAILED] POST request to comment API; tt_id:'+tt_id +' u_id:'+u_id); 
 		res.status(400);
 		res.send({err: 'no u_id argument given'});
@@ -237,23 +238,23 @@ app.delete('/api/feedback', function (req, res) {
 	let u_id = req.query.u_id;
 	let c_id = req.query.c_id;
 
-	console.log('DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
+	
 	// Check if the correct arguments have been supplied
-	if(!tt_id){
+	if(tt_id === undefined){
 		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
 		res.status(400);
 		res.send({err: 'no tt_id argument given'});
 		return;
 	}
 
-	if(!u_id){
+	if(u_id === undefined){
 		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
 		res.status(400);
 		res.send({err: 'no u_id argument given'});
 		return;
 	}
 
-	if(!c_id){
+	if(c_id === undefined){
 		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
 		res.status(400);
 		res.send({err: 'no c_id argument given'});
@@ -261,6 +262,7 @@ app.delete('/api/feedback', function (req, res) {
 	}
 
 	if(db.delete_comment(tt_id, u_id, c_id)){
+		console.log('DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)
 		res.send({success: ''});  
 	}else{
 		console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id)

@@ -62,6 +62,7 @@ function saveFeedback(){
 	}
 
 	let safer_com = escapeHtml(comment_in);
+	title_in = escapeHtml(title_in)
 	let com_obj = {
 		title: title_in,
 		comment: safer_com,
@@ -125,7 +126,7 @@ function getTTList(success_callback){
 		}).catch(function() {
 			//console.log('Failed: GET List all tt');
 			addInfo(negativeM('Error', 'Can\'t load timetable search results'));
-			// TODO error feed lost connection
+			
         
 		});
     

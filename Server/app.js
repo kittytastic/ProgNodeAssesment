@@ -286,8 +286,13 @@ app.post('/api/feedback', function (req, res) {
 	let today = new Date();
 
     
-	db.add_comment(tt_id, u_id, req.body.title, req.body.comment, today.toJSON());
-	res.send({success:''});
+	if(db.add_comment(tt_id, u_id, req.body.title, req.body.comment, today.toJSON())){
+		res.send({success:''});
+	}else{
+		res.status(400);
+		res.send({err: ' failed to add comment, tt_id or u_id must not exist'});
+		return;
+	}
     
 });
 
@@ -297,6 +302,7 @@ app.delete('/api/feedback', function (req, res) {
 	let tt_id = req.query.tt_id;
 	let u_id = req.query.u_id;
 	let c_id = req.query.c_id;
+	let auth_token = req.query.auth;
 
 	
 	// Check if the correct arguments have been supplied
@@ -321,6 +327,14 @@ app.delete('/api/feedback', function (req, res) {
 		//console.log('[FAILED] DELETE request to feedback API; u_id:'+u_id+' tt_id: '+tt_id+' c_id:'+c_id);
 		res.status(400);
 		res.send({err: 'c_id argument must be supplied and must be an integer'});
+		return;
+	}
+
+	// Verify user credentials
+	if(!crypto.verify(u_id, auth_token)){
+		//console.log('[FAILED AUTH] POST timetable; u_id: '+u_id+' tt_id: ' +tt_id+' new:'+new_q );
+		res.status(403);
+		res.send({err: 'please supply valid authentication token'});
 		return;
 	}
 

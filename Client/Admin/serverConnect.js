@@ -154,7 +154,7 @@ function serverVerify(id_token, success_cb){
 
 function serverDeleteFeedback(c_id, success_callback){
 	//console.log('Server delete func:'+c_id);
-	fetch('/api/feedback?tt_id='+global_tt_id+'&u_id='+global_u_id+'&c_id='+c_id, {method:'delete'})
+	fetch('/api/feedback?tt_id='+global_tt_id+'&u_id='+global_u_id+'&c_id='+c_id+'&auth='+auth_token, {method:'delete'})
 		.then(status)
 		.then(json)
 		.then(function(data) {

@@ -140,6 +140,7 @@ module.exports = {
 			content:com, 
 			timestamp:ts,
 			c_id:new_c_id});
+		return true;
 	} ,
 
 	delete_comment: function(tt_id, u_id, c_id){

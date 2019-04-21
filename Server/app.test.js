@@ -389,7 +389,7 @@ describe('Test GET single feedback comment endpoint', () => {
 			.expect(/err/);
 	});
 
-	test('Error with tt_id arguments', () => {
+	test('Error with no tt_id arguments', () => {
 	    return request(app)
 	    .get('/api/feedback?u_id=0&c_id=0')
 			.expect(400)
@@ -419,7 +419,7 @@ describe('Test GET single feedback comment endpoint', () => {
 			.expect(/err/);
 	});
 	
-	test('Error with u_id arguments', () => {
+	test('Error with no u_id arguments', () => {
 	    return request(app)
 	    .get('/api/feedback?tt_id=0&c_id=0')
 			.expect(400)
@@ -483,9 +483,9 @@ describe('Test GET single feedback comment endpoint', () => {
 
 
 
-describe('Test POST feedback endpoint', () => {
+describe('Test POST feedback endpoint (/api/feedback)', () => {
 
-	test('POST /api/feedback succeeds with u_id and tt_id', () => {
+	test('Succeeds with u_id and tt_id', () => {
 		const params = {title: 'Test Comment',
 			comment: 'Words',};
 		return request(app)
@@ -494,13 +494,97 @@ describe('Test POST feedback endpoint', () => {
 			.expect(200);
 	});
 
-	test('POST /api/feedback fails without u_id and tt_id', () => {
+	test('Error without both arguments u_id and tt_id', () => {
 		const params = {title: 'Test Comment',
 			comment: 'Words',};
 		return request(app)
 			.post('/api/feedback')
 			.send(serialise(params))
 			.expect(400);
+	});
+
+	test('Error without tt_id arguments', () => {
+	    const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?u_id=0')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Error with tt_id wrong data type (string)', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=balr&u_id=0')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Forces int with tt_id wrong data type (float)', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=0.3&u_id=0')
+			.send(serialise(params))
+	    .expect(200);
+	});
+
+	test('Error with tt_id out of range', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=100000000&u_id=0')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+	
+	test('Error without u_id arguments', () => {
+	    const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=0')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Error with u_id wrong data type (string)', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=0&u_id=blar')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Forces int with u_id wrong data type (float)', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=0&u_id=0.2')
+			.send(serialise(params))
+	    .expect(200);
+	});
+
+	test('Error with u_id out of range', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/feedback?tt_id=0&u_id=10000000')
+			.send(serialise(params))
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
 	});
 	
 });
@@ -509,17 +593,72 @@ describe('Test POST feedback endpoint', () => {
 
 describe('Test DELETE timetable endpoint', () => {
 
-	test('DELETE /api/feedback succeeds with arguments', () => {
+
+	test('Requires authentication', () => {
 		return request(app)
 			.delete('/api/feedback?u_id=0&tt_id=0&c_id=0')
-			.expect(200);
+			.expect(403);
 	});
-	
-	test('DELETE /api/feedback fails with no arguments', () => {
+
+	test('Requires arguments', () => {
 		return request(app)
 			.delete('/api/feedback')
 			.expect(400);
 	});
+
+	test('Error with no tt_id arguments', () => {
+	    return request(app)
+	    .delete('/api/feedback?u_id=0&c_id=0')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Error with tt_id wrong data type (string)', () => {
+		return request(app)
+	    .delete('/api/feedback?u_id=0&tt_id=blar&c_id=0')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	
+	test('Error with no u_id arguments', () => {
+	    return request(app)
+	    .delete('/api/feedback?tt_id=0&c_id=0')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Error with u_id wrong data type (string)', () => {
+		return request(app)
+	    .delete('/api/feedback?u_id=blar&tt_id=0&c_id=0')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	
+	
+	test('Error without c_id arguments', () => {
+	    return request(app)
+	    .delete('/api/feedback?u_id=0&tt_id=0')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	test('Error with c_id wrong data type (string)', () => {
+		return request(app)
+	    .delete('/api/feedback?u_id=0&tt_id=0&c_id=blar')
+			.expect(400)
+			.expect('Content-type', /json/)
+			.expect(/err/);
+	});
+
+	
+
 
 
 });

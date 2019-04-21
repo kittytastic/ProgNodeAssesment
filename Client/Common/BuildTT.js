@@ -3,6 +3,48 @@
 
 /* exported generateFullTT */
 
+
+let tt_labels_max = 1400;
+let tt_labels_min = 900;
+
+jQuery.fn.rotate = function(degrees){
+    $(this).css({'transform' : 'rotate('+degrees+'deg)'})
+}
+
+
+function width_to_rotate(width, max, min){
+    
+
+    if(width>max){return 0}
+    if(width<min){return -90}
+
+    return ((90/(min-max)) * (min-width))-90;
+
+}
+
+function tt_page_width_changed(){
+	
+	//let max = 1400;
+	//let min = 768;
+	let max = tt_labels_max;
+	let min = tt_labels_min;
+
+	let new_width = $(window).width()
+
+	$('.time_labels').rotate(width_to_rotate(new_width, max, min));
+	
+	let bottom_raise = 0;
+	if(new_width > max){
+		bottom_raise = 0;
+	}else if(new_width<min){
+		bottom_raise = 1;
+	}else{
+	 bottom_raise = 1 -((new_width-min) / (max-min));
+	}
+	 $('.time_labels').css({"bottom": bottom_raise+"em"})
+
+}
+
 function generateFullTT(tt_json){
 	var tt_obj = JSON.parse(tt_json);
 
@@ -61,7 +103,7 @@ function generateLandscapeTT(tt_obj, start, end, step){
 	table_html += '<tr class=\'tt_header_row\'>';
     
 	// Add top left td that runs from the start to the first hour
-	table_html +='<td colspan = \''+(day_name_span+start_pad)+'\' class=\'tt_headers_no_tick\'><div>'+Math.ceil(start)+':00</div></td>';
+	table_html +='<td colspan = \''+(day_name_span+start_pad)+'\' class=\'tt_headers_no_tick\'><div class="time_labels">'+Math.ceil(start)+':00</div></td>';
     
 
 	let rel_time = 0;
@@ -69,7 +111,7 @@ function generateLandscapeTT(tt_obj, start, end, step){
 		rel_time = start + i * step;    
 
 		// Add the label for the next hour
-		table_html+='<td colspan = \''+col_per_hour+'\'><div>'+(rel_time+1)+':00</div></td>';
+		table_html+='<td colspan = \''+col_per_hour+'\'><div class="time_labels">'+(rel_time+1)+':00</div></td>';
 	}
 
    
@@ -78,7 +120,7 @@ function generateLandscapeTT(tt_obj, start, end, step){
 	// If tt finishes on a whole hour
 	if(end_pad == 0){
 		// Add last hour to time table
-		table_html+='<td colspan = \''+col_per_hour+'\' id=\'tt_headers_end\'><div>'+(rel_time+2)+':00</div></td>';
+		table_html+='<td colspan = \''+col_per_hour+'\' id=\'tt_headers_end\'><div class="time_labels">'+(rel_time+2)+':00</div></td>';
 	}else{
 		// Add last <hour padding to table
 		table_html+='<td colspan = \''+end_pad+'\'></td>';

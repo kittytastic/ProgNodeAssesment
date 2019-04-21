@@ -108,7 +108,7 @@ https://coolors.co/e4572e-17bebb-ffc914-2e282a-76b041
   width: 100%;
   left: 50%;
   text-overflow: ellipsis;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 

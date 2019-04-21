@@ -34,7 +34,12 @@ function signOut() {
 
 // On page ready
 $(document).ready(function(){
-
+	// Set TT label rotating parameters
+	tt_labels_max = 1600;
+	tt_labels_min = 1000;
+	$(window).resize(() => {
+        tt_page_width_changed();
+    });
 
 	// Set up colour pickers in the session popups
 	$('#edit-col-picker').farbtastic('#edit-colour');
@@ -93,7 +98,8 @@ function drawPage(tt_id, u_id){
 	global_tt_id = tt_id;
 	global_u_id = u_id;
 	setPageState(2);
-	pullTT(global_tt_id, global_u_id);
+	pullTT(global_tt_id, global_u_id, () => {tt_page_width_changed();});
+	
 	initFeedback();
 	initiateMyTTDD();
 	initiateGetShare();

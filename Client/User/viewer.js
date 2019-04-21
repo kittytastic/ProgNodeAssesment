@@ -8,7 +8,10 @@ let global_tt_id =  false;
 let global_u_id = false;
 
 $( document ).ready(function() {
-   
+	
+	$(window).resize(() => {
+        tt_page_width_changed();
+    })
 	getTTList(function (content) {
 		$('.ui.search').search({
 			source: content,
@@ -141,6 +144,8 @@ function displayTT(json){
 
 	let key = generateKey(json);
 	document.getElementById('key-holder').innerHTML = key;
+
+	tt_page_width_changed();
 
 } 
 

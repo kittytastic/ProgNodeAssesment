@@ -232,7 +232,7 @@ function newTimeSlot(day){
 	$('#add-ts-ses').dropdown('setting', 'onChange', 
 		function(new_val){setAddTSColPreview(parseInt(new_val));});
  
-	makeTimeDD('add-ts-st-dd-here', 'add-ts-start', time_interval, 'add-ts-et-dd-here', 'add-ts-end', 24 - time_interval);
+	makeTimeDD('add-ts-st-dd-here', 'add-ts-start', 6, 'add-ts-et-dd-here', 'add-ts-end', 22);
 	$('#add-ts-error-overlap').hide();
 	$('#add-ts-error-ses').hide();
      

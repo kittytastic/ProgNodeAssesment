@@ -1,6 +1,11 @@
 /* global initiateAjaxButtons, initFeedback, serverGetUserTT, serverAddTT, pullTT */
+
 // serverConnect.js
 /* global serverVerify */
+
+// BuildTT.js
+/* global tt_labels_max:writable, tt_labels_min:writable, tt_page_width_changed */
+/* exported tt_labels_max, tt_labels_min */
 
 // Google API
 /* global gapi */
@@ -9,19 +14,15 @@ var global_u_id = 1;
 var global_tt_id = 1;
 var unsavedChanges = false;
 
+// Called by Google sign-in API
 function onSignIn(googleUser) {
-	
-	
-
 	var id_token = googleUser.getAuthResponse().id_token;
-	
 	serverVerify(id_token, function(){
 		setPageState(1);
 	});
-
-	
 }
 
+// Called by Google sign-in api
 function signOut() {
 	setPageState(0);
 	
@@ -38,8 +39,8 @@ $(document).ready(function(){
 	tt_labels_max = 1600;
 	tt_labels_min = 1000;
 	$(window).resize(() => {
-        tt_page_width_changed();
-    });
+		tt_page_width_changed();
+	});
 
 	// Set up colour pickers in the session popups
 	$('#edit-col-picker').farbtastic('#edit-colour');
@@ -172,14 +173,14 @@ function addTT(){
 				let t = $('#pick-tt-type').dropdown('get value');
 
 				let sd = 0;
-				let d = 7 
+				let d = 7; 
 
-				if(t=="FW"){
+				if(t=='FW'){
 					sd =0;
-					d = 7
-				}else if(t=="WD"){
+					d = 7;
+				}else if(t=='WD'){
 					sd = 0;
-					d = 5
+					d = 5;
 				}else {
 					sd = 5;
 					d = 2;
@@ -227,10 +228,10 @@ function initiateGetShare(){
 	);
 
 	// Copy icon listener
-	$("#copy_share_button").on('click', function() {
-		var copyText = document.getElementById("share-link");
+	$('#copy_share_button').on('click', function() {
+		var copyText = document.getElementById('share-link');
 		copyText.select();
-		document.execCommand("copy");
+		document.execCommand('copy');
 	});
  
 }

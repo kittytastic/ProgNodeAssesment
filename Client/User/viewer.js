@@ -2,7 +2,7 @@
 /* global info_sent_feedback, addInfo, negativeM, info_error_sent_feedback */
 
 // From buildTT
-/* global generateFullTT */
+/* global generateFullTT, tt_page_width_changed */
 
 let global_tt_id =  false;
 let global_u_id = false;
@@ -10,8 +10,8 @@ let global_u_id = false;
 $( document ).ready(function() {
 	
 	$(window).resize(() => {
-        tt_page_width_changed();
-    })
+		tt_page_width_changed();
+	});
 	getTTList(function (content) {
 		$('.ui.search').search({
 			source: content,

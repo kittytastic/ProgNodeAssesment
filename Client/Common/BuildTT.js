@@ -1,35 +1,34 @@
 // From error.js
 /* global error */
 
-/* exported generateFullTT */
+/* exported generateFullTT, tt_page_width_changed */
 
 
+/* ****************************************
+   * 			Rotate TT Labels		  *
+   **************************************** */
+
+// Globals
 let tt_labels_max = 1400;
 let tt_labels_min = 900;
 
 jQuery.fn.rotate = function(degrees){
-    $(this).css({'transform' : 'rotate('+degrees+'deg)'})
-}
-
+	$(this).css({'transform' : 'rotate('+degrees+'deg)'});
+};
 
 function width_to_rotate(width, max, min){
-    
-
-    if(width>max){return 0}
-    if(width<min){return -90}
-
-    return ((90/(min-max)) * (min-width))-90;
+	if(width>max){return 0;}
+	if(width<min){return -90;}
+	return ((90/(min-max)) * (min-width))-90;
 
 }
 
 function tt_page_width_changed(){
 	
-	//let max = 1400;
-	//let min = 768;
 	let max = tt_labels_max;
 	let min = tt_labels_min;
 
-	let new_width = $(window).width()
+	let new_width = $(window).width();
 
 	$('.time_labels').rotate(width_to_rotate(new_width, max, min));
 	
@@ -39,11 +38,16 @@ function tt_page_width_changed(){
 	}else if(new_width<min){
 		bottom_raise = 1;
 	}else{
-	 bottom_raise = 1 -((new_width-min) / (max-min));
+		bottom_raise = 1 -((new_width-min) / (max-min));
 	}
-	 $('.time_labels').css({"bottom": bottom_raise+"em"})
+	
+	$('.time_labels').css({'bottom': bottom_raise+'em'});
 
 }
+
+/* ****************************************
+   * 			Generate TT 			  *
+   **************************************** */
 
 function generateFullTT(tt_json){
 	var tt_obj = JSON.parse(tt_json);

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "pretest": "eslint ./Client/*/*.js --fix && eslint server.js --fix && eslint ./Server/*.js --fix"
+    "pretest": "eslint server.js ./Client/*/*.js ./Server/*.js --fix"
   },
   "jest": {
     "testEnvironment": "node"
@@ -18,6 +18,7 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
     "jest": "^24.7.1",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"

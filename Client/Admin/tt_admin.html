@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     
     <!-- Farbtastic (the colour selector) -->
-    <script type="text/javascript" src="/External/farbtastic.js"></script>
+    <script src="/External/farbtastic.js"></script>
     <link rel="stylesheet" href="/External/farbtastic.css" type="text/css" />
 
     <!-- TT rendering scripts -->
@@ -47,22 +47,14 @@
   <body>
     <!-- Menu -->
       <div class="ui inverted menu">
-          <div class="header item"><a href = "\">TT viewer</a></div>
+          <div class="header item"><a href = "\index.html">TT viewer</a></div>
           
-          <!--<div class="ui dropdown" id="my_tt">
-            <div class="text"></div>
-            <i class="dropdown icon"></i>
-          </div>-->
+         
           <div class="ui dropdown item" tabindex="0" id="my_tt">
             My Timetables
             <i class="dropdown icon"></i>
             <div class="menu transition hidden" tabindex="-1">
               <div class="item">Action</div>
-              <div class="item">Another Action</div>
-              <div class="item">Something else here</div>
-              <div class="divider"></div>
-              <div class="item">Separated Link</div>
-              <div class="divider"></div>
               <div class="item">One more separated link</div>
             </div>
           </div>
@@ -141,6 +133,7 @@
       <div class="ui green approve button">Yes</div>
       <div class="ui secondary cancel button">Cancel</div>
   </div>
+  </div>
 
   <!-- Are you sure you want to undo all ? -->
   <div class="ui tiny modal" id = "undo-all-modal">
@@ -151,6 +144,7 @@
       <div class="actions">
         <div class="ui green approve button">Yes</div>
         <div class="ui secondary cancel button">Cancel</div>
+    </div>
     </div>
 
   <!-- Are you sure you want to navigate away -->

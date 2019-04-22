@@ -53,10 +53,6 @@ body {
       display: none;
 }
 
-.init_hidden {
-      display: none;
-}
-
 #edit-buttons {
       /*float: right;*/
       background-color: #000000;

@@ -124,9 +124,9 @@ function clearMyTTDD(){
 // Function used to change timetable
 function changeTT(value){
 	if(value=='new'){
-		addTT();
+		navigateAway(()=>addTT());
 	}else{
-		nagigateAway(function(){drawPage(parseInt(value), global_u_id);  });
+		navigateAway(function(){drawPage(parseInt(value), global_u_id);  });
         
 	}
 }
@@ -204,7 +204,7 @@ function addTT(){
    *	             Other       			*
    ****************************************** */
 // Should be called when the timetable is going to change to get user to confirm
-function nagigateAway(yes_cb){
+function navigateAway(yes_cb){
 	if(unsavedChanges){
 		// Check if you are sure you want ot navigate away
 		$('#change-tt').modal({
@@ -229,7 +229,6 @@ function initiateGetShare(){
 	// Copy icon listener
 	$("#copy_share_button").on('click', function() {
 		var copyText = document.getElementById("share-link");
-		console.log("Tring to copy"+copyText.value)
 		copyText.select();
 		document.execCommand("copy");
 	});

@@ -49,9 +49,9 @@ function noCommentHTML(){
 	let comment_html = '<div class="ui card"><div class="content"><div class="header">';
 	comment_html+= 'No feedback';
 	comment_html+='</div><div class="meta"><span>';
-	comment_html += 'now'; 
+	comment_html += 'just now'; 
 	comment_html+= '</span></div><p>';
-	comment_html+= 'When you get feedback it will be displayed here';
+	comment_html+= 'When you get feedback it will be displayed here.';
 	comment_html+='</p></div></div>';
 	return comment_html;    
 } 
@@ -67,8 +67,6 @@ function getDaysAgo(timestamp){
 }
 
 function deleteComment(id, dom_obj){
-	//console.log('ID: '+id);
-	//console.log(comment_obj[id].c_id);
 	serverDeleteFeedback(comment_obj[id].c_id, function () {
 		removeCommentObj(id);
 		$(dom_obj).closest('.card').fadeOut(200, function() {

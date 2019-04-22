@@ -80,18 +80,6 @@ function setPageState(state){
 
 }
 
-// Shows/hides elements with classes .init_show and .init_hide 
-/*function showHide(show){
-	if(show){
-		$('.init_show').hide();
-		$('.init_hidden').show();
-	}else{
-		$('.init_hidden').hide();
-		$('.init_show').show();
-	}
-
-}*/
-
 // Draws page for user u_id and timetable tt_id
 function drawPage(tt_id, u_id){
 	unsavedChanges = false;
@@ -153,49 +141,51 @@ function addTT(){
 					rules: [
 						{
 							type   : 'empty',
-							prompt : 'Please enter a name'
+							prompt : 'Please enter a name.'
 						},
 						{
 							type   : 'maxLength[20]',
-							prompt : 'Name cannot be more than {ruleValue} characters long'
+							prompt : 'Name cannot be more than {ruleValue} characters long.'
 						}
 					]
 				},
-				day: {
-					identifier  : 'day',
+				
+				ttType: {
+					identifier  : 'ttType',
 					rules: [
 						{
 							type   : 'empty',
-							prompt : 'Please choice a starting day'
+							prompt : 'Please choice a timetable type.'
 						}
 					]
 				},
-				dur: {
-					identifier  : 'dur',
-					rules: [
-						{
-							type   : 'integer[1..14]',
-							prompt : 'Please enter a number between 1 and 14 for the duration'
-						}
-					]
-
-				}
+			
 			}
 		});
-	$('#pick-day').dropdown();
+	
+	$('#pick-tt-type').dropdown();
 	$('#add-tt').modal({
 		onApprove : function(){
-			//$('#add-tt-form').submit(); 
-			//console.log($('#add-tt-form').form('validate form'))
-			//$('#add-tt-form').form('submit')
+			
 			if($('#add-tt-form').form('validate form')){
 				let n = $('#add-tt-name').val();
-				let sd = $('#pick-day').dropdown('get value');
-				let d = $('#add-tt-dur').val();
+				let t = $('#pick-tt-type').dropdown('get value');
 
+				let sd = 0;
+				let d = 7 
+
+				if(t=="FW"){
+					sd =0;
+					d = 7
+				}else if(t=="WD"){
+					sd = 0;
+					d = 5
+				}else {
+					sd = 5;
+					d = 2;
+				}
+				
 				n = escapeHtml(n);
-				sd= parseInt(sd);
-				d = parseInt(d);
            
 				serverAddTT(n, sd, d, function(data){
 					drawPage(data.tt_id, global_u_id);
@@ -230,9 +220,19 @@ function nagigateAway(yes_cb){
 // Show share link
 function initiateGetShare(){
 	document.getElementById('share-link').value = (window.location.origin+'?u_id='+global_u_id+'&tt_id='+global_tt_id);
+	
+	// Share button listener
 	$('#get_share').on('click', function() {
 		$('#share-modal').modal('show');}
 	);
+
+	// Copy icon listener
+	$("#copy_share_button").on('click', function() {
+		var copyText = document.getElementById("share-link");
+		console.log("Tring to copy"+copyText.value)
+		copyText.select();
+		document.execCommand("copy");
+	});
  
 }
 

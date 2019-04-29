@@ -42,6 +42,18 @@
       display: none;
 }
 
+/* move search menu to correct position */
+.right.menu .item {
+      padding-right:1em;
+}
+
+.right.menu .item .search .results {
+      width: 14.5em;
+      margin-top: 1em;
+      margin-right:0;
+      left:-1em;
+}
+
 @media screen and (max-width: 767px){
       .tt_key_container {
             display: flex;

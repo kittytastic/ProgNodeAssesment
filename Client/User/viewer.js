@@ -11,7 +11,13 @@ $( document ).ready(function() {
 	
 	$(window).resize(() => {
 		tt_page_width_changed();
+		set_name_or_logo();
+		set_admin_or_logo();
 	});
+
+	set_name_or_logo();
+	set_admin_or_logo();
+
 	getTTList(function (content) {
 		$('.ui.search').search({
 			source: content,
@@ -29,6 +35,24 @@ $( document ).ready(function() {
 
    
 });
+
+function set_name_or_logo(){
+	
+	if($(window).width()<767){
+	 $("#site_name").html('<i class="calendar alternate outline icon"></i>')
+	} else {
+		$("#site_name").html('TT viewer')	
+	}
+}
+
+function set_admin_or_logo(){
+	
+	if($(window).width()<400){
+	 $("#admin_button").html('<i class="edit outline icon"></i>')
+	} else {
+		$("#admin_button").html('Admin')	
+	}
+}
 
 function openFeedbackForm(){
    

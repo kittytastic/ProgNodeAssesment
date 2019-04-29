@@ -1,8 +1,14 @@
+/* 
+This authentication is only suitable for development. It implements very "ghetto" authenticated sessions which work as a
+proof of concept, but aren't cryptographically sound. The side doesn't have any SSL certificates, so implementing a proper
+session system seemed a bit pointless. 
+*/
+
 /* eslint-env node */
 const axios = require('axios');
 var crypto = require('crypto');
 
-
+// API public key
 const CLIENT_ID = '9478045862-k3c40ln9u21tu06slm5jrhfvdi6hcbq6.apps.googleusercontent.com';
 
 let mock_users = 5;
@@ -16,7 +22,9 @@ for(let i = 0; i<mock_users; i++){
 	u_id_db.push(0);
 }
 
-
+// Verifies a user using googles "debug" oriented sign-in REST API.
+// The proper way would be to use their node package
+// I chose to use the debug endpoint to show this project interacting with an external REST API.  
 function verifyUser(id_token, success_cb, fail_cb){
 	axios.get('https://oauth2.googleapis.com/tokeninfo?id_token='+id_token)
 		.then(response => {  

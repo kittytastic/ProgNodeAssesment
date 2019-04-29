@@ -51,7 +51,7 @@
           
          
           <div class="ui dropdown item" tabindex="0" id="my_tt">
-            My Timetables
+            <span id = "my_tt_dd_text">My Timetables</span>
             <i class="dropdown icon"></i>
             <div class="menu transition hidden" tabindex="-1">
               <div class="item">Action</div>
@@ -59,9 +59,9 @@
             </div>
           </div>
 
-          <div class="right menu">
+          <div class="right menu page_state_1 page_state_2">
             <div class="item">
-              <button class=" page_state_1 page_state_2 ui button" onclick="signOut();">
+              <button class="ui button" onclick="signOut();">
                 Sign-out
               </button>
              
@@ -89,12 +89,13 @@
       <div id = "edit-buttons">
           
           
-            <div class="ui positive right labeled icon button" id="save_but">
-              Save
-              <i class="checkmark icon"></i>
-            </div>
+            
               <div class="ui deny button" id = "undo_but">
                   Undo all
+                </div>
+                <div class="ui positive right labeled icon button" id="save_but">
+                  Save
+                  <i class="checkmark icon"></i>
                 </div>
             
   

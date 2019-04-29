@@ -65,7 +65,7 @@ function generateFullTT(tt_json){
 
 	if((end-start)<2)
 {
-	return '<div class="empty_tt"><h1 class="tt_title">'+tt_obj.meta.name+'</h1><div class="empty_tt_center"><h1> Timetable is too short to display </h1></div></div>';
+	return '<div class="empty_tt"><h1 class="tt_title">'+tt_obj.meta.name+'</h1><div class="empty_tt_center"><h1> Timetable is too short to display </h1><p> timetables need to be 2 hours or more to be displayed </p></div></div>';
 }
 	let outHTML = '';
 

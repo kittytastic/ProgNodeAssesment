@@ -63,13 +63,10 @@ body {
       width: 30%;
       padding-top: 1em;   
       padding-right: 1em;
-      padding-bottom: 1em;    
+      padding-bottom: 1em; 
+      display: flex;
+      justify-content: flex-end;   
 }
-
-#edit-buttons div{
-      float: right;
-}
-
 
 .share-container{
       display: flex;
@@ -185,5 +182,6 @@ i {
             margin-bottom: 0;
       }
       
-      #edit-buttons {width: 100%; position: static;background-color: transparent;}
+      #edit-buttons {width: 100%; position: static;background-color: transparent;justify-content: center;}
+
 }

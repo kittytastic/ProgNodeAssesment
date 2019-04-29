@@ -5,7 +5,7 @@ const app = express();
 
 
 const db = require('./mock_db');
-const crypto = require('./ghettoCrypto');
+const crypto = require('./dev_only_auth');
 
 
 db.start();

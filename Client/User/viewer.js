@@ -39,7 +39,7 @@ $( document ).ready(function() {
 function set_name_or_logo(){
 	
 	if($(window).width()<767){
-	 $("#site_name").html('<i class="calendar alternate outline icon"></i>')
+	 $("#site_name").html('<i class="home icon"></i>')
 	} else {
 		$("#site_name").html('TT viewer')	
 	}

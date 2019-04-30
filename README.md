@@ -250,3 +250,22 @@ Standard JSON success/error message
 Requires authentication: YES
 ### Returns
 Standard JSON success/error message
+
+## Verification
+---
+## Get auth token
+```[GET] /api/feedback?id_token=(google sign-in id token)```   
+App uses google sign-in as a its authorisation service. To use authorised endpoints you need to generate your google sign-in token and send it to our server to get a session token. For more infomation on how to do this please read [Google Sign-in API Docs](https://developers.google.com/identity/sign-in/web/sign-in).
+### Returns
+#### Success
+JSON response
+```javascript
+{
+    "u_id": (number)
+    "auth_token": (auth token)
+}
+```
+u_id - Your unique user id used in almost all requests  
+auth_token - A secret session token used to verify your identity to all authorised endpoints
+#### Error
+Standard JSON error message.

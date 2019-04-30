@@ -102,7 +102,7 @@ describe('Test LIST timetable FOR USER endpoint (GET /api/tt?u_id=(number))', ()
 
 	test('Forces int with u_id wrong data type (float)', () => {
 		return request(app)
-	    .get('/api/tt?u_id=2.34')
+	    .get('/api/tt?u_id=0.34')
 	    .expect(200);
 	});
 
@@ -168,7 +168,7 @@ describe('Test GET timetable data endpoint (GET /api/tt?u_id=(#)&tt_id=(#)', () 
 
 	test('Forces int with u_id wrong data type (float)', () => {
 		return request(app)
-	    .get('/api/tt?u_id=2.34&tt_id=0')
+	    .get('/api/tt?u_id=0.34&tt_id=0')
 	    .expect(200);
 	});
 
@@ -260,13 +260,13 @@ describe('Test GET feedback for specified TT endpoint (GET /api/feedback)', () =
 
 	test('Succeeds with arguments', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=1&tt_id=1&c_id=all')
+	    .get('/api/feedback?u_id=0&tt_id=0&c_id=all')
 	    .expect(200);
 	});
 
 	test('Gives good data with arguments', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=1&tt_id=1&c_id=all')
+	    .get('/api/feedback?u_id=0&tt_id=0&c_id=all')
 	    .expect(/c_id/);
 	});
 	
@@ -326,7 +326,7 @@ describe('Test GET feedback for specified TT endpoint (GET /api/feedback)', () =
 
 	test('Forces int with u_id wrong data type (float)', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=2.34&tt_id=0&c_id=all')
+	    .get('/api/feedback?u_id=0.34&tt_id=0&c_id=all')
 	    .expect(200);
 	});
 
@@ -371,13 +371,13 @@ describe('Test GET single feedback comment endpoint', () => {
 
 	test('Succeeds with arguments', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=1&tt_id=1&c_id=0')
+	    .get('/api/feedback?u_id=0&tt_id=0&c_id=0')
 	    .expect(200);
 	});
 
 	test('Gives good data with arguments', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=1&tt_id=1&c_id=0')
+	    .get('/api/feedback?u_id=0&tt_id=0&c_id=0')
 	    .expect(/c_id/);
 	});
 	
@@ -437,7 +437,7 @@ describe('Test GET single feedback comment endpoint', () => {
 
 	test('Forces int with u_id wrong data type (float)', () => {
 		return request(app)
-	    .get('/api/feedback?u_id=2.34&tt_id=0&c_id=0')
+	    .get('/api/feedback?u_id=0.34&tt_id=0&c_id=0')
 	    .expect(200);
 	});
 

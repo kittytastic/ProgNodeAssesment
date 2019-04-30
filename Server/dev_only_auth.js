@@ -11,7 +11,7 @@ var crypto = require('crypto');
 // API public key
 const CLIENT_ID = '9478045862-k3c40ln9u21tu06slm5jrhfvdi6hcbq6.apps.googleusercontent.com';
 
-let mock_users = 5;
+let mock_users = 1;
 let u_id = [];
 let u_sesh_tokens = [];
 let u_id_db = [];

@@ -39,18 +39,18 @@ $( document ).ready(function() {
 function set_name_or_logo(){
 	
 	if($(window).width()<767){
-	 $("#site_name").html('<i class="home icon"></i>')
+		$('#site_name').html('<i class="home icon"></i>');
 	} else {
-		$("#site_name").html('TT viewer')	
+		$('#site_name').html('TT viewer');	
 	}
 }
 
 function set_admin_or_logo(){
 	
 	if($(window).width()<400){
-	 $("#admin_button").html('<i class="edit outline icon"></i>')
+		$('#admin_button').html('<i class="edit outline icon"></i>');
 	} else {
-		$("#admin_button").html('Admin')	
+		$('#admin_button').html('Admin');	
 	}
 }
 

@@ -111,41 +111,8 @@ function new_tt(name, start_day, dur){
 	return tt_dat;
 }
 
-
-function makeExampleObj(){
-	var tt_dat = new tt_data();
-    
-	for(let i =0 ;i<5; i++) tt_dat.days.push([]);
-
-	tt_dat.days[0].push(new time_slot(5.5,22.5, 1));
-
-	//tt_dat.days[1].push(new time_slot(7,6, 3)) // ERROR SESSION
-	tt_dat.days[1].push(new time_slot(9,13, 3));
-	tt_dat.days[1].push(new time_slot(17.,19.5, 2));
-
-	tt_dat.days[2].push(new time_slot(6,13.25, 1));
-	tt_dat.days[2].push(new time_slot(13.25,22, 0));
-
-    
-	tt_dat.days[3].push(new time_slot(14,18,2));
-    
-	tt_dat.days[4].push(new time_slot(6.5,21, 3));
-
-	tt_dat.session_type = [new session_type('#E4572E', 'Boring', 1), 
-		new session_type('#17BEBB', 'General', 1),
-		new session_type('#FFC914', 'Public', 1),
-		new session_type('#76B041', 'Normal', 1),
-		new session_type('#76B041', 'Really Long Session Name', 1)];
-    
-	tt_dat.meta = new tt_meta(0, 'Swim TT');
-
-	return tt_dat;
-}
-
 module.exports = {
-	mock_tt: function () {
-		return makeExampleObj();
-	},
+
 	validate: function(obj){
 		return validate(obj);
 	},

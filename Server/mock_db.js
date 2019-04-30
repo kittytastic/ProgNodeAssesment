@@ -1,65 +1,26 @@
 /* eslint-env node */
 
 const tt_tools = require('./tt_tools.js');
+const mock_data = require('./mock_data.js');
 
-function mockComments(){
-	let small_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
-	let mid_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus';
-	let large_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate metus ipsum, vitae finibus elit maximus vel. Phasellus magna velit, iaculis eu scelerisque a, tincidunt non lectus. Praesent accumsan lacinia dolor, et ultricies tortor imperdiet vitae. Sed ultricies et elit eu consectetur.';
-    
-	let today = new Date();
-	let mock_comment_obj = [];
-
-	let c_id = 0;
-
-	for(let i = 0; i<3; i++){
-		let comment = {};
-		comment.title = 'Doge forever '+c_id;
-		comment.content = small_content;
-		today.setDate(today.getDate()-1);
-		comment.timestamp = today.toJSON(); 
-		comment.c_id = c_id;
-		c_id +=1;
-		mock_comment_obj.push(comment);
-
-		comment = {};
-		comment.title = 'Doge forever '+c_id;
-		comment.content = mid_content;
-		today.setDate(today.getDate()-1);
-		comment.timestamp = today.toJSON();
-		comment.c_id = c_id;
-		c_id +=1; 
-		mock_comment_obj.push(comment);
-
-		comment = {};
-		comment.title = 'Doge forever '+c_id;
-		comment.content = large_content;
-		today.setDate(today.getDate()-1);
-		comment.timestamp = today.toJSON();
-		comment.c_id = c_id;
-		c_id +=1; 
-		mock_comment_obj.push(comment);
-	}
-
-	return mock_comment_obj;
-
-}
-
+// Arrays to mock a database
 let tt = [];
 let comments = [];
 
+// Initiate the "database" - fills with mock data 
+let mock_users = 1;
 function start(){
   
-	for(let i=0; i<5; i++){
+	for(let i=0; i<mock_users; i++){
 		tt.push([]);
 		comments.push([]);
     
-
-		for(let j=0; j<2; j++){
-     
-			tt[i].push(tt_tools.mock_tt());
-			comments[i].push(mockComments());
-		}
+		tt[i].push(mock_data.fq_tt());
+		comments[i].push(mock_data.fq_comments());
+		
+		tt[i].push(mock_data.rr_tt());
+		comments[i].push(mock_data.rr_comments());
+		
 	}
 
  

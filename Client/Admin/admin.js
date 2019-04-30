@@ -40,10 +40,10 @@ $(document).ready(function(){
 	tt_labels_min = 1000;
 	$(window).resize(() => {
 		tt_page_width_changed();
-		set_mobile_nav()
+		set_mobile_nav();
 	});
 
-	set_mobile_nav()
+	set_mobile_nav();
 	// Set up colour pickers in the session popups
 	$('#edit-col-picker').farbtastic('#edit-colour');
 	$('#add-col-picker').farbtastic('#add-colour');
@@ -58,9 +58,9 @@ $(document).ready(function(){
 function set_mobile_nav(){
 	
 	if($(window).width()<450){
-	 $("#my_tt_dd_text").html('My <i class="calendar alternate outline icon"></i>')
+		$('#my_tt_dd_text').html('My <i class="calendar alternate outline icon"></i>');
 	} else {
-		$("#my_tt_dd_text").html('My Timetables')	
+		$('#my_tt_dd_text').html('My Timetables');	
 	}
 }
 

@@ -22,8 +22,6 @@ function start(){
 		comments[i].push(mock_data.rr_comments());
 		
 	}
-
- 
 }
 
 module.exports = {
@@ -138,12 +136,11 @@ module.exports = {
 	},
 
 	check_and_fix_user_exist: function (u_id){
-		if(u_id>=tt.length){
-			
+		if(u_id>=tt.length){	
 			tt.push([]);
 			comments.push([]);
 		}
-
+		return true
 	}
 
 

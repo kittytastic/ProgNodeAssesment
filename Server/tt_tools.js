@@ -36,7 +36,10 @@ class tt_data {
 
 /******** Checks of an [tt_obj] arg is valid *********/
 function validate(obj){
-    
+	
+	if(obj===undefined){
+		return false;
+	}
     
 	if(is_undefined(obj.days)){
 		//console.log('TT obj is not valid missing: tt.days');
@@ -118,5 +121,10 @@ module.exports = {
 	},
 	new_tt: function(n,s,d){
 		return new_tt(n,s,d);
+	},
+
+	// Test only export
+	lvts: function(ts){
+		return is_logically_valid_time_slot(ts);
 	}
 };

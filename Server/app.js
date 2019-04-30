@@ -58,7 +58,6 @@ app.get('/api/tt', function (req, res) {
 		//console.log('GET LIST request for timetables for user: '+u_id);
 		res.send(result);
 		return;
-
 	}
 
 
@@ -92,7 +91,6 @@ app.post('/api/tt', function (req, res) {
 	let tt_data = req.body;
 	let auth_token = req.query.auth;
 
-	
 
 	// Check if user exists
 	if(u_id === undefined){
@@ -364,11 +362,9 @@ app.get('/api/verify', function (req, res) {
 		return;
 	}
 
-	crypto.first_verify(id_token, function(uid, at){db.check_and_fix_user_exist(uid); res.send({u_id: uid, auth_token: at});}, function(){//console.log('fail Verify'); res.status(400);
-		res.send({err: 'couldnt verify'});});
+	crypto.first_verify(id_token, function(uid, at){db.check_and_fix_user_exist(uid); res.send({u_id: uid, auth_token: at});}, function(){//console.log('fail Verify'); 
+	res.status(400); res.send({err: 'couldnt verify'});});
 
-	
-	
 });
 
 

@@ -37,8 +37,9 @@ function verifyUser(id_token, success_cb, fail_cb){
 				}
 			}else{
 				if(fail_cb){
-					fail_cb();
-				}
+					fail_cb(false);
+				}	
+				
 			}
 		})
 		.catch(error => {
@@ -46,7 +47,9 @@ function verifyUser(id_token, success_cb, fail_cb){
 			if(fail_cb){
 				fail_cb(error);
 			}
+			
 		});
+	
 }
 
 function getUID(u_hash){
@@ -90,6 +93,11 @@ module.exports = {
 	},
 	verify: function(u_id, token){
 		return verify(u_id, token);
+	},
+
+	// Test export only
+	getUID: function(u_hash){
+		return getUID(u_hash);
 	}
 };
 

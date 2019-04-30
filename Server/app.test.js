@@ -3,42 +3,15 @@
 
 const request = require('supertest');
 const app = require('./app');
-//const tt_tools = require('./tt_tools');
+const tt_tools = require('./tt_tools');
 
-/*
-function checkDeliaDerbyshire(res)
-{
 
-	const jContent = res.body;
-	if(typeof jContent !== 'object'){
-        throw new Error('not an object');
-	}
-
-	if(jContent['surname'] !== 'Derbyshire'){
-		console.log(jContent);
-		throw new Error('surname should be Derbyshire');
-	}
-
-	if(jContent['forename'] !== 'Delia'){
-		throw new Error('forename should be Delia');
-	}
-}*/
 
 // thanks to Nico Tejera at https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 // returns something like "access_token=concertina&username=bobthebuilder"
 function serialise(obj){
 	return Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');
 }
-
-
-
-/* test('GET /people/doctorwhocomposer includes name details', () => {
-	return request(app)
-	.get('/people/doctorwhocomposer')
-	.expect(checkDeliaDerbyshire);
-});*/
-
-
 
 
 describe('Test LIST ALL timetable endpoint (GET /api/tt)', () => {
@@ -217,6 +190,52 @@ describe('Test UPDATE timetable endpoint', () => {
 			.send(serialise(params))
 			.expect(403);
 	});
+
+	test('Fails with bad data', () => {
+		const params = {title: 'Test Comment',
+			comment: 'Words',};
+		return request(app)
+			.post('/api/tt?tt_id=0&u_id=0&auth=0')
+			.send(serialise(params))
+			.expect(400);
+	});
+
+	test('Success with good data', () => {
+		return request(app)
+			.post('/api/tt?tt_id=0&u_id=0&auth=0')
+			.send(serialise(tt_tools.new_tt("name", 0, 2)))
+			.expect(200);
+	});
+
+	test('Fails with no tt_id', () => {
+		return request(app)
+			.post('/api/tt?&u_id=0&auth=0')
+			.send(serialise(tt_tools.new_tt("name", 0, 2)))
+			.expect(400);
+	});
+
+	test('Fails with tt_id wrong type (string)', () => {
+		return request(app)
+			.post('/api/tt?tt_id=blar&u_id=0&auth=0')
+			.send(serialise(tt_tools.new_tt("name", 0, 2)))
+			.expect(400);
+	});
+
+	test('Forces tt_id to int', () => {
+		return request(app)
+			.post('/api/tt?tt_id=0.2&u_id=0&auth=0')
+			.send(serialise(tt_tools.new_tt("name", 0, 2)))
+			.expect(200);
+	});
+
+	test('Fails with tt_id out of range', () => {
+		return request(app)
+			.post('/api/tt?tt_id=1000000&u_id=0&auth=0')
+			.send(serialise(tt_tools.new_tt("name", 0, 2)))
+			.expect(400);
+	});
+
+
 	
 });
 
@@ -233,12 +252,12 @@ describe('Test ADD timetable endpoint', () => {
 			.expect(403);
 	});
 
-	/*test('POST /api/tt - ADD TT succeeds with the correct data', () => {
+	test('POST /api/tt - ADD TT succeeds with the correct data', () => {
 		const params = {name: 'name of new timetable',
 			start_day: 6,
 			dur: 1};
 		return request(app)
-			.post('/api/tt?tt_id=0&u_id=0&new=yes')
+			.post('/api/tt?tt_id=0&u_id=0&new=yes&auth=0')
 			.send(serialise(params))
 			.expect(200);
 	});
@@ -247,10 +266,10 @@ describe('Test ADD timetable endpoint', () => {
 		const params = {title: 'Test Comment',
 			comment: 'Words',};
 		return request(app)
-			.post('/api/tt?tt_id=0&u_id=0&new=yes')
+			.post('/api/tt?tt_id=0&u_id=0&new=yes&auth=0')
 			.send(serialise(params))
 			.expect(400);
-	});*/
+	});
 	
 });
 
@@ -591,13 +610,19 @@ describe('Test POST feedback endpoint (/api/feedback)', () => {
 
 
 
-describe('Test DELETE timetable endpoint', () => {
+describe('Test DELETE comment endpoint', () => {
 
 
 	test('Requires authentication', () => {
 		return request(app)
 			.delete('/api/feedback?u_id=0&tt_id=0&c_id=0')
 			.expect(403);
+	});
+
+	test('Success with authentication', () => {
+		return request(app)
+			.delete('/api/feedback?u_id=0&tt_id=0&c_id=0&auth=0')
+			.expect(200);
 	});
 
 	test('Requires arguments', () => {
@@ -657,7 +682,65 @@ describe('Test DELETE timetable endpoint', () => {
 			.expect(/err/);
 	});
 
-	
+
+});
+
+
+
+describe('Test verify endpoint', () => {
+
+
+	test('Requires authentication', () => {
+		return request(app)
+			.get('/api/verify')
+			.expect(400);
+	});
+
+	test('Correct code for incorrect id tokens', () => {
+		return request(app)
+			.get('/api/verify?id_token=0')
+			.expect(400);
+	});
+});
+
+
+describe('Test Routing', () => {
+
+
+	test('Home exists page', () => {
+		return request(app)
+			.get('/')
+			.expect(200)
+			.expect('Content-type', /html/);
+	});
+
+	test('Common resources exist', () => {
+		return request(app)
+			.get('/')
+			.expect(200)
+			.expect('Content-type', /html/);
+	});
+
+	test('Admin resources exist', () => {
+		return request(app)
+			.get('/')
+			.expect(200)
+			.expect('Content-type', /html/);
+	});
+
+	test('External resources exist', () => {
+		return request(app)
+			.get('/')
+			.expect(200)
+			.expect('Content-type', /html/);
+	});
+
+	test('404 error is returned', () => {
+		return request(app)
+			.get('/asd')
+			.expect(404);
+	});
+
 
 
 
